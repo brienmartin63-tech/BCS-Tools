@@ -1,1 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>BCS Activation Chit Selector</title>
 
+<style>
+body {
+  margin: 0;
+  padding: 16px;
+  font-family: Arial, sans-serif;
+  background: #111827;
+  color: white;
+}
+
+.app {
+  max-width: 760px;
+  margin: auto;
+}
+
+h1 {
+  text-align: center;
+}
+
+.card {
+  background: #1f2937;
+  border-radius: 14px;
+  padding: 16px;
+  margin: 14px 0;
+}
+
+label {
+  display: block;
+  margin-top: 10px;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  font-size: 18px;
+  margin-top: 4px;
+  border-radius: 8px;
+  border: 1px solid #555;
+  box-sizing: border-box;
+}
+
+button {
+  width: 100%;
+  margin-top: 10px;
+  padding: 12px;
+  font-size: 18px;
+  font-weight: bold;
+  border: 0;
+  border-radius: 10px;
+  color: white;
+  background: #4b5563;
+}
+
+.primary { background: #16a34a; }
+.gold { background: #f59e0b; color: #111827; }
+.red { background: #991b1b; }
+
+.alliedLabel { color: #60a5fa; font-weight: bold; }
+.axisLabel { color: #f87171; font-weight: bold; }
+
+.chit {
+  padding: 12px;
+  border-radius: 10px;
+  margin: 8px 0;
+  font-weight: bold;
+}
+
+.allied { background: #2563eb; }
+.axis { background: #dc2626; }
+
+.winner {
+  outline: 4px solid #facc15;
+}
+
+.small {
+  font-size: 13px;
+  opacity: 0.85;
+}
+
+.status {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.status div {
+  background: #111827;
+  text-align: center;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.status strong {
+  display: block;
+  font-size: 24px;
+}
+
+.historyItem {
+  background: #111827;
+  border-left: 5px solid #f59e0b;
+  padding: 8px;
+  margin: 8px 0;
+  border-radius: 8px;
+}
+</style>
+</head>
+
+<body>
+<div class="app">
+  <h1>BCS Activation Chit Selector</h1>
+
+  <div class="card">
+    <h2>Setup</h2>
+
+    <label>Number of Allied Chits</label>
+    <input id="alliedCount" type="number" min="0" value="3" />
+
+    <label>Number of Axis Chits</label>
+    <input id="axisCount" type="number" min="0" value="3" />
+
+    <button class="gold" onclick="createFields()">Create Chit Fields</button>
+
+    <div id="fields"></div>
+
+    <button class="gold" onclick="startCup()">Start / Refill Cup</button>
+    <button class="primary" onclick="drawActivation()">Draw Activation</button>
+    <button onclick="resetCup()">Reset Cup</button>
+    <button class="red" onclick="clearHistory()">Clear History</button>
+  </div>
+
+  <div class="card">
+    <h2>Current Draw</h2>
+    <div id="result">Create chit fields, start the cup, then draw.</div>
+  </div>
+
+  <div class="card">
+    <h2>Cup Status</h2>
+    <div id="cupStatus"></div>
+
+    <h3>Remaining Chits</h3>
+    <div id="remaining"></div>
+  </div>
+
+  <div class="card">
+    <h2>Activation History</h2>
+    <div id="history">No activations yet.</div>
+  </div>
+</div>
+
+<script>
+let originalCup = [];
+let cup = [];
+let history = [];
+let activationNumber = 0;
+
+function createFields() {
+  const alliedCount = Number(document.getElementById("alliedCount").value);
+  const axisCount = Number(document.getElementById("axisCount").value);
+
+  let html = "<h3>Enter Unit Names</h3>";
+
+  for (let i = 1; i <= alliedCount; i++) {
+    html += `
+      <div>
+        <label class="alliedLabel">Allied ${i}</label>
+        <input id="allied${i}" value="Allied Unit ${i}" />
+      </div>
+    `;
+  }
+
+  for (let i = 1; i <= axisCount; i++) {
+    html += `
+      <div>
+        <label class="axisLabel">Axis ${i}</label>
+        <input id="axis${i}" value="Axis Unit ${i}" />
+      </div>
+    `;
+  }
+
+  document.getElementById("fields").innerHTML = html;
+  document.getElementById("result").innerHTML =
+    "Chit fields created. Enter unit names, then tap Start / Refill Cup.";
+}
+
+function startCup() {
+  originalCup = [];
+  cup = [];
+  history = [];
+  activationNumber = 0;
+
+  const alliedCount = Number(document.getElementById("alliedCount").value);
+  const axisCount = Number(document.getElementById("axisCount").value);
+
+  for (let i = 1; i <= alliedCount; i++) {
+    originalCup.push({
+      id: "A" + i,
+      side: "Allied",
+      name: document.getElementById("allied" + i).value
+    });
+  }
+
+  for (let i = 1; i <= axisCount; i++) {
+    originalCup.push({
+      id: "X" + i,
+      side: "Axis",
+      name: document.getElementById("axis" + i).value
+    });
+  }
+
+  cup = [...originalCup];
+
+  document.getElementById("result").innerHTML = "Cup filled. Ready to draw.";
+  updateStatus();
+  updateHistory();
+}
+
+function resetCup() {
+  cup = [...originalCup];
+  history = [];
+  activationNumber = 0;
+
+  document.getElementById("result").innerHTML =
+    "Cup reset. All chits are back in.";
+
+  updateStatus();
+  updateHistory();
+}
+
+function drawActivation() {
+  if (cup.length === 0) {
+    document.getElementById("result").innerHTML = "No chits left in the cup.";
+    return;
+  }
+
+  let tempCup = [...cup];
+  let drawn = [];
+
+  const drawCount = Math.min(3, tempCup.length);
+
+  for (let i = 0; i < drawCount; i++) {
+    drawn.push(drawRandom(tempCup));
+  }
+
+  const alliedDraws = drawn.filter(c => c.side === "Allied").length;
+  const axisDraws = drawn.filter(c => c.side === "Axis").length;
+
+  let winningSide;
+  let ruleText;
+
+  if (drawn.length === 1) {
+    winningSide = drawn[0].side;
+    ruleText = "Only one chit remained.";
+  } else if (drawn.length === 2 && alliedDraws === 1 && axisDraws === 1) {
+    winningSide = drawn[0].side;
+    ruleText = "One Allied and one Axis remained: first draw wins.";
+  } else if (alliedDraws > axisDraws) {
+    winningSide = "Allied";
+    ruleText = "Allied had the majority.";
+  } else {
+    winningSide = "Axis";
+    ruleText = "Axis had the majority.";
+  }
+
+  const selected = drawn.find(c => c.side === winningSide);
+
+  cup = cup.filter(c => c.id !== selected.id);
+
+  activationNumber++;
+
+  history.unshift({
+    number: activationNumber,
+    drawn,
+    selected,
+    ruleText
+  });
+
+  let html = `<h3>Activation ${activationNumber}</h3>`;
+  html += `<p><strong>Drawn in order:</strong></p>`;
+
+  drawn.forEach((chit, index) => {
+    html += chitHTML(chit, chit.id === selected.id, "Draw " + (index + 1));
+  });
+
+  html += `<p><strong>Activated Chit:</strong></p>`;
+  html += chitHTML(selected, true, "ACTIVE");
+  html += `<p class="small">${ruleText}</p>`;
+
+  document.getElementById("result").innerHTML = html;
+
+  updateStatus();
+  updateHistory();
+}
+
+function drawRandom(list) {
+  const index = Math.floor(Math.random() * list.length);
+  return list.splice(index, 1)[0];
+}
+
+function chitHTML(chit, winner, label) {
+  const sideClass = chit.side === "Allied" ? "allied" : "axis";
+  const winnerClass = winner ? " winner" : "";
+
+  return `
+    <div class="chit ${sideClass}${winnerClass}">
+      <div class="small">${label} - ${chit.side}</div>
+      ${escapeHTML(chit.name)}
+    </div>
+  `;
+}
+
+function updateStatus() {
+  const alliedLeft = cup.filter(c => c.side === "Allied").length;
+  const axisLeft = cup.filter(c => c.side === "Axis").length;
+
+  document.getElementById("cupStatus").innerHTML = `
+    <div class="status">
+      <div>Allied<strong>${alliedLeft}</strong></div>
+      <div>Axis<strong>${axisLeft}</strong></div>
+      <div>Total<strong>${cup.length}</strong></div>
+    </div>
+  `;
+
+  if (cup.length === 0) {
+    document.getElementById("remaining").innerHTML = "The cup is empty.";
+  } else {
+    document.getElementById("remaining").innerHTML =
+      cup.map(chit => chitHTML(chit, false, "IN CUP")).join("");
+  }
+}
+
+function updateHistory() {
+  if (history.length === 0) {
+    document.getElementById("history").innerHTML = "No activations yet.";
+    return;
+  }
+
+  document.getElementById("history").innerHTML = history.map(item => {
+    const drawnText = item.drawn
+      .map(c => `${c.side}: ${escapeHTML(c.name)}`)
+      .join(" | ");
+
+    return `
+      <div class="historyItem">
+        <strong>Activation ${item.number}: 
+        ${item.selected.side} - ${escapeHTML(item.selected.name)}</strong><br>
+        <span class="small">${item.ruleText}</span><br>
+        <span class="small">Drawn: ${drawnText}</span>
+      </div>
+    `;
+  }).join("");
+}
+
+function clearHistory() {
+  history = [];
+  updateHistory();
+}
+
+function escapeHTML(text) {
+  return String(text)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;");
+}
+
+createFields();
+updateStatus();
+</script>
+</body>
+</html>
