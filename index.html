@@ -2,27 +2,65 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>BCS Activation Chit Selector</title>
+<title>BCS Activation Chit Selector 2.0</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
 body {
+  margin: 0;
   font-family: Arial, sans-serif;
-  max-width: 900px;
-  margin: 20px auto;
-  padding: 15px;
-  background: #f4f1ea;
-  color: #222;
+  background: #efe6d0;
+  color: #1f1f1f;
 }
 
-h1 { text-align: center; }
+.container {
+  max-width: 950px;
+  margin: auto;
+  padding: 16px;
+}
+
+.header {
+  text-align: center;
+  background: #2f2b24;
+  color: white;
+  padding: 18px;
+  border-radius: 12px;
+  margin-bottom: 16px;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 28px;
+}
+
+.flags {
+  font-size: 26px;
+  margin-top: 8px;
+}
 
 .card {
-  background: white;
-  border: 2px solid #333;
-  border-radius: 10px;
-  padding: 15px;
-  margin-bottom: 18px;
+  background: #fffaf0;
+  border: 2px solid #3d3528;
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 16px;
+  box-shadow: 3px 3px 8px rgba(0,0,0,.18);
+}
+
+h2 {
+  margin-top: 0;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+@media (max-width: 700px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 label {
@@ -34,108 +72,205 @@ label {
 input[type="number"],
 input[type="text"] {
   width: 100%;
-  padding: 8px;
-  margin-top: 4px;
-  font-size: 16px;
+  padding: 10px;
+  font-size: 17px;
   box-sizing: border-box;
+  border: 2px solid #777;
+  border-radius: 8px;
+  background: white;
 }
 
 button {
-  background: #333;
+  background: #2f2b24;
   color: white;
   border: none;
-  padding: 12px 18px;
-  font-size: 16px;
-  border-radius: 8px;
+  padding: 13px 18px;
+  font-size: 17px;
+  border-radius: 9px;
   cursor: pointer;
-  margin-top: 12px;
+  margin: 8px 6px 0 0;
 }
 
-button:hover { background: #555; }
-
-.radio-row {
-  margin: 8px 0;
+button:hover {
+  background: #4d4538;
 }
 
-.side-title {
-  font-size: 20px;
+button:disabled {
+  background: #999;
+  cursor: not-allowed;
+}
+
+.big-button {
+  width: 100%;
+  font-size: 22px;
+  padding: 18px;
+  margin-top: 10px;
+}
+
+.allied-title {
+  color: #1f5fbf;
+}
+
+.axis-title {
+  color: #9f1f1f;
+}
+
+.radio-option {
+  border: 2px solid #b7aa91;
+  padding: 12px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  background: #fff;
+}
+
+.radio-option input {
+  transform: scale(1.2);
+  margin-right: 8px;
+}
+
+.chit-input-card {
+  background: white;
+  border: 2px solid #888;
+  border-radius: 12px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.chit-counter {
+  display: inline-block;
+  min-width: 130px;
+  padding: 14px;
+  margin: 8px;
+  background: #fdfdfd;
+  border: 3px solid #333;
+  border-radius: 12px;
+  text-align: center;
   font-weight: bold;
-  margin-top: 15px;
+  box-shadow: 2px 2px 5px rgba(0,0,0,.25);
 }
 
-.allied { color: #1f5fbf; font-weight: bold; }
-.axis { color: #b22222; font-weight: bold; }
+.allied-counter {
+  border-color: #1f5fbf;
+}
+
+.axis-counter {
+  border-color: #9f1f1f;
+}
 
 .draw-line {
-  padding: 6px;
+  padding: 10px;
   border-bottom: 1px solid #ddd;
+  font-size: 18px;
 }
 
-.winner {
-  background: #e5ffe5;
-  border-left: 6px solid #268a26;
-  padding: 10px;
-  margin-top: 12px;
+.winner-box {
+  margin-top: 14px;
+  padding: 16px;
+  border-radius: 12px;
+  background: #e8ffe8;
+  border-left: 8px solid #248224;
+  font-size: 22px;
   font-weight: bold;
+  text-align: center;
 }
 
-.choose-box {
-  margin-top: 10px;
-  padding: 10px;
-  background: #fff7d6;
-  border-left: 6px solid #d4a017;
+.activate-box {
+  margin-top: 14px;
+  padding: 16px;
+  background: #fff3c4;
+  border-left: 8px solid #c99b15;
+  border-radius: 12px;
+  text-align: center;
+}
+
+.choice-button {
+  background: white;
+  color: #222;
+  border: 3px solid #333;
+  margin: 8px;
+  min-width: 140px;
+}
+
+.choice-button:hover {
+  background: #f0eadc;
+}
+
+.selected-box {
+  margin-top: 14px;
+  padding: 16px;
+  background: #dfeeff;
+  border-left: 8px solid #1f5fbf;
+  border-radius: 12px;
+  text-align: center;
+  font-size: 22px;
+  font-weight: bold;
 }
 
 .small {
-  font-size: 14px;
   color: #555;
+  font-size: 14px;
 }
 </style>
 </head>
 
 <body>
+<div class="container">
 
-<h1>BCS Activation Chit Selector</h1>
-
-<div class="card">
-  <h2>Setup</h2>
-
-  <label for="alliedCount">🇺🇸 Allied Activation Chits</label>
-  <input type="number" id="alliedCount" min="0" value="0">
-
-  <label for="axisCount">🇩🇪 Axis Activation Chits</label>
-  <input type="number" id="axisCount" min="0" value="0">
-
-  <button onclick="createChitFields()">Create Chit Fields</button>
-</div>
-
-<div class="card">
-  <h2>Activation Rule</h2>
-
-  <div class="radio-row">
-    <input type="radio" name="activationRule" value="first" checked>
-    Activate first winning chit drawn
+  <div class="header">
+    <h1>BCS Activation Chit Selector 2.0</h1>
+    <div class="flags">🇺🇸 🇬🇧 ★ &nbsp;&nbsp; ⚔ &nbsp;&nbsp; 🇩🇪 🇮🇹</div>
   </div>
 
-  <div class="radio-row">
-    <input type="radio" name="activationRule" value="choose">
-    Player chooses any winning chit drawn
+  <div class="card">
+    <h2>Setup</h2>
+    <div class="grid">
+      <div>
+        <h3 class="allied-title">🇺🇸 🇬🇧 ★ Allied Chits</h3>
+        <label for="alliedCount">Number of Allied Activation Chits</label>
+        <input type="number" id="alliedCount" min="0" value="0">
+      </div>
+      <div>
+        <h3 class="axis-title">🇩🇪 🇮🇹 Axis Chits</h3>
+        <label for="axisCount">Number of Axis Activation Chits</label>
+        <input type="number" id="axisCount" min="0" value="0">
+      </div>
+    </div>
+    <button onclick="createChitFields()">Create Chit Fields</button>
   </div>
 
-  <p class="small">Each activation is triggered manually. The app will not auto-advance.</p>
-</div>
+  <div class="card">
+    <h2>Activation Rule</h2>
 
-<div class="card" id="chitFields">
-  <h2>Chits</h2>
-  <p>Enter chit counts, then click <strong>Create Chit Fields</strong>.</p>
-</div>
+    <div class="radio-option">
+      <label>
+        <input type="radio" name="activationRule" value="official" checked>
+        <strong>Official BCS</strong><br>
+        <span class="small">The first winning-side chit drawn must activate.</span>
+      </label>
+    </div>
 
-<div class="card">
-  <h2>Draw</h2>
-  <button onclick="drawActivation()">Draw Next Activation</button>
-  <button onclick="clearResults()">Clear Results</button>
+    <div class="radio-option">
+      <label>
+        <input type="radio" name="activationRule" value="choice">
+        <strong>Player Choice</strong><br>
+        <span class="small">The player chooses from the winning-side chits drawn.</span>
+      </label>
+    </div>
+  </div>
 
-  <div id="results"></div>
+  <div class="card" id="chitFields">
+    <h2>Chit Entry</h2>
+    <p>Enter chit counts above, then click <strong>Create Chit Fields</strong>.</p>
+  </div>
+
+  <div class="card">
+    <h2>Draw</h2>
+    <button class="big-button" onclick="drawActivation()">🎲 Draw Next Activation</button>
+    <button onclick="clearResults()">Clear Results</button>
+
+    <div id="results"></div>
+  </div>
+
 </div>
 
 <script>
@@ -146,21 +281,25 @@ function createChitFields() {
   const axisCount = Number(document.getElementById("axisCount").value);
   const box = document.getElementById("chitFields");
 
-  box.innerHTML = "<h2>Chits</h2>";
+  box.innerHTML = "<h2>Chit Entry</h2>";
 
-  box.innerHTML += '<div class="side-title allied">🇺🇸 Allied Chits</div>';
+  box.innerHTML += '<h3 class="allied-title">🇺🇸 🇬🇧 ★ Allied Chits</h3>';
   for (let i = 0; i < alliedCount; i++) {
     box.innerHTML += `
-      <label>Allied Chit ${i + 1}</label>
-      <input type="text" id="allied-${i}" placeholder="Example: 3/116">
+      <div class="chit-input-card">
+        <label>Allied Chit ${i + 1}</label>
+        <input type="text" id="allied-${i}" placeholder="Example: 3/116 Infantry">
+      </div>
     `;
   }
 
-  box.innerHTML += '<div class="side-title axis">🇩🇪 Axis Chits</div>';
+  box.innerHTML += '<h3 class="axis-title">🇩🇪 🇮🇹 Axis Chits</h3>';
   for (let i = 0; i < axisCount; i++) {
     box.innerHTML += `
-      <label>Axis Chit ${i + 1}</label>
-      <input type="text" id="axis-${i}" placeholder="Example: 1/429">
+      <div class="chit-input-card">
+        <label>Axis Chit ${i + 1}</label>
+        <input type="text" id="axis-${i}" placeholder="Example: 1/429">
+      </div>
     `;
   }
 }
@@ -172,12 +311,12 @@ function getChits() {
 
   for (let i = 0; i < alliedCount; i++) {
     const value = document.getElementById(`allied-${i}`)?.value.trim();
-    if (value) chits.push({ side: "Allied", name: value, flag: "🇺🇸" });
+    if (value) chits.push({ side: "Allied", name: value, flag: "🇺🇸", css: "allied-counter" });
   }
 
   for (let i = 0; i < axisCount; i++) {
     const value = document.getElementById(`axis-${i}`)?.value.trim();
-    if (value) chits.push({ side: "Axis", name: value, flag: "🇩🇪" });
+    if (value) chits.push({ side: "Axis", name: value, flag: "🇩🇪", css: "axis-counter" });
   }
 
   return chits;
@@ -185,12 +324,10 @@ function getChits() {
 
 function shuffle(list) {
   const array = [...list];
-
   for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
     [array[i], array[j]] = [array[j], array[i]];
   }
-
   return array;
 }
 
@@ -236,52 +373,78 @@ function drawActivation() {
   let html = `<h3>Activation Draw ${drawNumber}</h3>`;
 
   drawn.forEach((chit, index) => {
-    const sideClass = chit.side === "Allied" ? "allied" : "axis";
-
     html += `
       <div class="draw-line">
         Draw #${index + 1}: 
-        <span class="${sideClass}">${chit.flag} ${chit.side}</span>
-        — ${chit.name}
+        <span class="chit-counter ${chit.css}">
+          ${chit.flag}<br>${chit.name}
+        </span>
       </div>
     `;
   });
 
   const winnerFlag = winningSide === "Allied" ? "🇺🇸" : "🇩🇪";
-  const winnerClass = winningSide === "Allied" ? "allied" : "axis";
 
   html += `
-    <div class="winner">
-      ${winnerFlag} <span class="${winnerClass}">${winningSide}</span> wins activation.
+    <div class="winner-box">
+      ${winnerFlag} ${winningSide.toUpperCase()} ACTIVATION
     </div>
   `;
 
-  if (rule === "first") {
+  if (rule === "official") {
+    const selected = winningChits[0];
     html += `
-      <div class="choose-box">
+      <div class="activate-box">
         <strong>Activate:</strong><br>
-        ${winningChits[0].flag} ${winningChits[0].name}
+        <span class="chit-counter ${selected.css}">
+          ${selected.flag}<br>${selected.name}
+        </span>
       </div>
     `;
   } else {
     html += `
-      <div class="choose-box">
-        <strong>Player chooses one:</strong><br>
+      <div class="activate-box">
+        <strong>Choose one unit to activate:</strong><br>
     `;
 
-    winningChits.forEach(chit => {
-      html += `• ${chit.flag} ${chit.name}<br>`;
+    winningChits.forEach((chit, index) => {
+      html += `
+        <button class="choice-button" onclick="selectActivation('${escapeText(chit.name)}','${chit.flag}','${chit.css}')">
+          ${chit.flag}<br>${chit.name}
+        </button>
+      `;
     });
 
-    html += `</div>`;
+    html += `</div><div id="selectedActivation"></div>`;
   }
 
   results.innerHTML = html;
 }
 
+function selectActivation(name, flag, css) {
+  const box = document.getElementById("selectedActivation");
+  box.innerHTML = `
+    <div class="selected-box">
+      SELECTED ACTIVATION<br>
+      <span class="chit-counter ${css}">
+        ${flag}<br>${name}
+      </span>
+      <br>Ready for the next activation.
+    </div>
+  `;
+
+  document.querySelectorAll(".choice-button").forEach(button => {
+    button.disabled = true;
+  });
+}
+
 function clearResults() {
   document.getElementById("results").innerHTML = "";
   drawNumber = 0;
+}
+
+function escapeText(text) {
+  return text.replace(/'/g, "\\'").replace(/"/g, "&quot;");
 }
 </script>
 
