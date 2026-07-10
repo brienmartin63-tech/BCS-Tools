@@ -2,52 +2,55 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-
-<title>BCS Activation Chit Selector 2.5</title>
-
-<meta
-  name="viewport"
-  content="width=device-width, initial-scale=1.0, viewport-fit=cover"
->
+<title>BCS Activation Chit Selector 2.6</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 
 <style>
 :root {
-  --page-background: #ddd1b8;
-  --card-background: #fffaf0;
-  --header-background: #29271f;
-  --text-color: #24231f;
-  --muted-text: #666054;
+  --page-bg: #e7e4de;
+  --card-bg: #ffffff;
+  --header-bg: #20242a;
+  --text: #20242a;
+  --muted: #667085;
+  --line: #d0d5dd;
 
-  --allied-blue: #245b91;
-  --allied-light: #e4eef8;
+  --allied: #2563a6;
+  --allied-soft: #eaf3fb;
 
-  --axis-red: #8d302c;
-  --axis-light: #f4e4df;
+  --axis: #a43b35;
+  --axis-soft: #faecea;
 
-  --gold: #b58a28;
-  --gold-light: #fff2c7;
+  --accent: #8a6b24;
+  --accent-soft: #fff7db;
 
-  --green: #3c703c;
-  --green-light: #e5f3e2;
+  --success: #2f6b3b;
+  --success-soft: #eaf6ec;
 
-  --border-color: #4a4438;
-  --shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
+  --danger: #9b2c2c;
+  --danger-soft: #fceaea;
+
+  --shadow: 0 8px 24px rgba(16, 24, 40, 0.10);
 }
 
 * {
   box-sizing: border-box;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   margin: 0;
-  background:
-    linear-gradient(
-      rgba(255, 255, 255, 0.08),
-      rgba(255, 255, 255, 0.08)
-    ),
-    var(--page-background);
-  color: var(--text-color);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--page-bg);
+  color: var(--text);
+  font-family:
+    Arial,
+    "Aptos Display",
+    Aptos,
+    "Segoe UI",
+    sans-serif;
+  line-height: 1.45;
 }
 
 button,
@@ -60,37 +63,37 @@ button {
 }
 
 .app-shell {
-  width: min(100%, 980px);
+  width: min(100%, 1040px);
   margin: 0 auto;
   padding:
     max(16px, env(safe-area-inset-top))
     16px
-    max(24px, env(safe-area-inset-bottom));
+    max(28px, env(safe-area-inset-bottom));
 }
 
 .app-header {
-  padding: 22px 16px;
   margin-bottom: 16px;
+  padding: 24px 18px;
+  color: #fff;
   text-align: center;
-  color: white;
-  background: var(--header-background);
-  border: 3px solid #111;
-  border-radius: 14px;
+  background: var(--header-bg);
+  border-radius: 16px;
   box-shadow: var(--shadow);
 }
 
 .app-header h1 {
   margin: 0;
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(25px, 5vw, 38px);
-  letter-spacing: 0.5px;
+  font-size: clamp(26px, 5vw, 40px);
+  line-height: 1.1;
+  letter-spacing: -0.4px;
 }
 
 .version {
-  margin-top: 5px;
-  color: #d8caaa;
-  font-size: 14px;
-  letter-spacing: 1px;
+  margin-top: 7px;
+  color: #cfd4dc;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1.3px;
   text-transform: uppercase;
 }
 
@@ -98,90 +101,96 @@ button {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 18px;
-  margin-top: 14px;
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(18px, 4vw, 26px);
-  font-weight: bold;
-  letter-spacing: 1px;
+  gap: 16px;
+  margin-top: 15px;
+  font-size: clamp(17px, 4vw, 24px);
+  font-weight: 800;
+  letter-spacing: 1.2px;
 }
 
 .header-divider {
-  color: #cfb66c;
+  color: #dfc46f;
 }
 
 .card {
   margin-bottom: 16px;
-  padding: 17px;
-  background: var(--card-background);
-  border: 2px solid var(--border-color);
-  border-radius: 13px;
+  padding: 18px;
+  background: var(--card-bg);
+  border: 1px solid var(--line);
+  border-radius: 15px;
   box-shadow: var(--shadow);
 }
 
 .card h2 {
-  margin: 0 0 14px;
-  padding-bottom: 8px;
-  font-family: Georgia, "Times New Roman", serif;
-  border-bottom: 2px solid #cbbd9e;
+  margin: 0 0 15px;
+  padding-bottom: 10px;
+  font-size: 22px;
+  border-bottom: 1px solid var(--line);
 }
 
 .setup-grid,
-.entry-grid {
+.roster-grid,
+.pool-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 16px;
 }
 
 .side-panel {
-  padding: 14px;
-  background: white;
-  border: 2px solid #968a73;
-  border-radius: 12px;
+  padding: 15px;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 13px;
 }
 
 .side-panel.allied-panel {
-  border-top: 7px solid var(--allied-blue);
+  border-top: 6px solid var(--allied);
 }
 
 .side-panel.axis-panel {
-  border-top: 7px solid var(--axis-red);
+  border-top: 6px solid var(--axis);
 }
 
 .side-heading {
   margin: 0 0 12px;
-  font-size: 21px;
+  font-size: 20px;
 }
 
 .allied-text {
-  color: var(--allied-blue);
+  color: var(--allied);
 }
 
 .axis-text {
-  color: var(--axis-red);
+  color: var(--axis);
 }
 
 label {
   display: block;
   margin-bottom: 6px;
-  font-weight: bold;
+  font-weight: 700;
 }
 
 input[type="number"],
 input[type="text"] {
   width: 100%;
-  min-height: 45px;
-  padding: 10px 11px;
-  color: var(--text-color);
-  background: white;
-  border: 2px solid #817764;
-  border-radius: 8px;
+  min-height: 46px;
+  padding: 10px 12px;
+  color: var(--text);
+  background: #fff;
+  border: 1px solid #98a2b3;
+  border-radius: 9px;
   font-size: 17px;
 }
 
 input:focus {
-  outline: 3px solid rgba(181, 138, 40, 0.28);
-  border-color: var(--gold);
+  outline: 3px solid rgba(138, 107, 36, 0.18);
+  border-color: var(--accent);
+}
+
+input:disabled {
+  color: #667085;
+  background: #f2f4f7;
+  cursor: not-allowed;
 }
 
 .button-row {
@@ -194,61 +203,69 @@ input:focus {
 button {
   min-height: 44px;
   padding: 11px 16px;
-  color: white;
-  background: #353229;
-  border: 2px solid #171610;
+  color: #fff;
+  background: #30343b;
+  border: 0;
   border-radius: 9px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 5px rgba(16, 24, 40, 0.18);
   cursor: pointer;
-  font-weight: bold;
+  font-weight: 800;
 }
 
 button:hover {
-  background: #514b3e;
+  background: #444a54;
 }
 
 button:active {
   transform: translateY(1px);
-  box-shadow: none;
 }
 
 button:disabled {
-  color: #ececec;
-  background: #989898;
-  border-color: #777;
+  color: #fff;
+  background: #98a2b3;
   cursor: not-allowed;
-  transform: none;
   box-shadow: none;
+  transform: none;
 }
 
 .primary-button {
-  background: #3d432e;
+  background: #36563a;
 }
 
 .primary-button:hover {
-  background: #56603e;
+  background: #47704d;
+}
+
+.secondary-button {
+  color: #344054;
+  background: #f2f4f7;
+  border: 1px solid #cfd4dc;
+  box-shadow: none;
+}
+
+.secondary-button:hover {
+  background: #e4e7ec;
 }
 
 .danger-button {
-  background: #7b302c;
+  background: var(--danger);
 }
 
 .danger-button:hover {
-  background: #99413c;
+  background: #b43a3a;
 }
 
 .draw-button {
   width: 100%;
-  min-height: 64px;
-  padding: 16px;
-  background: #2e3e2b;
-  border: 3px solid #182216;
+  min-height: 66px;
+  padding: 17px;
+  background: #29412d;
   font-size: clamp(19px, 4vw, 24px);
-  letter-spacing: 0.5px;
+  letter-spacing: 0.2px;
 }
 
 .draw-button:hover {
-  background: #40563b;
+  background: #385a3d;
 }
 
 .rule-options {
@@ -259,15 +276,15 @@ button:disabled {
 .rule-option {
   display: block;
   padding: 13px;
-  background: white;
-  border: 2px solid #aaa088;
-  border-radius: 10px;
+  background: #fff;
+  border: 1px solid #b8c0cc;
+  border-radius: 11px;
   cursor: pointer;
 }
 
 .rule-option:has(input:checked) {
-  background: var(--gold-light);
-  border-color: var(--gold);
+  background: var(--accent-soft);
+  border-color: #b4923e;
 }
 
 .rule-title-line {
@@ -284,40 +301,140 @@ button:disabled {
 }
 
 .rule-title {
-  font-weight: bold;
   font-size: 17px;
+  font-weight: 800;
 }
 
 .rule-description {
   display: block;
   margin: 4px 0 0 28px;
-  color: var(--muted-text);
+  color: var(--muted);
   font-size: 14px;
-  line-height: 1.35;
 }
 
 .notice {
   padding: 12px;
-  background: #f5eddb;
-  border-left: 6px solid #9e895d;
-  border-radius: 7px;
-  color: #4c463a;
+  color: #475467;
+  background: #f7f4ea;
+  border-left: 5px solid #9b854b;
+  border-radius: 8px;
 }
 
-.chit-entry {
+.roster-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.roster-toolbar button {
+  min-height: 38px;
+  padding: 8px 11px;
+  font-size: 14px;
+}
+
+.chit-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: end;
+  gap: 12px;
   margin-bottom: 11px;
-  padding: 10px;
-  background: #fbfaf7;
-  border: 2px solid #a29780;
-  border-radius: 10px;
+  padding: 11px;
+  background: #f9fafb;
+  border: 1px solid #d0d5dd;
+  border-radius: 11px;
+}
+
+.chit-row:last-child {
+  margin-bottom: 0;
 }
 
 .chit-entry-number {
-  margin-bottom: 7px;
-  font-size: 14px;
-  font-weight: bold;
+  margin-bottom: 6px;
+  color: #475467;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.45px;
   text-transform: uppercase;
-  letter-spacing: 0.4px;
+}
+
+.in-play-control {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 104px;
+  min-height: 46px;
+  margin: 0;
+  padding: 8px 10px;
+  background: #fff;
+  border: 1px solid #b8c0cc;
+  border-radius: 9px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.in-play-control input {
+  width: 20px;
+  height: 20px;
+  margin: 0;
+}
+
+.in-play-control span {
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.chit-row.is-active.allied-row {
+  background: var(--allied-soft);
+  border-color: #9ac1e2;
+}
+
+.chit-row.is-active.axis-row {
+  background: var(--axis-soft);
+  border-color: #e3aaa6;
+}
+
+.pool-summary {
+  padding: 15px;
+  background: #f8fafc;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+}
+
+.pool-stat {
+  padding: 14px;
+  text-align: center;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 11px;
+}
+
+.pool-stat strong {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 26px;
+}
+
+.pool-stat span {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.pool-total {
+  margin-top: 12px;
+  text-align: center;
+  color: #344054;
+  font-weight: 800;
+}
+
+.lock-message {
+  margin-top: 12px;
+  padding: 10px;
+  color: #7a4b0b;
+  background: var(--accent-soft);
+  border-left: 5px solid #b4923e;
+  border-radius: 8px;
+  font-weight: 800;
 }
 
 .counter-gallery {
@@ -325,7 +442,7 @@ button:disabled {
   flex-wrap: wrap;
   justify-content: center;
   gap: 12px;
-  margin-top: 15px;
+  margin-top: 14px;
 }
 
 .counter {
@@ -334,23 +451,17 @@ button:disabled {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 145px;
+  width: 148px;
   min-height: 112px;
-  padding: 17px 9px 12px;
+  padding: 17px 10px 13px;
   overflow: hidden;
   text-align: center;
-  background:
-    linear-gradient(
-      135deg,
-      rgba(255, 255, 255, 0.75),
-      rgba(255, 255, 255, 0.12)
-    ),
-    #e9e3d6;
-  border: 4px solid #39362f;
-  border-radius: 10px;
+  background: #edf0f3;
+  border: 4px solid #4a4f58;
+  border-radius: 11px;
   box-shadow:
     inset 0 0 0 3px rgba(255, 255, 255, 0.55),
-    3px 4px 7px rgba(0, 0, 0, 0.23);
+    3px 4px 8px rgba(16, 24, 40, 0.20);
 }
 
 .counter::before,
@@ -358,7 +469,7 @@ button:disabled {
   position: absolute;
   width: 9px;
   height: 9px;
-  background: #5f5a4d;
+  background: #667085;
   border-radius: 50%;
   content: "";
 }
@@ -374,54 +485,41 @@ button:disabled {
 }
 
 .counter.allied-counter {
-  color: #153f68;
-  background:
-    linear-gradient(
-      135deg,
-      rgba(255, 255, 255, 0.8),
-      rgba(255, 255, 255, 0.12)
-    ),
-    var(--allied-light);
-  border-color: var(--allied-blue);
+  color: #174a78;
+  background: linear-gradient(135deg, #f8fbff, var(--allied-soft));
+  border-color: var(--allied);
 }
 
 .counter.axis-counter {
-  color: #69201d;
-  background:
-    linear-gradient(
-      135deg,
-      rgba(255, 255, 255, 0.8),
-      rgba(255, 255, 255, 0.12)
-    ),
-    var(--axis-light);
-  border-color: var(--axis-red);
+  color: #762620;
+  background: linear-gradient(135deg, #fffafa, var(--axis-soft));
+  border-color: var(--axis);
 }
 
 .counter-side {
   margin-bottom: 7px;
   font-size: 12px;
-  font-weight: bold;
-  letter-spacing: 1.2px;
+  font-weight: 900;
+  letter-spacing: 1.1px;
   text-transform: uppercase;
 }
 
 .counter-name {
   max-width: 100%;
   overflow-wrap: anywhere;
-  font-family: Georgia, "Times New Roman", serif;
   font-size: 17px;
-  font-weight: bold;
+  font-weight: 900;
   line-height: 1.15;
 }
 
 .draw-counter {
-  animation: counterEnter 0.25s ease-out;
+  animation: counterEnter 0.28s ease-out both;
 }
 
 @keyframes counterEnter {
   from {
     opacity: 0;
-    transform: translateY(-8px) scale(0.96);
+    transform: translateY(-9px) scale(0.96);
   }
 
   to {
@@ -442,39 +540,47 @@ button:disabled {
   align-items: center;
   gap: 10px;
   padding-bottom: 12px;
-  border-bottom: 1px solid #cfc5b1;
+  border-bottom: 1px solid var(--line);
 }
 
 .draw-number {
-  font-weight: bold;
+  font-weight: 800;
   text-align: right;
+}
+
+.special-note {
+  margin-top: 12px;
+  padding: 10px;
+  color: #694a08;
+  background: var(--accent-soft);
+  border-left: 5px solid #b4923e;
+  border-radius: 8px;
+  font-weight: 800;
 }
 
 .winner-banner {
   margin-top: 18px;
   padding: 17px;
   text-align: center;
-  background: var(--green-light);
-  border: 3px solid var(--green);
-  border-radius: 11px;
-  font-family: Georgia, "Times New Roman", serif;
+  background: var(--success-soft);
+  border: 2px solid #6ca477;
+  border-radius: 12px;
   font-size: clamp(21px, 5vw, 28px);
-  font-weight: bold;
+  font-weight: 900;
 }
 
 .activation-panel {
   margin-top: 14px;
   padding: 16px;
   text-align: center;
-  background: var(--gold-light);
-  border: 3px solid var(--gold);
-  border-radius: 11px;
+  background: var(--accent-soft);
+  border: 2px solid #c5a85f;
+  border-radius: 12px;
 }
 
 .activation-panel h3 {
   margin: 0 0 10px;
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: 22px;
+  font-size: 21px;
 }
 
 .choice-grid {
@@ -499,14 +605,13 @@ button:disabled {
 }
 
 .choice-counter-button:focus-visible {
-  outline: 4px solid var(--gold);
+  outline: 4px solid #b4923e;
   outline-offset: 5px;
 }
 
 .choice-counter-button:disabled {
-  opacity: 0.47;
+  opacity: 0.45;
   background: transparent;
-  border: 0;
 }
 
 .choice-counter-button .counter {
@@ -517,26 +622,25 @@ button:disabled {
   margin-top: 15px;
   padding: 16px;
   text-align: center;
-  background: #e4f0fa;
-  border: 3px solid var(--allied-blue);
-  border-radius: 11px;
+  background: #eef5fb;
+  border: 2px solid #7aa9d2;
+  border-radius: 12px;
 }
 
 .selected-panel h3 {
   margin: 0 0 11px;
-  font-family: Georgia, "Times New Roman", serif;
 }
 
 .ready-message {
   margin-top: 10px;
-  color: #31552f;
-  font-weight: bold;
+  color: var(--success);
+  font-weight: 800;
 }
 
 .pending-message {
   margin-top: 12px;
-  color: #794d0e;
-  font-weight: bold;
+  color: #7a4b0b;
+  font-weight: 800;
 }
 
 .history-card {
@@ -550,16 +654,16 @@ button:disabled {
 .history-empty {
   padding: 18px;
   text-align: center;
-  color: var(--muted-text);
+  color: var(--muted);
   font-style: italic;
 }
 
 .history-entry {
   margin-bottom: 13px;
   padding: 13px;
-  background: white;
-  border: 2px solid #a99e87;
-  border-radius: 10px;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 11px;
 }
 
 .history-entry:last-child {
@@ -573,18 +677,24 @@ button:disabled {
   gap: 7px;
   padding-bottom: 8px;
   margin-bottom: 9px;
-  border-bottom: 1px solid #d5cbb7;
+  border-bottom: 1px solid var(--line);
 }
 
 .history-title {
-  font-family: Georgia, "Times New Roman", serif;
   font-size: 18px;
-  font-weight: bold;
+  font-weight: 900;
 }
 
 .history-rule {
-  color: var(--muted-text);
+  color: var(--muted);
   font-size: 13px;
+}
+
+.history-pool {
+  margin-bottom: 8px;
+  color: #475467;
+  font-size: 13px;
+  font-weight: 700;
 }
 
 .history-draws {
@@ -599,30 +709,30 @@ button:disabled {
 
 .history-activation {
   padding: 8px;
-  background: var(--green-light);
-  border-left: 5px solid var(--green);
-  border-radius: 5px;
-  font-weight: bold;
+  background: var(--success-soft);
+  border-left: 5px solid #5b9566;
+  border-radius: 6px;
+  font-weight: 800;
 }
 
 .status-message {
   margin-top: 12px;
   padding: 11px;
-  background: #f5e7e5;
-  border-left: 6px solid var(--axis-red);
-  border-radius: 7px;
-  font-weight: bold;
+  background: var(--danger-soft);
+  border-left: 5px solid var(--danger);
+  border-radius: 8px;
+  font-weight: 800;
 }
 
 .small-text {
-  color: var(--muted-text);
+  color: var(--muted);
   font-size: 14px;
-  line-height: 1.4;
 }
 
-@media (max-width: 700px) {
+@media (max-width: 760px) {
   .setup-grid,
-  .entry-grid {
+  .roster-grid,
+  .pool-grid {
     grid-template-columns: 1fr;
   }
 
@@ -639,6 +749,22 @@ button:disabled {
   }
 }
 
+@media (max-width: 520px) {
+  .chit-row {
+    grid-template-columns: 1fr;
+    align-items: stretch;
+  }
+
+  .in-play-control {
+    justify-content: center;
+    width: 100%;
+  }
+
+  .button-row button {
+    flex: 1 1 100%;
+  }
+}
+
 @media (max-width: 420px) {
   .counter {
     width: 132px;
@@ -647,10 +773,6 @@ button:disabled {
 
   .header-emblems {
     gap: 10px;
-  }
-
-  .button-row button {
-    flex: 1 1 100%;
   }
 }
 </style>
@@ -662,7 +784,7 @@ button:disabled {
 
   <header class="app-header">
     <h1>BCS Activation Chit Selector</h1>
-    <div class="version">Version 2.5</div>
+    <div class="version">Version 2.6</div>
 
     <div class="header-emblems" aria-label="Allied versus Axis">
       <span>ALLIED</span>
@@ -673,7 +795,7 @@ button:disabled {
 
 
   <section class="card">
-    <h2>1. Setup</h2>
+    <h2>1. Master Chit Roster</h2>
 
     <div class="setup-grid">
 
@@ -683,7 +805,7 @@ button:disabled {
         </h3>
 
         <label for="alliedCount">
-          Number of Allied activation chits
+          Total Allied chits in the scenario
         </label>
 
         <input
@@ -703,7 +825,7 @@ button:disabled {
         </h3>
 
         <label for="axisCount">
-          Number of Axis activation chits
+          Total Axis chits in the scenario
         </label>
 
         <input
@@ -725,9 +847,14 @@ button:disabled {
         id="createFieldsButton"
         class="primary-button"
       >
-        Create Chit Fields
+        Create or Update Roster
       </button>
     </div>
+
+    <p class="small-text">
+      Enter every chit that may appear during the scenario. Use the
+      In Play boxes below to control the current game-turn draw pool.
+    </p>
   </section>
 
 
@@ -751,8 +878,8 @@ button:disabled {
         </span>
 
         <span class="rule-description">
-          Draw up to three chits. The player chooses one of the
-          winning side’s drawn chits to activate.
+          Draw three chits when available. The player chooses one
+          of the winning side’s drawn chits to activate.
         </span>
       </label>
 
@@ -770,34 +897,63 @@ button:disabled {
         </span>
 
         <span class="rule-description">
-          Draw up to three chits. The first winning-side chit drawn
-          must activate.
+          Draw three chits when available. The first winning-side
+          chit drawn must activate.
         </span>
       </label>
 
     </div>
 
     <p class="small-text">
-      Every activation draw is started manually. The app never begins
-      another activation automatically.
+      Every activation draw is started manually. The app never
+      begins another activation automatically.
     </p>
   </section>
 
 
   <section class="card">
-    <h2>3. Chit Entry</h2>
+    <h2>3. Scenario Chit Roster</h2>
 
-    <div id="chitFields">
+    <div id="rosterFields">
       <div class="notice">
-        Enter the Allied and Axis chit totals, then select
-        <strong>Create Chit Fields</strong>.
+        Enter the Allied and Axis roster totals, then select
+        <strong>Create or Update Roster</strong>.
       </div>
     </div>
   </section>
 
 
   <section class="card">
-    <h2>4. Activation Draw</h2>
+    <h2>4. Current Game-Turn Draw Pool</h2>
+
+    <div class="pool-summary">
+
+      <div class="pool-grid">
+
+        <div class="pool-stat allied-text">
+          <strong id="alliedPoolCount">0 of 0</strong>
+          <span>Allied chits in play</span>
+        </div>
+
+        <div class="pool-stat axis-text">
+          <strong id="axisPoolCount">0 of 0</strong>
+          <span>Axis chits in play</span>
+        </div>
+
+      </div>
+
+      <div class="pool-total" id="totalPoolCount">
+        0 total chits in the current draw pool
+      </div>
+
+    </div>
+
+    <div id="poolLockMessage"></div>
+  </section>
+
+
+  <section class="card">
+    <h2>5. Activation Draw</h2>
 
     <button
       type="button"
@@ -808,6 +964,7 @@ button:disabled {
     </button>
 
     <div class="button-row">
+
       <button
         type="button"
         id="clearResultButton"
@@ -829,6 +986,7 @@ button:disabled {
       >
         Reset App
       </button>
+
     </div>
 
     <div id="statusMessage"></div>
@@ -861,6 +1019,7 @@ button:disabled {
 <script>
 "use strict";
 
+
 /* =========================================================
    APPLICATION STATE
 ========================================================= */
@@ -880,8 +1039,20 @@ const alliedCountInput =
 const axisCountInput =
   document.getElementById("axisCount");
 
-const chitFields =
-  document.getElementById("chitFields");
+const rosterFields =
+  document.getElementById("rosterFields");
+
+const alliedPoolCount =
+  document.getElementById("alliedPoolCount");
+
+const axisPoolCount =
+  document.getElementById("axisPoolCount");
+
+const totalPoolCount =
+  document.getElementById("totalPoolCount");
+
+const poolLockMessage =
+  document.getElementById("poolLockMessage");
 
 const results =
   document.getElementById("results");
@@ -901,6 +1072,9 @@ const historyOutput =
 const historyToggleButton =
   document.getElementById("historyToggleButton");
 
+const createFieldsButton =
+  document.getElementById("createFieldsButton");
+
 
 /* =========================================================
    STARTUP
@@ -908,15 +1082,17 @@ const historyToggleButton =
 
 loadSavedRule();
 renderHistory();
+updatePoolSummary();
 
 
 /* =========================================================
    EVENT LISTENERS
 ========================================================= */
 
-document
-  .getElementById("createFieldsButton")
-  .addEventListener("click", createChitFields);
+createFieldsButton.addEventListener(
+  "click",
+  createOrUpdateRoster
+);
 
 drawButton.addEventListener(
   "click",
@@ -925,7 +1101,10 @@ drawButton.addEventListener(
 
 document
   .getElementById("clearResultButton")
-  .addEventListener("click", clearCurrentResult);
+  .addEventListener(
+    "click",
+    () => clearCurrentResult(true)
+  );
 
 historyToggleButton.addEventListener(
   "click",
@@ -934,11 +1113,17 @@ historyToggleButton.addEventListener(
 
 document
   .getElementById("clearHistoryButton")
-  .addEventListener("click", clearHistory);
+  .addEventListener(
+    "click",
+    clearHistory
+  );
 
 document
   .getElementById("resetAppButton")
-  .addEventListener("click", resetApp);
+  .addEventListener(
+    "click",
+    resetApp
+  );
 
 document
   .querySelectorAll('input[name="activationRule"]')
@@ -951,61 +1136,72 @@ document
 
 
 /* =========================================================
-   SETUP AND CHIT ENTRY
+   MASTER ROSTER
 ========================================================= */
 
-function createChitFields() {
+function createOrUpdateRoster() {
+  const priorState =
+    captureRosterState();
+
   const alliedCount =
     sanitizeCount(alliedCountInput.value);
 
   const axisCount =
     sanitizeCount(axisCountInput.value);
 
-  alliedCountInput.value = alliedCount;
-  axisCountInput.value = axisCount;
+  alliedCountInput.value =
+    alliedCount;
 
-  if (alliedCount === 0 && axisCount === 0) {
+  axisCountInput.value =
+    axisCount;
+
+  if (
+    alliedCount === 0 &&
+    axisCount === 0
+  ) {
     showStatus(
       "Enter at least one Allied or Axis chit."
     );
+
     return;
   }
 
   clearStatus();
   clearCurrentResult(false);
 
-  const wrapper =
+  const grid =
     document.createElement("div");
 
-  wrapper.className = "entry-grid";
+  grid.className =
+    "roster-grid";
 
-  const alliedPanel =
-    buildChitEntryPanel(
+  grid.append(
+    buildRosterPanel(
       "Allied",
       alliedCount,
-      "allied"
-    );
-
-  const axisPanel =
-    buildChitEntryPanel(
+      "allied",
+      priorState.allied
+    ),
+    buildRosterPanel(
       "Axis",
       axisCount,
-      "axis"
-    );
-
-  wrapper.append(
-    alliedPanel,
-    axisPanel
+      "axis",
+      priorState.axis
+    )
   );
 
-  chitFields.replaceChildren(wrapper);
+  rosterFields.replaceChildren(grid);
+
+  attachRosterListeners();
+  updatePoolSummary();
 }
 
 
-function buildChitEntryPanel(
+function buildRosterPanel(
   side,
   count,
-  prefix
+  prefix,
+  previousEntries
 ) {
   const panel =
     document.createElement("div");
@@ -1027,17 +1223,70 @@ function buildChitEntryPanel(
         : "axis-text"
     }`;
 
-  heading.textContent = `${side} Chits`;
+  heading.textContent =
+    `${side} Chits`;
 
-  panel.appendChild(heading);
+  const toolbar =
+    document.createElement("div");
+
+  toolbar.className =
+    "roster-toolbar";
+
+  const allButton =
+    document.createElement("button");
+
+  allButton.type =
+    "button";
+
+  allButton.className =
+    "secondary-button roster-bulk-button";
+
+  allButton.textContent =
+    "All In Play";
+
+  allButton.dataset.side =
+    prefix;
+
+  allButton.dataset.action =
+    "all";
+
+  const noneButton =
+    document.createElement("button");
+
+  noneButton.type =
+    "button";
+
+  noneButton.className =
+    "secondary-button roster-bulk-button";
+
+  noneButton.textContent =
+    "None In Play";
+
+  noneButton.dataset.side =
+    prefix;
+
+  noneButton.dataset.action =
+    "none";
+
+  toolbar.append(
+    allButton,
+    noneButton
+  );
+
+  panel.append(
+    heading,
+    toolbar
+  );
 
   if (count === 0) {
     const message =
       document.createElement("p");
 
-    message.className = "small-text";
+    message.className =
+      "small-text";
+
     message.textContent =
-      `No ${side} chits entered.`;
+      `No ${side} roster slots entered.`;
 
     panel.appendChild(message);
 
@@ -1049,10 +1298,33 @@ function buildChitEntryPanel(
     index < count;
     index++
   ) {
-    const entry =
+    const previous =
+      previousEntries[index] || {
+        name: "",
+        inPlay: true
+      };
+
+    const row =
       document.createElement("div");
 
-    entry.className = "chit-entry";
+    row.className =
+      `chit-row ${prefix}-row${
+        previous.inPlay
+          ? " is-active"
+          : ""
+      }`;
+
+    row.dataset.chitRow =
+      "true";
+
+    row.dataset.side =
+      prefix;
+
+    row.dataset.index =
+      String(index);
+
+    const textBlock =
+      document.createElement("div");
 
     const entryNumber =
       document.createElement("div");
@@ -1063,33 +1335,220 @@ function buildChitEntryPanel(
     entryNumber.textContent =
       `${side} Chit ${index + 1}`;
 
-    const input =
+    const nameInput =
       document.createElement("input");
 
-    input.type = "text";
-    input.id = `${prefix}-${index}`;
-    input.placeholder =
+    nameInput.type =
+      "text";
+
+    nameInput.id =
+      `${prefix}-${index}`;
+
+    nameInput.className =
+      "chit-name-input";
+
+    nameInput.value =
+      previous.name;
+
+    nameInput.placeholder =
       prefix === "allied"
         ? "Example: 3/116 Infantry"
         : "Example: 1/429 Infantry";
 
-    input.autocomplete = "off";
+    nameInput.autocomplete =
+      "off";
 
-    entry.append(
+    textBlock.append(
       entryNumber,
-      input
+      nameInput
     );
 
-    panel.appendChild(entry);
+    const inPlayLabel =
+      document.createElement("label");
+
+    inPlayLabel.className =
+      "in-play-control";
+
+    const checkbox =
+      document.createElement("input");
+
+    checkbox.type =
+      "checkbox";
+
+    checkbox.className =
+      "in-play-checkbox";
+
+    checkbox.checked =
+      previous.inPlay;
+
+    checkbox.setAttribute(
+      "aria-label",
+      `${side} Chit ${index + 1} in play`
+    );
+
+    const checkboxText =
+      document.createElement("span");
+
+    checkboxText.textContent =
+      "In Play";
+
+    inPlayLabel.append(
+      checkbox,
+      checkboxText
+    );
+
+    row.append(
+      textBlock,
+      inPlayLabel
+    );
+
+    panel.appendChild(row);
   }
 
   return panel;
 }
 
 
+function captureRosterState() {
+  const state = {
+    allied: [],
+    axis: []
+  };
+
+  document
+    .querySelectorAll(
+      '[data-chit-row="true"]'
+    )
+    .forEach(row => {
+      const side =
+        row.dataset.side;
+
+      const index =
+        Number.parseInt(
+          row.dataset.index,
+          10
+        );
+
+      const name =
+        row
+          .querySelector(
+            ".chit-name-input"
+          )
+          ?.value || "";
+
+      const inPlay =
+        row
+          .querySelector(
+            ".in-play-checkbox"
+          )
+          ?.checked ?? true;
+
+      if (
+        side === "allied" ||
+        side === "axis"
+      ) {
+        state[side][index] = {
+          name,
+          inPlay
+        };
+      }
+    });
+
+  return state;
+}
+
+
+function attachRosterListeners() {
+  document
+    .querySelectorAll(
+      ".in-play-checkbox"
+    )
+    .forEach(checkbox => {
+      checkbox.addEventListener(
+        "change",
+        () => {
+          updateRowActiveState(
+            checkbox.closest(
+              ".chit-row"
+            )
+          );
+
+          updatePoolSummary();
+        }
+      );
+    });
+
+  document
+    .querySelectorAll(
+      ".chit-name-input"
+    )
+    .forEach(input => {
+      input.addEventListener(
+        "input",
+        updatePoolSummary
+      );
+    });
+
+  document
+    .querySelectorAll(
+      ".roster-bulk-button"
+    )
+    .forEach(button => {
+      button.addEventListener(
+        "click",
+        () => {
+          const side =
+            button.dataset.side;
+
+          const shouldCheck =
+            button.dataset.action ===
+            "all";
+
+          document
+            .querySelectorAll(
+              `.chit-row[data-side="${side}"] .in-play-checkbox`
+            )
+            .forEach(checkbox => {
+              checkbox.checked =
+                shouldCheck;
+
+              updateRowActiveState(
+                checkbox.closest(
+                  ".chit-row"
+                )
+              );
+            });
+
+          updatePoolSummary();
+        }
+      );
+    });
+}
+
+
+function updateRowActiveState(row) {
+  if (!row) {
+    return;
+  }
+
+  const checkbox =
+    row.querySelector(
+      ".in-play-checkbox"
+    );
+
+  row.classList.toggle(
+    "is-active",
+    Boolean(checkbox?.checked)
+  );
+}
+
+
 function sanitizeCount(value) {
   const number =
-    Number.parseInt(value, 10);
+    Number.parseInt(
+      value,
+      10
+    );
 
   if (
     !Number.isFinite(number) ||
@@ -1098,113 +1557,141 @@ function sanitizeCount(value) {
     return 0;
   }
 
-  return Math.min(number, 99);
+  return Math.min(
+    number,
+    99
+  );
 }
 
 
 /* =========================================================
-   CHIT COLLECTION
+   CURRENT DRAW POOL
 ========================================================= */
 
-function getEnteredChits() {
-  const alliedCount =
-    sanitizeCount(alliedCountInput.value);
+function getRosterRows() {
+  return [
+    ...document.querySelectorAll(
+      '[data-chit-row="true"]'
+    )
+  ];
+}
 
-  const axisCount =
-    sanitizeCount(axisCountInput.value);
 
-  const chits = [];
-  const missingFields = [];
+function getActiveChits() {
+  const activeChits = [];
+  const missingActiveNames = [];
 
-  for (
-    let index = 0;
-    index < alliedCount;
-    index++
-  ) {
-    const input =
-      document.getElementById(
-        `allied-${index}`
-      );
+  getRosterRows()
+    .forEach(row => {
+      const checkbox =
+        row.querySelector(
+          ".in-play-checkbox"
+        );
 
-    if (!input) {
-      missingFields.push(
-        `Allied Chit ${index + 1}`
-      );
-      continue;
-    }
+      if (!checkbox?.checked) {
+        return;
+      }
 
-    const name = input.value.trim();
+      const sideKey =
+        row.dataset.side;
 
-    if (!name) {
-      missingFields.push(
-        `Allied Chit ${index + 1}`
-      );
-      continue;
-    }
+      const side =
+        sideKey === "allied"
+          ? "Allied"
+          : "Axis";
 
-    chits.push({
-      id: createChitId(
-        "allied",
-        index,
-        name
-      ),
-      side: "Allied",
-      name,
-      counterClass: "allied-counter"
+      const index =
+        Number.parseInt(
+          row.dataset.index,
+          10
+        );
+
+      const name =
+        row
+          .querySelector(
+            ".chit-name-input"
+          )
+          ?.value.trim() || "";
+
+      if (!name) {
+        missingActiveNames.push(
+          `${side} Chit ${index + 1}`
+        );
+
+        return;
+      }
+
+      activeChits.push({
+        id:
+          `${sideKey}-${index}-${name}`,
+
+        side,
+
+        name,
+
+        counterClass:
+          sideKey === "allied"
+            ? "allied-counter"
+            : "axis-counter"
+      });
     });
-  }
-
-  for (
-    let index = 0;
-    index < axisCount;
-    index++
-  ) {
-    const input =
-      document.getElementById(
-        `axis-${index}`
-      );
-
-    if (!input) {
-      missingFields.push(
-        `Axis Chit ${index + 1}`
-      );
-      continue;
-    }
-
-    const name = input.value.trim();
-
-    if (!name) {
-      missingFields.push(
-        `Axis Chit ${index + 1}`
-      );
-      continue;
-    }
-
-    chits.push({
-      id: createChitId(
-        "axis",
-        index,
-        name
-      ),
-      side: "Axis",
-      name,
-      counterClass: "axis-counter"
-    });
-  }
 
   return {
-    chits,
-    missingFields
+    activeChits,
+    missingActiveNames
   };
 }
 
 
-function createChitId(
-  side,
-  index,
-  name
-) {
-  return `${side}-${index}-${name}`;
+function updatePoolSummary() {
+  const rows =
+    getRosterRows();
+
+  const alliedRows =
+    rows.filter(
+      row =>
+        row.dataset.side ===
+        "allied"
+    );
+
+  const axisRows =
+    rows.filter(
+      row =>
+        row.dataset.side ===
+        "axis"
+    );
+
+  const alliedActive =
+    alliedRows.filter(
+      row =>
+        row.querySelector(
+          ".in-play-checkbox"
+        )?.checked
+    ).length;
+
+  const axisActive =
+    axisRows.filter(
+      row =>
+        row.querySelector(
+          ".in-play-checkbox"
+        )?.checked
+    ).length;
+
+  alliedPoolCount.textContent =
+    `${alliedActive} of ${alliedRows.length}`;
+
+  axisPoolCount.textContent =
+    `${axisActive} of ${axisRows.length}`;
+
+  const totalActive =
+    alliedActive + axisActive;
+
+  totalPoolCount.textContent =
+    `${totalActive} total chit${
+      totalActive === 1
+        ? ""
+        : "s"
+    } in the current draw pool`;
 }
 
 
@@ -1217,59 +1704,51 @@ function drawActivation() {
     showStatus(
       "Select the formation to activate before beginning another draw."
     );
+
     return;
   }
 
   const {
-    chits,
-    missingFields
-  } = getEnteredChits();
-
-  if (missingFields.length > 0) {
-    showStatus(
-      "Complete every created chit field before drawing."
-    );
-    return;
-  }
-
-  const alliedChits =
-    chits.filter(
-      chit => chit.side === "Allied"
-    );
-
-  const axisChits =
-    chits.filter(
-      chit => chit.side === "Axis"
-    );
+    activeChits,
+    missingActiveNames
+  } = getActiveChits();
 
   if (
-    alliedChits.length === 0 ||
-    axisChits.length === 0
+    missingActiveNames.length > 0
   ) {
     showStatus(
-      "At least one Allied chit and one Axis chit are required."
+      "Every chit marked In Play must have a name before drawing."
     );
+
     return;
   }
 
-  if (chits.length < 2) {
+  if (activeChits.length === 0) {
     showStatus(
-      "At least two chits are required."
+      "Mark at least one chit In Play before drawing."
     );
+
     return;
   }
 
   clearStatus();
 
-  const drawn =
-    performActivationDraw(chits);
+  const drawResult =
+    performActivationDraw(
+      activeChits
+    );
 
   const winningSide =
-    determineWinningSide(drawn);
+    determineWinningSide(
+      drawResult.drawn,
+      drawResult.firstDrawWins
+    );
 
   const winningChits =
-    drawn.filter(
-      chit => chit.side === winningSide
+    getEligibleWinningChits(
+      drawResult.drawn,
+      winningSide,
+      drawResult.firstDrawWins
     );
 
   const activationRule =
@@ -1277,12 +1756,40 @@ function drawActivation() {
 
   drawNumber += 1;
 
+  const poolSnapshot = {
+    allied:
+      activeChits.filter(
+        chit =>
+          chit.side === "Allied"
+      ).length,
+
+    axis:
+      activeChits.filter(
+        chit =>
+          chit.side === "Axis"
+      ).length
+  };
+
   const drawRecord = {
     number: drawNumber,
-    rule: activationRule,
-    drawn: drawn.map(copyChit),
+
+    rule:
+      activationRule,
+
+    drawn:
+      drawResult.drawn.map(
+        copyChit
+      ),
+
     winningSide,
-    selectedChit: null
+
+    selectedChit:
+      null,
+
+    firstDrawWins:
+      drawResult.firstDrawWins,
+
+    poolSnapshot
   };
 
   renderDraw(
@@ -1295,9 +1802,14 @@ function drawActivation() {
     The first winning-side chit drawn
     automatically becomes the activation.
   */
-  if (activationRule === "optional") {
+  if (
+    activationRule ===
+    "optional"
+  ) {
     drawRecord.selectedChit =
-      copyChit(winningChits[0]);
+      copyChit(
+        winningChits[0]
+      );
 
     activationHistory.push(
       drawRecord
@@ -1312,104 +1824,114 @@ function drawActivation() {
     winning-side chits.
   */
   else {
-    pendingActivation = drawRecord;
-    drawButton.disabled = true;
+    pendingActivation =
+      drawRecord;
+
+    setSetupLocked(true);
   }
 }
 
 
 function performActivationDraw(chits) {
-  const randomized = shuffle(chits);
-  const drawn = [];
+  const randomized =
+    shuffle(chits);
 
-  let alliedDrawn = 0;
-  let axisDrawn = 0;
+  const drawCount =
+    Math.min(
+      3,
+      randomized.length
+    );
 
-  for (const chit of randomized) {
-    drawn.push(chit);
+  const drawn =
+    randomized.slice(
+      0,
+      drawCount
+    );
 
-    if (chit.side === "Allied") {
-      alliedDrawn += 1;
-    } else {
-      axisDrawn += 1;
-    }
-
-    /*
-      Stop as soon as one side has
-      drawn two chits.
-    */
-    if (
-      alliedDrawn === 2 ||
-      axisDrawn === 2
-    ) {
-      break;
-    }
-
-    /*
-      No activation draw can exceed
-      three chits.
-    */
-    if (drawn.length === 3) {
-      break;
-    }
-  }
-
-  /*
-    When only two chits are available
-    and one belongs to each side,
-    the first chit drawn wins.
-  */
-  if (
-    chits.length === 2 &&
+  const firstDrawWins =
     drawn.length === 2 &&
-    drawn[0].side !== drawn[1].side
-  ) {
-    return [drawn[0]];
-  }
+    drawn[0].side !==
+    drawn[1].side;
 
-  return drawn;
+  return {
+    drawn,
+    firstDrawWins
+  };
 }
 
 
-function determineWinningSide(drawn) {
+function determineWinningSide(
+  drawn,
+  firstDrawWins
+) {
+  if (firstDrawWins) {
+    return drawn[0].side;
+  }
+
   const alliedTotal =
     drawn.filter(
-      chit => chit.side === "Allied"
+      chit =>
+        chit.side === "Allied"
     ).length;
 
   const axisTotal =
     drawn.filter(
-      chit => chit.side === "Axis"
+      chit =>
+        chit.side === "Axis"
     ).length;
 
-  if (alliedTotal > axisTotal) {
+  if (
+    alliedTotal >
+    axisTotal
+  ) {
     return "Allied";
   }
 
-  if (axisTotal > alliedTotal) {
+  if (
+    axisTotal >
+    alliedTotal
+  ) {
     return "Axis";
   }
 
-  /*
-    Used when the first draw wins,
-    such as one Allied and one Axis
-    chit being the only two available.
-  */
   return drawn[0].side;
 }
 
 
+function getEligibleWinningChits(
+  drawn,
+  winningSide,
+  firstDrawWins
+) {
+  if (firstDrawWins) {
+    return [
+      drawn[0]
+    ];
+  }
+
+  return drawn.filter(
+    chit =>
+      chit.side === winningSide
+  );
+}
+
+
 function shuffle(items) {
-  const shuffled = [...items];
+  const shuffled =
+    [...items];
 
   for (
-    let index = shuffled.length - 1;
+    let index =
+      shuffled.length - 1;
+
     index > 0;
+
     index--
   ) {
     const randomIndex =
       Math.floor(
-        Math.random() * (index + 1)
+        Math.random() *
+        (index + 1)
       );
 
     [
@@ -1427,10 +1949,17 @@ function shuffle(items) {
 
 function copyChit(chit) {
   return {
-    id: chit.id,
-    side: chit.side,
-    name: chit.name,
-    counterClass: chit.counterClass
+    id:
+      chit.id,
+
+    side:
+      chit.side,
+
+    name:
+      chit.name,
+
+    counterClass:
+      chit.counterClass
   };
 }
 
@@ -1454,32 +1983,45 @@ function renderDraw(
   const drawList =
     document.createElement("div");
 
-  drawList.className = "draw-list";
+  drawList.className =
+    "draw-list";
 
   drawRecord.drawn.forEach(
     (chit, index) => {
       const row =
-        document.createElement("div");
+        document.createElement(
+          "div"
+        );
 
       row.className =
         "draw-result-row";
 
       const number =
-        document.createElement("div");
+        document.createElement(
+          "div"
+        );
 
-      number.className = "draw-number";
+      number.className =
+        "draw-number";
+
       number.textContent =
         `Draw #${index + 1}`;
 
       const counter =
-        createCounter(chit, true);
+        createCounter(
+          chit,
+          true,
+          index
+        );
 
       row.append(
         number,
         counter
       );
 
-      drawList.appendChild(row);
+      drawList.appendChild(
+        row
+      );
     }
   );
 
@@ -1499,11 +2041,12 @@ function renderDraw(
     "activation-panel";
 
   /*
-    OPTIONAL RULE DISPLAY:
-    First winning chit is automatically
-    selected.
+    OPTIONAL RULE DISPLAY
   */
-  if (drawRecord.rule === "optional") {
+  if (
+    drawRecord.rule ===
+    "optional"
+  ) {
     const selected =
       winningChits[0];
 
@@ -1540,8 +2083,7 @@ function renderDraw(
   }
 
   /*
-    OFFICIAL BCS DISPLAY:
-    Winning counters are clickable.
+    OFFICIAL BCS DISPLAY
   */
   else {
     const title =
@@ -1556,38 +2098,45 @@ function renderDraw(
     choiceGrid.className =
       "choice-grid";
 
-    winningChits.forEach(chit => {
-      const choiceButton =
-        document.createElement("button");
+    winningChits.forEach(
+      chit => {
+        const choiceButton =
+          document.createElement(
+            "button"
+          );
 
-      choiceButton.type = "button";
+        choiceButton.type =
+          "button";
 
-      choiceButton.className =
-        "choice-counter-button";
+        choiceButton.className =
+          "choice-counter-button";
 
-      choiceButton.dataset.chitId =
-        chit.id;
+        choiceButton.dataset.chitId =
+          chit.id;
 
-      choiceButton.setAttribute(
-        "aria-label",
-        `Activate ${chit.name}`
-      );
+        choiceButton.setAttribute(
+          "aria-label",
+          `Activate ${chit.name}`
+        );
 
-      choiceButton.appendChild(
-        createCounter(chit)
-      );
+        choiceButton.appendChild(
+          createCounter(chit)
+        );
 
-      choiceButton.addEventListener(
-        "click",
-        () => {
-          selectActivation(chit);
-        }
-      );
+        choiceButton.addEventListener(
+          "click",
+          () => {
+            selectActivation(
+              chit
+            );
+          }
+        );
 
-      choiceGrid.appendChild(
-        choiceButton
-      );
-    });
+        choiceGrid.appendChild(
+          choiceButton
+        );
+      }
+    );
 
     const pending =
       document.createElement("div");
@@ -1596,7 +2145,7 @@ function renderDraw(
       "pending-message";
 
     pending.textContent =
-      "Select one formation before beginning the next activation draw.";
+      "Select one formation before changing the draw pool or beginning the next activation draw.";
 
     const selectedOutput =
       document.createElement("div");
@@ -1614,7 +2163,25 @@ function renderDraw(
 
   results.append(
     heading,
-    drawList,
+    drawList
+  );
+
+  if (
+    drawRecord.firstDrawWins
+  ) {
+    const note =
+      document.createElement("div");
+
+    note.className =
+      "special-note";
+
+    note.textContent =
+      "Only two chits were in the pool, one from each side. The first chit drawn wins the activation.";
+
+    results.appendChild(note);
+  }
+
+  results.append(
     winnerBanner,
     activationPanel
   );
@@ -1623,14 +2190,23 @@ function renderDraw(
 
 function createCounter(
   chit,
-  animate = false
+  animate = false,
+  animationIndex = 0
 ) {
   const counter =
     document.createElement("div");
 
   counter.className =
-    `counter ${chit.counterClass}` +
-    (animate ? " draw-counter" : "");
+    `counter ${chit.counterClass}${
+      animate
+        ? " draw-counter"
+        : ""
+    }`;
+
+  if (animate) {
+    counter.style.animationDelay =
+      `${animationIndex * 110}ms`;
+  }
 
   const side =
     document.createElement("div");
@@ -1710,7 +2286,7 @@ function selectActivation(chit) {
       "ready-message";
 
     ready.textContent =
-      "Activation selection complete. The next draw is now available.";
+      "Activation selection complete. The draw pool may now be updated for reinforcements, elimination, or withdrawal.";
 
     selectedPanel.append(
       title,
@@ -1732,9 +2308,63 @@ function selectActivation(chit) {
     });
 
   pendingActivation = null;
-  drawButton.disabled = false;
 
+  setSetupLocked(false);
   renderHistory();
+}
+
+
+/* =========================================================
+   ROSTER AND POOL LOCKING
+========================================================= */
+
+function setSetupLocked(locked) {
+  alliedCountInput.disabled =
+    locked;
+
+  axisCountInput.disabled =
+    locked;
+
+  createFieldsButton.disabled =
+    locked;
+
+  drawButton.disabled =
+    locked;
+
+  document
+    .querySelectorAll(
+      'input[name="activationRule"]'
+    )
+    .forEach(input => {
+      input.disabled =
+        locked;
+    });
+
+  document
+    .querySelectorAll(
+      ".chit-name-input, .in-play-checkbox, .roster-bulk-button"
+    )
+    .forEach(control => {
+      control.disabled =
+        locked;
+    });
+
+  poolLockMessage.replaceChildren();
+
+  if (locked) {
+    const message =
+      document.createElement("div");
+
+    message.className =
+      "lock-message";
+
+    message.textContent =
+      "The roster and current draw pool are locked until an Official BCS activation is selected or the current result is cleared.";
+
+    poolLockMessage.appendChild(
+      message
+    );
+  }
 }
 
 
@@ -1772,7 +2402,9 @@ function toggleHistory() {
 function renderHistory() {
   historyOutput.replaceChildren();
 
-  if (activationHistory.length === 0) {
+  if (
+    activationHistory.length === 0
+  ) {
     const empty =
       document.createElement("div");
 
@@ -1782,19 +2414,20 @@ function renderHistory() {
     empty.textContent =
       "No completed activation draws have been recorded.";
 
-    historyOutput.appendChild(empty);
+    historyOutput.appendChild(
+      empty
+    );
 
     return;
   }
 
-  /*
-    Show newest activation first.
-  */
   [...activationHistory]
     .reverse()
     .forEach(record => {
       historyOutput.appendChild(
-        createHistoryEntry(record)
+        createHistoryEntry(
+          record
+        )
       );
     });
 }
@@ -1820,8 +2453,7 @@ function createHistoryEntry(record) {
     "history-title";
 
   title.textContent =
-    `Activation Draw ${record.number}: ` +
-    `${record.winningSide} Victory`;
+    `Activation Draw ${record.number}: ${record.winningSide}`;
 
   const rule =
     document.createElement("div");
@@ -1832,12 +2464,21 @@ function createHistoryEntry(record) {
   rule.textContent =
     record.rule === "official"
       ? "Official BCS rule"
-      : "Optional first-chit rule";
+      : "Optional first-winning-chit rule";
 
   heading.append(
     title,
     rule
   );
+
+  const pool =
+    document.createElement("div");
+
+  pool.className =
+    "history-pool";
+
+  pool.textContent =
+    `Draw pool: Allied ${record.poolSnapshot.allied}, Axis ${record.poolSnapshot.axis}`;
 
   const draws =
     document.createElement("div");
@@ -1848,18 +2489,36 @@ function createHistoryEntry(record) {
   record.drawn.forEach(
     (chit, index) => {
       const line =
-        document.createElement("div");
+        document.createElement(
+          "div"
+        );
 
       line.className =
         "history-draw";
 
       line.textContent =
-        `Draw ${index + 1}: ` +
-        `${chit.side} — ${chit.name}`;
+        `Draw ${index + 1}: ${chit.side} — ${chit.name}`;
 
-      draws.appendChild(line);
+      draws.appendChild(
+        line
+      );
     }
   );
+
+  if (
+    record.firstDrawWins
+  ) {
+    const line =
+      document.createElement("div");
+
+    line.className =
+      "history-draw";
+
+    line.textContent =
+      "Two-chit exception: one chit from each side; first draw won.";
+
+    draws.appendChild(line);
+  }
 
   const activation =
     document.createElement("div");
@@ -1867,16 +2526,14 @@ function createHistoryEntry(record) {
   activation.className =
     "history-activation";
 
-  if (record.selectedChit) {
-    activation.textContent =
-      `Activated: ${record.selectedChit.name}`;
-  } else {
-    activation.textContent =
-      "Activation selection was not completed.";
-  }
+  activation.textContent =
+    record.selectedChit
+      ? `Activated: ${record.selectedChit.name}`
+      : "Activation selection was not completed.";
 
   entry.append(
     heading,
+    pool,
     draws,
     activation
   );
@@ -1886,7 +2543,9 @@ function createHistoryEntry(record) {
 
 
 function clearHistory() {
-  if (activationHistory.length === 0) {
+  if (
+    activationHistory.length === 0
+  ) {
     return;
   }
 
@@ -1919,8 +2578,7 @@ function clearCurrentResult(
   ) {
     const confirmed =
       window.confirm(
-        "An Official BCS activation has not been selected. " +
-        "Discard this unfinished draw?"
+        "An Official BCS activation has not been selected. Discard this unfinished draw?"
       );
 
     if (!confirmed) {
@@ -1929,9 +2587,11 @@ function clearCurrentResult(
   }
 
   pendingActivation = null;
-  drawButton.disabled = false;
+
+  setSetupLocked(false);
 
   results.replaceChildren();
+
   clearStatus();
 }
 
@@ -1939,20 +2599,23 @@ function clearCurrentResult(
 function resetApp() {
   const confirmed =
     window.confirm(
-      "Reset all chit entries, current results, and activation history?"
+      "Reset the complete roster, current draw pool, results, and activation history?"
     );
 
   if (!confirmed) {
     return;
   }
 
-  alliedCountInput.value = 0;
-  axisCountInput.value = 0;
+  alliedCountInput.value =
+    0;
 
-  chitFields.innerHTML = `
+  axisCountInput.value =
+    0;
+
+  rosterFields.innerHTML = `
     <div class="notice">
-      Enter the Allied and Axis chit totals, then select
-      <strong>Create Chit Fields</strong>.
+      Enter the Allied and Axis roster totals, then select
+      <strong>Create or Update Roster</strong>.
     </div>
   `;
 
@@ -1960,11 +2623,13 @@ function resetApp() {
   activationHistory = [];
   drawNumber = 0;
 
-  drawButton.disabled = false;
+  setSetupLocked(false);
 
   results.replaceChildren();
+
   clearStatus();
   renderHistory();
+  updatePoolSummary();
 
   historyCard.classList.remove(
     "visible"
@@ -1980,14 +2645,11 @@ function resetApp() {
 ========================================================= */
 
 function getSelectedRule() {
-  const selected =
+  return (
     document.querySelector(
       'input[name="activationRule"]:checked'
-    );
-
-  return selected
-    ? selected.value
-    : "official";
+    )?.value || "official"
+  );
 }
 
 
@@ -1999,7 +2661,7 @@ function saveSelectedRule() {
     );
   } catch (error) {
     /*
-      The app still works if browser
+      The app still works when browser
       storage is unavailable.
     */
   }
@@ -2050,7 +2712,9 @@ function showStatus(message) {
   box.textContent =
     message;
 
-  statusMessage.replaceChildren(box);
+  statusMessage.replaceChildren(
+    box
+  );
 }
 
 
