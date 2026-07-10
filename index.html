@@ -2,15 +2,20 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>BCS Activation Chit Selector 2.6</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+
+<title>BCS Activation Chit Selector 2.7</title>
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+>
 
 <style>
 :root {
-  --page-bg: #e7e4de;
+  --page-bg: #e8eaed;
   --card-bg: #ffffff;
-  --header-bg: #20242a;
-  --text: #20242a;
+  --header-bg: #1f2937;
+  --text: #1f2937;
   --muted: #667085;
   --line: #d0d5dd;
 
@@ -29,6 +34,9 @@
   --danger: #9b2c2c;
   --danger-soft: #fceaea;
 
+  --warning: #9a6700;
+  --warning-soft: #fff4ce;
+
   --shadow: 0 8px 24px rgba(16, 24, 40, 0.10);
 }
 
@@ -44,12 +52,14 @@ body {
   margin: 0;
   background: var(--page-bg);
   color: var(--text);
+
   font-family:
     Arial,
     "Aptos Display",
     Aptos,
     "Segoe UI",
     sans-serif;
+
   line-height: 1.45;
 }
 
@@ -63,8 +73,9 @@ button {
 }
 
 .app-shell {
-  width: min(100%, 1040px);
+  width: min(100%, 1080px);
   margin: 0 auto;
+
   padding:
     max(16px, env(safe-area-inset-top))
     16px
@@ -74,8 +85,10 @@ button {
 .app-header {
   margin-bottom: 16px;
   padding: 24px 18px;
-  color: #fff;
+
+  color: #ffffff;
   text-align: center;
+
   background: var(--header-bg);
   border-radius: 16px;
   box-shadow: var(--shadow);
@@ -83,13 +96,15 @@ button {
 
 .app-header h1 {
   margin: 0;
+
   font-size: clamp(26px, 5vw, 40px);
   line-height: 1.1;
-  letter-spacing: -0.4px;
+  letter-spacing: -0.5px;
 }
 
 .version {
   margin-top: 7px;
+
   color: #cfd4dc;
   font-size: 13px;
   font-weight: 700;
@@ -102,7 +117,9 @@ button {
   justify-content: center;
   align-items: center;
   gap: 16px;
+
   margin-top: 15px;
+
   font-size: clamp(17px, 4vw, 24px);
   font-weight: 800;
   letter-spacing: 1.2px;
@@ -115,6 +132,7 @@ button {
 .card {
   margin-bottom: 16px;
   padding: 18px;
+
   background: var(--card-bg);
   border: 1px solid var(--line);
   border-radius: 15px;
@@ -124,13 +142,14 @@ button {
 .card h2 {
   margin: 0 0 15px;
   padding-bottom: 10px;
+
   font-size: 22px;
   border-bottom: 1px solid var(--line);
 }
 
 .setup-grid,
 .roster-grid,
-.pool-grid {
+.summary-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 16px;
@@ -138,7 +157,8 @@ button {
 
 .side-panel {
   padding: 15px;
-  background: #fff;
+
+  background: #ffffff;
   border: 1px solid var(--line);
   border-radius: 13px;
 }
@@ -174,11 +194,15 @@ input[type="number"],
 input[type="text"] {
   width: 100%;
   min-height: 46px;
+
   padding: 10px 12px;
+
   color: var(--text);
-  background: #fff;
+  background: #ffffff;
+
   border: 1px solid #98a2b3;
   border-radius: 9px;
+
   font-size: 17px;
 }
 
@@ -197,17 +221,22 @@ input:disabled {
   display: flex;
   flex-wrap: wrap;
   gap: 9px;
+
   margin-top: 14px;
 }
 
 button {
   min-height: 44px;
   padding: 11px 16px;
-  color: #fff;
+
+  color: #ffffff;
   background: #30343b;
+
   border: 0;
   border-radius: 9px;
+
   box-shadow: 0 2px 5px rgba(16, 24, 40, 0.18);
+
   cursor: pointer;
   font-weight: 800;
 }
@@ -221,8 +250,9 @@ button:active {
 }
 
 button:disabled {
-  color: #fff;
+  color: #ffffff;
   background: #98a2b3;
+
   cursor: not-allowed;
   box-shadow: none;
   transform: none;
@@ -239,6 +269,7 @@ button:disabled {
 .secondary-button {
   color: #344054;
   background: #f2f4f7;
+
   border: 1px solid #cfd4dc;
   box-shadow: none;
 }
@@ -255,13 +286,30 @@ button:disabled {
   background: #b43a3a;
 }
 
+.turn-button {
+  width: 100%;
+  min-height: 58px;
+
+  padding: 15px;
+
+  background: #1e5d83;
+
+  font-size: clamp(18px, 4vw, 22px);
+}
+
+.turn-button:hover {
+  background: #2876a4;
+}
+
 .draw-button {
   width: 100%;
   min-height: 66px;
+
   padding: 17px;
+
   background: #29412d;
+
   font-size: clamp(19px, 4vw, 24px);
-  letter-spacing: 0.2px;
 }
 
 .draw-button:hover {
@@ -275,10 +323,13 @@ button:disabled {
 
 .rule-option {
   display: block;
+
   padding: 13px;
-  background: #fff;
+
+  background: #ffffff;
   border: 1px solid #b8c0cc;
   border-radius: 11px;
+
   cursor: pointer;
 }
 
@@ -295,8 +346,10 @@ button:disabled {
 
 .rule-option input {
   flex: 0 0 auto;
+
   width: 19px;
   height: 19px;
+
   margin-top: 1px;
 }
 
@@ -307,15 +360,19 @@ button:disabled {
 
 .rule-description {
   display: block;
+
   margin: 4px 0 0 28px;
+
   color: var(--muted);
   font-size: 14px;
 }
 
 .notice {
   padding: 12px;
+
   color: #475467;
   background: #f7f4ea;
+
   border-left: 5px solid #9b854b;
   border-radius: 8px;
 }
@@ -324,6 +381,7 @@ button:disabled {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
+
   margin-bottom: 12px;
 }
 
@@ -338,102 +396,149 @@ button:disabled {
   grid-template-columns: minmax(0, 1fr) auto;
   align-items: end;
   gap: 12px;
+
   margin-bottom: 11px;
   padding: 11px;
+
   background: #f9fafb;
   border: 1px solid #d0d5dd;
   border-radius: 11px;
 }
 
-.chit-row:last-child {
-  margin-bottom: 0;
-}
-
 .chit-entry-number {
   margin-bottom: 6px;
+
   color: #475467;
+
   font-size: 13px;
   font-weight: 800;
   letter-spacing: 0.45px;
   text-transform: uppercase;
 }
 
-.in-play-control {
+.available-control {
   display: flex;
   align-items: center;
   gap: 8px;
-  min-width: 104px;
+
+  min-width: 122px;
   min-height: 46px;
+
   margin: 0;
   padding: 8px 10px;
-  background: #fff;
+
+  background: #ffffff;
   border: 1px solid #b8c0cc;
   border-radius: 9px;
+
   cursor: pointer;
   user-select: none;
 }
 
-.in-play-control input {
+.available-control input {
   width: 20px;
   height: 20px;
   margin: 0;
 }
 
-.in-play-control span {
+.available-control span {
   font-size: 14px;
   font-weight: 800;
 }
 
-.chit-row.is-active.allied-row {
+.chit-row.is-available.allied-row {
   background: var(--allied-soft);
   border-color: #9ac1e2;
 }
 
-.chit-row.is-active.axis-row {
+.chit-row.is-available.axis-row {
   background: var(--axis-soft);
   border-color: #e3aaa6;
 }
 
-.pool-summary {
+.turn-heading {
+  margin: 0 0 12px;
+
+  text-align: center;
+
+  font-size: clamp(22px, 5vw, 30px);
+  font-weight: 900;
+}
+
+.summary-box {
   padding: 15px;
+
   background: #f8fafc;
   border: 1px solid var(--line);
   border-radius: 12px;
 }
 
-.pool-stat {
+.summary-stat {
   padding: 14px;
+
   text-align: center;
-  background: #fff;
+
+  background: #ffffff;
   border: 1px solid var(--line);
   border-radius: 11px;
 }
 
-.pool-stat strong {
+.summary-stat strong {
   display: block;
   margin-bottom: 4px;
-  font-size: 26px;
+  font-size: 25px;
 }
 
-.pool-stat span {
+.summary-stat span {
   color: var(--muted);
   font-size: 14px;
 }
 
-.pool-total {
+.summary-total {
   margin-top: 12px;
-  text-align: center;
+
   color: #344054;
+  text-align: center;
   font-weight: 800;
+}
+
+.turn-status {
+  margin-top: 14px;
+  padding: 12px;
+
+  text-align: center;
+
+  border-radius: 9px;
+  font-weight: 800;
+}
+
+.turn-status.not-started {
+  color: #475467;
+  background: #f2f4f7;
+}
+
+.turn-status.active {
+  color: #1d4f2b;
+  background: var(--success-soft);
+  border: 1px solid #9ac7a2;
+}
+
+.turn-status.complete {
+  color: #694a08;
+  background: var(--warning-soft);
+  border: 1px solid #d9bd66;
 }
 
 .lock-message {
   margin-top: 12px;
   padding: 10px;
+
   color: #7a4b0b;
   background: var(--accent-soft);
+
   border-left: 5px solid #b4923e;
   border-radius: 8px;
+
   font-weight: 800;
 }
 
@@ -442,23 +547,31 @@ button:disabled {
   flex-wrap: wrap;
   justify-content: center;
   gap: 12px;
+
   margin-top: 14px;
 }
 
 .counter {
   position: relative;
+
   display: inline-flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
   width: 148px;
   min-height: 112px;
+
   padding: 17px 10px 13px;
   overflow: hidden;
+
   text-align: center;
+
   background: #edf0f3;
+
   border: 4px solid #4a4f58;
   border-radius: 11px;
+
   box-shadow:
     inset 0 0 0 3px rgba(255, 255, 255, 0.55),
     3px 4px 8px rgba(16, 24, 40, 0.20);
@@ -467,10 +580,13 @@ button:disabled {
 .counter::before,
 .counter::after {
   position: absolute;
+
   width: 9px;
   height: 9px;
+
   background: #667085;
   border-radius: 50%;
+
   content: "";
 }
 
@@ -486,18 +602,33 @@ button:disabled {
 
 .counter.allied-counter {
   color: #174a78;
-  background: linear-gradient(135deg, #f8fbff, var(--allied-soft));
+
+  background:
+    linear-gradient(
+      135deg,
+      #f8fbff,
+      var(--allied-soft)
+    );
+
   border-color: var(--allied);
 }
 
 .counter.axis-counter {
   color: #762620;
-  background: linear-gradient(135deg, #fffafa, var(--axis-soft));
+
+  background:
+    linear-gradient(
+      135deg,
+      #fffafa,
+      var(--axis-soft)
+    );
+
   border-color: var(--axis);
 }
 
 .counter-side {
   margin-bottom: 7px;
+
   font-size: 12px;
   font-weight: 900;
   letter-spacing: 1.1px;
@@ -507,6 +638,7 @@ button:disabled {
 .counter-name {
   max-width: 100%;
   overflow-wrap: anywhere;
+
   font-size: 17px;
   font-weight: 900;
   line-height: 1.15;
@@ -531,6 +663,7 @@ button:disabled {
 .draw-list {
   display: grid;
   gap: 13px;
+
   margin-top: 15px;
 }
 
@@ -539,7 +672,9 @@ button:disabled {
   grid-template-columns: 96px 1fr;
   align-items: center;
   gap: 10px;
+
   padding-bottom: 12px;
+
   border-bottom: 1px solid var(--line);
 }
 
@@ -551,20 +686,26 @@ button:disabled {
 .special-note {
   margin-top: 12px;
   padding: 10px;
+
   color: #694a08;
   background: var(--accent-soft);
+
   border-left: 5px solid #b4923e;
   border-radius: 8px;
+
   font-weight: 800;
 }
 
 .winner-banner {
   margin-top: 18px;
   padding: 17px;
+
   text-align: center;
+
   background: var(--success-soft);
   border: 2px solid #6ca477;
   border-radius: 12px;
+
   font-size: clamp(21px, 5vw, 28px);
   font-weight: 900;
 }
@@ -572,7 +713,9 @@ button:disabled {
 .activation-panel {
   margin-top: 14px;
   padding: 16px;
+
   text-align: center;
+
   background: var(--accent-soft);
   border: 2px solid #c5a85f;
   border-radius: 12px;
@@ -588,13 +731,16 @@ button:disabled {
   flex-wrap: wrap;
   justify-content: center;
   gap: 13px;
+
   margin-top: 12px;
 }
 
 .choice-counter-button {
   padding: 0;
+
   color: inherit;
   background: transparent;
+
   border: 0;
   box-shadow: none;
 }
@@ -614,31 +760,27 @@ button:disabled {
   background: transparent;
 }
 
-.choice-counter-button .counter {
-  cursor: pointer;
-}
-
 .selected-panel {
   margin-top: 15px;
   padding: 16px;
+
   text-align: center;
+
   background: #eef5fb;
   border: 2px solid #7aa9d2;
   border-radius: 12px;
 }
 
-.selected-panel h3 {
-  margin: 0 0 11px;
-}
-
 .ready-message {
   margin-top: 10px;
+
   color: var(--success);
   font-weight: 800;
 }
 
 .pending-message {
   margin-top: 12px;
+
   color: #7a4b0b;
   font-weight: 800;
 }
@@ -653,21 +795,19 @@ button:disabled {
 
 .history-empty {
   padding: 18px;
-  text-align: center;
+
   color: var(--muted);
+  text-align: center;
   font-style: italic;
 }
 
 .history-entry {
   margin-bottom: 13px;
   padding: 13px;
-  background: #fff;
+
+  background: #ffffff;
   border: 1px solid var(--line);
   border-radius: 11px;
-}
-
-.history-entry:last-child {
-  margin-bottom: 0;
 }
 
 .history-heading {
@@ -675,8 +815,10 @@ button:disabled {
   flex-wrap: wrap;
   justify-content: space-between;
   gap: 7px;
+
   padding-bottom: 8px;
   margin-bottom: 9px;
+
   border-bottom: 1px solid var(--line);
 }
 
@@ -692,7 +834,9 @@ button:disabled {
 
 .history-pool {
   margin-bottom: 8px;
+
   color: #475467;
+
   font-size: 13px;
   font-weight: 700;
 }
@@ -700,6 +844,7 @@ button:disabled {
 .history-draws {
   display: grid;
   gap: 4px;
+
   margin-bottom: 9px;
 }
 
@@ -709,18 +854,22 @@ button:disabled {
 
 .history-activation {
   padding: 8px;
+
   background: var(--success-soft);
   border-left: 5px solid #5b9566;
   border-radius: 6px;
+
   font-weight: 800;
 }
 
 .status-message {
   margin-top: 12px;
   padding: 11px;
+
   background: var(--danger-soft);
   border-left: 5px solid var(--danger);
   border-radius: 8px;
+
   font-weight: 800;
 }
 
@@ -732,7 +881,7 @@ button:disabled {
 @media (max-width: 760px) {
   .setup-grid,
   .roster-grid,
-  .pool-grid {
+  .summary-grid {
     grid-template-columns: 1fr;
   }
 
@@ -755,7 +904,7 @@ button:disabled {
     align-items: stretch;
   }
 
-  .in-play-control {
+  .available-control {
     justify-content: center;
     width: 100%;
   }
@@ -783,23 +932,33 @@ button:disabled {
 <main class="app-shell">
 
   <header class="app-header">
-    <h1>BCS Activation Chit Selector</h1>
-    <div class="version">Version 2.6</div>
 
-    <div class="header-emblems" aria-label="Allied versus Axis">
+    <h1>BCS Activation Chit Selector</h1>
+
+    <div class="version">
+      Version 2.7
+    </div>
+
+    <div
+      class="header-emblems"
+      aria-label="Allied versus Axis"
+    >
       <span>ALLIED</span>
       <span class="header-divider">⚔</span>
       <span>AXIS</span>
     </div>
+
   </header>
 
 
   <section class="card">
+
     <h2>1. Master Chit Roster</h2>
 
     <div class="setup-grid">
 
       <div class="side-panel allied-panel">
+
         <h3 class="side-heading allied-text">
           Allied Chits
         </h3>
@@ -817,9 +976,12 @@ button:disabled {
           value="0"
           inputmode="numeric"
         >
+
       </div>
 
+
       <div class="side-panel axis-panel">
+
         <h3 class="side-heading axis-text">
           Axis Chits
         </h3>
@@ -837,11 +999,14 @@ button:disabled {
           value="0"
           inputmode="numeric"
         >
+
       </div>
 
     </div>
 
+
     <div class="button-row">
+
       <button
         type="button"
         id="createFieldsButton"
@@ -849,22 +1014,29 @@ button:disabled {
       >
         Create or Update Roster
       </button>
+
     </div>
 
+
     <p class="small-text">
-      Enter every chit that may appear during the scenario. Use the
-      In Play boxes below to control the current game-turn draw pool.
+      Enter every chit that could appear during the scenario.
+      “Available” determines which chits are loaded when a new
+      game turn begins.
     </p>
+
   </section>
 
 
   <section class="card">
+
     <h2>2. Activation Rule</h2>
 
     <div class="rule-options">
 
       <label class="rule-option">
+
         <span class="rule-title-line">
+
           <input
             type="radio"
             name="activationRule"
@@ -875,16 +1047,21 @@ button:disabled {
           <span class="rule-title">
             Official BCS
           </span>
+
         </span>
 
         <span class="rule-description">
-          Draw three chits when available. The player chooses one
-          of the winning side’s drawn chits to activate.
+          With three chits drawn, choose either winning-side
+          chit to activate.
         </span>
+
       </label>
 
+
       <label class="rule-option">
+
         <span class="rule-title-line">
+
           <input
             type="radio"
             name="activationRule"
@@ -894,74 +1071,186 @@ button:disabled {
           <span class="rule-title">
             Optional Rule
           </span>
+
         </span>
 
         <span class="rule-description">
-          Draw three chits when available. The first winning-side
-          chit drawn must activate.
+          With three chits drawn, the first winning-side chit
+          drawn must activate.
         </span>
+
       </label>
 
     </div>
 
+
     <p class="small-text">
-      Every activation draw is started manually. The app never
-      begins another activation automatically.
+      When two chits remain, the first one drawn activates.
+      When one remains, it activates automatically.
     </p>
+
   </section>
 
 
   <section class="card">
+
     <h2>3. Scenario Chit Roster</h2>
 
     <div id="rosterFields">
+
       <div class="notice">
         Enter the Allied and Axis roster totals, then select
         <strong>Create or Update Roster</strong>.
       </div>
+
     </div>
+
   </section>
 
 
   <section class="card">
-    <h2>4. Current Game-Turn Draw Pool</h2>
 
-    <div class="pool-summary">
+    <h2>4. Game Turn</h2>
 
-      <div class="pool-grid">
+    <div
+      class="turn-heading"
+      id="turnHeading"
+    >
+      Game Turn Not Started
+    </div>
 
-        <div class="pool-stat allied-text">
-          <strong id="alliedPoolCount">0 of 0</strong>
-          <span>Allied chits in play</span>
+
+    <div class="summary-box">
+
+      <h3>Available for Next Turn</h3>
+
+      <div class="summary-grid">
+
+        <div class="summary-stat allied-text">
+
+          <strong id="alliedAvailableCount">
+            0
+          </strong>
+
+          <span>
+            Allied available
+          </span>
+
         </div>
 
-        <div class="pool-stat axis-text">
-          <strong id="axisPoolCount">0 of 0</strong>
-          <span>Axis chits in play</span>
+
+        <div class="summary-stat axis-text">
+
+          <strong id="axisAvailableCount">
+            0
+          </strong>
+
+          <span>
+            Axis available
+          </span>
+
         </div>
 
       </div>
 
-      <div class="pool-total" id="totalPoolCount">
-        0 total chits in the current draw pool
+
+      <div
+        class="summary-total"
+        id="availableTotalCount"
+      >
+        0 chits available
       </div>
 
     </div>
+
+
+    <div
+      class="summary-box"
+      style="margin-top: 14px;"
+    >
+
+      <h3>Remaining This Turn</h3>
+
+      <div class="summary-grid">
+
+        <div class="summary-stat allied-text">
+
+          <strong id="alliedRemainingCount">
+            0
+          </strong>
+
+          <span>
+            Allied remaining
+          </span>
+
+        </div>
+
+
+        <div class="summary-stat axis-text">
+
+          <strong id="axisRemainingCount">
+            0
+          </strong>
+
+          <span>
+            Axis remaining
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <div
+        class="summary-total"
+        id="remainingTotalCount"
+      >
+        0 chits remain this turn
+      </div>
+
+    </div>
+
+
+    <div
+      id="turnStatus"
+      class="turn-status not-started"
+    >
+      Create the roster, mark available chits, and start
+      Game Turn 1.
+    </div>
+
+
+    <div class="button-row">
+
+      <button
+        type="button"
+        id="nextTurnButton"
+        class="turn-button"
+      >
+        Start Game Turn 1
+      </button>
+
+    </div>
+
 
     <div id="poolLockMessage"></div>
+
   </section>
 
 
   <section class="card">
+
     <h2>5. Activation Draw</h2>
 
     <button
       type="button"
       id="drawButton"
       class="draw-button"
+      disabled
     >
       🎲 Draw Next Activation
     </button>
+
 
     <div class="button-row">
 
@@ -972,12 +1261,14 @@ button:disabled {
         Clear Current Result
       </button>
 
+
       <button
         type="button"
         id="historyToggleButton"
       >
         Show Activation History
       </button>
+
 
       <button
         type="button"
@@ -989,8 +1280,11 @@ button:disabled {
 
     </div>
 
+
     <div id="statusMessage"></div>
+
     <div id="results"></div>
+
   </section>
 
 
@@ -998,9 +1292,11 @@ button:disabled {
     class="card history-card"
     id="historyCard"
   >
+
     <h2>Activation Draw History</h2>
 
     <div class="button-row">
+
       <button
         type="button"
         id="clearHistoryButton"
@@ -1008,9 +1304,12 @@ button:disabled {
       >
         Clear History
       </button>
+
     </div>
 
+
     <div id="historyOutput"></div>
+
   </section>
 
 </main>
@@ -1024,9 +1323,27 @@ button:disabled {
    APPLICATION STATE
 ========================================================= */
 
-let drawNumber = 0;
+let gameTurn = 0;
+
+let drawNumberThisTurn = 0;
+
 let activationHistory = [];
+
 let pendingActivation = null;
+
+/*
+  This is the persistent pool for the current game turn.
+
+  A new turn copies all currently Available roster chits into
+  this array.
+
+  Only the chit that actually activates is removed.
+*/
+let turnPool = [];
+
+let turnActive = false;
+
+let turnComplete = false;
 
 
 /* =========================================================
@@ -1042,17 +1359,45 @@ const axisCountInput =
 const rosterFields =
   document.getElementById("rosterFields");
 
-const alliedPoolCount =
-  document.getElementById("alliedPoolCount");
+const createFieldsButton =
+  document.getElementById("createFieldsButton");
 
-const axisPoolCount =
-  document.getElementById("axisPoolCount");
 
-const totalPoolCount =
-  document.getElementById("totalPoolCount");
+const alliedAvailableCount =
+  document.getElementById("alliedAvailableCount");
+
+const axisAvailableCount =
+  document.getElementById("axisAvailableCount");
+
+const availableTotalCount =
+  document.getElementById("availableTotalCount");
+
+
+const alliedRemainingCount =
+  document.getElementById("alliedRemainingCount");
+
+const axisRemainingCount =
+  document.getElementById("axisRemainingCount");
+
+const remainingTotalCount =
+  document.getElementById("remainingTotalCount");
+
+
+const turnHeading =
+  document.getElementById("turnHeading");
+
+const turnStatus =
+  document.getElementById("turnStatus");
+
+const nextTurnButton =
+  document.getElementById("nextTurnButton");
 
 const poolLockMessage =
   document.getElementById("poolLockMessage");
+
+
+const drawButton =
+  document.getElementById("drawButton");
 
 const results =
   document.getElementById("results");
@@ -1060,8 +1405,6 @@ const results =
 const statusMessage =
   document.getElementById("statusMessage");
 
-const drawButton =
-  document.getElementById("drawButton");
 
 const historyCard =
   document.getElementById("historyCard");
@@ -1072,17 +1415,18 @@ const historyOutput =
 const historyToggleButton =
   document.getElementById("historyToggleButton");
 
-const createFieldsButton =
-  document.getElementById("createFieldsButton");
-
 
 /* =========================================================
    STARTUP
 ========================================================= */
 
 loadSavedRule();
+
 renderHistory();
-updatePoolSummary();
+
+updateAllSummaries();
+
+updateTurnControls();
 
 
 /* =========================================================
@@ -1094,10 +1438,18 @@ createFieldsButton.addEventListener(
   createOrUpdateRoster
 );
 
+
+nextTurnButton.addEventListener(
+  "click",
+  startNextTurn
+);
+
+
 drawButton.addEventListener(
   "click",
   drawActivation
 );
+
 
 document
   .getElementById("clearResultButton")
@@ -1106,10 +1458,12 @@ document
     () => clearCurrentResult(true)
   );
 
+
 historyToggleButton.addEventListener(
   "click",
   toggleHistory
 );
+
 
 document
   .getElementById("clearHistoryButton")
@@ -1118,6 +1472,7 @@ document
     clearHistory
   );
 
+
 document
   .getElementById("resetAppButton")
   .addEventListener(
@@ -1125,8 +1480,11 @@ document
     resetApp
   );
 
+
 document
-  .querySelectorAll('input[name="activationRule"]')
+  .querySelectorAll(
+    'input[name="activationRule"]'
+  )
   .forEach(radio => {
     radio.addEventListener(
       "change",
@@ -1144,16 +1502,21 @@ function createOrUpdateRoster() {
     captureRosterState();
 
   const alliedCount =
-    sanitizeCount(alliedCountInput.value);
+    sanitizeCount(
+      alliedCountInput.value
+    );
 
   const axisCount =
-    sanitizeCount(axisCountInput.value);
+    sanitizeCount(
+      axisCountInput.value
+    );
 
   alliedCountInput.value =
     alliedCount;
 
   axisCountInput.value =
     axisCount;
+
 
   if (
     alliedCount === 0 &&
@@ -1166,14 +1529,30 @@ function createOrUpdateRoster() {
     return;
   }
 
-  clearStatus();
-  clearCurrentResult(false);
+
+  if (
+    turnActive &&
+    !turnComplete
+  ) {
+    const confirmed =
+      window.confirm(
+        "Updating the roster will not change the current turn pool. " +
+        "The revised roster will be used when the next game turn starts. " +
+        "Continue?"
+      );
+
+    if (!confirmed) {
+      return;
+    }
+  }
+
 
   const grid =
     document.createElement("div");
 
   grid.className =
     "roster-grid";
+
 
   grid.append(
     buildRosterPanel(
@@ -1182,6 +1561,7 @@ function createOrUpdateRoster() {
       "allied",
       priorState.allied
     ),
+
     buildRosterPanel(
       "Axis",
       axisCount,
@@ -1190,10 +1570,17 @@ function createOrUpdateRoster() {
     )
   );
 
-  rosterFields.replaceChildren(grid);
+
+  rosterFields.replaceChildren(
+    grid
+  );
+
 
   attachRosterListeners();
-  updatePoolSummary();
+
+  clearStatus();
+
+  updateAllSummaries();
 }
 
 
@@ -1213,6 +1600,7 @@ function buildRosterPanel(
         : "axis-panel"
     }`;
 
+
   const heading =
     document.createElement("h3");
 
@@ -1226,11 +1614,13 @@ function buildRosterPanel(
   heading.textContent =
     `${side} Chits`;
 
+
   const toolbar =
     document.createElement("div");
 
   toolbar.className =
     "roster-toolbar";
+
 
   const allButton =
     document.createElement("button");
@@ -1242,13 +1632,14 @@ function buildRosterPanel(
     "secondary-button roster-bulk-button";
 
   allButton.textContent =
-    "All In Play";
+    "All Available";
 
   allButton.dataset.side =
     prefix;
 
   allButton.dataset.action =
     "all";
+
 
   const noneButton =
     document.createElement("button");
@@ -1260,7 +1651,7 @@ function buildRosterPanel(
     "secondary-button roster-bulk-button";
 
   noneButton.textContent =
-    "None In Play";
+    "None Available";
 
   noneButton.dataset.side =
     prefix;
@@ -1268,15 +1659,18 @@ function buildRosterPanel(
   noneButton.dataset.action =
     "none";
 
+
   toolbar.append(
     allButton,
     noneButton
   );
 
+
   panel.append(
     heading,
     toolbar
   );
+
 
   if (count === 0) {
     const message =
@@ -1288,10 +1682,13 @@ function buildRosterPanel(
     message.textContent =
       `No ${side} roster slots entered.`;
 
-    panel.appendChild(message);
+    panel.appendChild(
+      message
+    );
 
     return panel;
   }
+
 
   for (
     let index = 0;
@@ -1301,16 +1698,17 @@ function buildRosterPanel(
     const previous =
       previousEntries[index] || {
         name: "",
-        inPlay: true
+        available: true
       };
+
 
     const row =
       document.createElement("div");
 
     row.className =
       `chit-row ${prefix}-row${
-        previous.inPlay
-          ? " is-active"
+        previous.available
+          ? " is-available"
           : ""
       }`;
 
@@ -1323,8 +1721,10 @@ function buildRosterPanel(
     row.dataset.index =
       String(index);
 
+
     const textBlock =
       document.createElement("div");
+
 
     const entryNumber =
       document.createElement("div");
@@ -1334,6 +1734,7 @@ function buildRosterPanel(
 
     entryNumber.textContent =
       `${side} Chit ${index + 1}`;
+
 
     const nameInput =
       document.createElement("input");
@@ -1358,16 +1759,19 @@ function buildRosterPanel(
     nameInput.autocomplete =
       "off";
 
+
     textBlock.append(
       entryNumber,
       nameInput
     );
 
-    const inPlayLabel =
+
+    const availableLabel =
       document.createElement("label");
 
-    inPlayLabel.className =
-      "in-play-control";
+    availableLabel.className =
+      "available-control";
+
 
     const checkbox =
       document.createElement("input");
@@ -1376,34 +1780,41 @@ function buildRosterPanel(
       "checkbox";
 
     checkbox.className =
-      "in-play-checkbox";
+      "available-checkbox";
 
     checkbox.checked =
-      previous.inPlay;
+      previous.available;
 
     checkbox.setAttribute(
       "aria-label",
-      `${side} Chit ${index + 1} in play`
+      `${side} Chit ${index + 1} available for next turn`
     );
+
 
     const checkboxText =
       document.createElement("span");
 
     checkboxText.textContent =
-      "In Play";
+      "Available";
 
-    inPlayLabel.append(
+
+    availableLabel.append(
       checkbox,
       checkboxText
     );
 
+
     row.append(
       textBlock,
-      inPlayLabel
+      availableLabel
     );
 
-    panel.appendChild(row);
+
+    panel.appendChild(
+      row
+    );
   }
+
 
   return panel;
 }
@@ -1414,6 +1825,7 @@ function captureRosterState() {
     allied: [],
     axis: []
   };
+
 
   document
     .querySelectorAll(
@@ -1429,6 +1841,7 @@ function captureRosterState() {
           10
         );
 
+
       const name =
         row
           .querySelector(
@@ -1436,12 +1849,14 @@ function captureRosterState() {
           )
           ?.value || "";
 
-      const inPlay =
+
+      const available =
         row
           .querySelector(
-            ".in-play-checkbox"
+            ".available-checkbox"
           )
           ?.checked ?? true;
+
 
       if (
         side === "allied" ||
@@ -1449,10 +1864,11 @@ function captureRosterState() {
       ) {
         state[side][index] = {
           name,
-          inPlay
+          available
         };
       }
     });
+
 
   return state;
 }
@@ -1461,22 +1877,23 @@ function captureRosterState() {
 function attachRosterListeners() {
   document
     .querySelectorAll(
-      ".in-play-checkbox"
+      ".available-checkbox"
     )
     .forEach(checkbox => {
       checkbox.addEventListener(
         "change",
         () => {
-          updateRowActiveState(
+          updateRowAvailabilityState(
             checkbox.closest(
               ".chit-row"
             )
           );
 
-          updatePoolSummary();
+          updateAllSummaries();
         }
       );
     });
+
 
   document
     .querySelectorAll(
@@ -1485,9 +1902,10 @@ function attachRosterListeners() {
     .forEach(input => {
       input.addEventListener(
         "input",
-        updatePoolSummary
+        updateAllSummaries
       );
     });
+
 
   document
     .querySelectorAll(
@@ -1504,51 +1922,62 @@ function attachRosterListeners() {
             button.dataset.action ===
             "all";
 
+
           document
             .querySelectorAll(
-              `.chit-row[data-side="${side}"] .in-play-checkbox`
+              `.chit-row[data-side="${side}"] .available-checkbox`
             )
             .forEach(checkbox => {
               checkbox.checked =
                 shouldCheck;
 
-              updateRowActiveState(
+              updateRowAvailabilityState(
                 checkbox.closest(
                   ".chit-row"
                 )
               );
             });
 
-          updatePoolSummary();
+
+          updateAllSummaries();
         }
       );
     });
 }
 
 
-function updateRowActiveState(row) {
+function updateRowAvailabilityState(
+  row
+) {
   if (!row) {
     return;
   }
 
+
   const checkbox =
     row.querySelector(
-      ".in-play-checkbox"
+      ".available-checkbox"
     );
 
+
   row.classList.toggle(
-    "is-active",
-    Boolean(checkbox?.checked)
+    "is-available",
+    Boolean(
+      checkbox?.checked
+    )
   );
 }
 
 
-function sanitizeCount(value) {
+function sanitizeCount(
+  value
+) {
   const number =
     Number.parseInt(
       value,
       10
     );
+
 
   if (
     !Number.isFinite(number) ||
@@ -1556,6 +1985,7 @@ function sanitizeCount(value) {
   ) {
     return 0;
   }
+
 
   return Math.min(
     number,
@@ -1565,7 +1995,7 @@ function sanitizeCount(value) {
 
 
 /* =========================================================
-   CURRENT DRAW POOL
+   ROSTER / AVAILABLE CHITS
 ========================================================= */
 
 function getRosterRows() {
@@ -1577,34 +2007,41 @@ function getRosterRows() {
 }
 
 
-function getActiveChits() {
-  const activeChits = [];
-  const missingActiveNames = [];
+function getAvailableChits() {
+  const availableChits = [];
+
+  const missingAvailableNames = [];
+
 
   getRosterRows()
     .forEach(row => {
       const checkbox =
         row.querySelector(
-          ".in-play-checkbox"
+          ".available-checkbox"
         );
+
 
       if (!checkbox?.checked) {
         return;
       }
 
+
       const sideKey =
         row.dataset.side;
+
 
       const side =
         sideKey === "allied"
           ? "Allied"
           : "Axis";
 
+
       const index =
         Number.parseInt(
           row.dataset.index,
           10
         );
+
 
       const name =
         row
@@ -1613,17 +2050,24 @@ function getActiveChits() {
           )
           ?.value.trim() || "";
 
+
       if (!name) {
-        missingActiveNames.push(
+        missingAvailableNames.push(
           `${side} Chit ${index + 1}`
         );
 
         return;
       }
 
-      activeChits.push({
+
+      availableChits.push({
+        /*
+          The ID is tied to the roster slot,
+          not the unit name. This makes it
+          safe to remove exactly one chit.
+        */
         id:
-          `${sideKey}-${index}-${name}`,
+          `${sideKey}-${index}`,
 
         side,
 
@@ -1636,62 +2080,124 @@ function getActiveChits() {
       });
     });
 
+
   return {
-    activeChits,
-    missingActiveNames
+    availableChits,
+    missingAvailableNames
   };
 }
 
 
-function updatePoolSummary() {
-  const rows =
-    getRosterRows();
+/* =========================================================
+   GAME TURN MANAGEMENT
+========================================================= */
 
-  const alliedRows =
-    rows.filter(
-      row =>
-        row.dataset.side ===
-        "allied"
+function startNextTurn() {
+  if (pendingActivation) {
+    showStatus(
+      "Complete or clear the pending activation before starting another turn."
     );
 
-  const axisRows =
-    rows.filter(
-      row =>
-        row.dataset.side ===
-        "axis"
+    return;
+  }
+
+
+  if (
+    turnActive &&
+    !turnComplete
+  ) {
+    showStatus(
+      "The current game turn is not complete. Exhaust the turn pool first."
     );
 
-  const alliedActive =
-    alliedRows.filter(
-      row =>
-        row.querySelector(
-          ".in-play-checkbox"
-        )?.checked
-    ).length;
+    return;
+  }
 
-  const axisActive =
-    axisRows.filter(
-      row =>
-        row.querySelector(
-          ".in-play-checkbox"
-        )?.checked
-    ).length;
 
-  alliedPoolCount.textContent =
-    `${alliedActive} of ${alliedRows.length}`;
+  const {
+    availableChits,
+    missingAvailableNames
+  } = getAvailableChits();
 
-  axisPoolCount.textContent =
-    `${axisActive} of ${axisRows.length}`;
 
-  const totalActive =
-    alliedActive + axisActive;
+  if (
+    missingAvailableNames.length > 0
+  ) {
+    showStatus(
+      "Every chit marked Available must have a name before starting a turn."
+    );
 
-  totalPoolCount.textContent =
-    `${totalActive} total chit${
-      totalActive === 1
-        ? ""
-        : "s"
-    } in the current draw pool`;
+    return;
+  }
+
+
+  if (
+    availableChits.length === 0
+  ) {
+    showStatus(
+      "Mark at least one chit Available before starting a game turn."
+    );
+
+    return;
+  }
+
+
+  gameTurn += 1;
+
+  drawNumberThisTurn = 0;
+
+
+  /*
+    This creates the new persistent turn pool.
+
+    Later changes to the Available boxes do
+    not change this pool. They are used when
+    the following game turn begins.
+  */
+  turnPool =
+    availableChits.map(
+      copyChit
+    );
+
+
+  turnActive =
+    true;
+
+  turnComplete =
+    false;
+
+  pendingActivation =
+    null;
+
+
+  results.replaceChildren();
+
+  clearStatus();
+
+  updateAllSummaries();
+
+  updateTurnControls();
+}
+
+
+function completeTurnIfNeeded() {
+  if (
+    turnPool.length > 0
+  ) {
+    return;
+  }
+
+
+  turnComplete =
+    true;
+
+  turnActive =
+    false;
+
+
+  updateAllSummaries();
+
+  updateTurnControls();
 }
 
 
@@ -1708,70 +2214,54 @@ function drawActivation() {
     return;
   }
 
-  const {
-    activeChits,
-    missingActiveNames
-  } = getActiveChits();
 
   if (
-    missingActiveNames.length > 0
+    !turnActive ||
+    turnComplete
   ) {
     showStatus(
-      "Every chit marked In Play must have a name before drawing."
+      "Start a game turn before drawing an activation."
     );
 
     return;
   }
 
-  if (activeChits.length === 0) {
-    showStatus(
-      "Mark at least one chit In Play before drawing."
-    );
+
+  if (
+    turnPool.length === 0
+  ) {
+    completeTurnIfNeeded();
 
     return;
   }
+
 
   clearStatus();
 
+
+  /*
+    Every draw uses only the chits that
+    remain in this game turn's pool.
+  */
   const drawResult =
-    performActivationDraw(
-      activeChits
+    performTurnPoolDraw(
+      turnPool
     );
 
-  const winningSide =
-    determineWinningSide(
-      drawResult.drawn,
-      drawResult.firstDrawWins
-    );
-
-  const winningChits =
-    getEligibleWinningChits(
-      drawResult.drawn,
-      winningSide,
-      drawResult.firstDrawWins
-    );
 
   const activationRule =
     getSelectedRule();
 
-  drawNumber += 1;
 
-  const poolSnapshot = {
-    allied:
-      activeChits.filter(
-        chit =>
-          chit.side === "Allied"
-      ).length,
+  drawNumberThisTurn += 1;
 
-    axis:
-      activeChits.filter(
-        chit =>
-          chit.side === "Axis"
-      ).length
-  };
 
   const drawRecord = {
-    number: drawNumber,
+    turn:
+      gameTurn,
+
+    drawNumber:
+      drawNumberThisTurn,
 
     rule:
       activationRule,
@@ -1781,144 +2271,273 @@ function drawActivation() {
         copyChit
       ),
 
-    winningSide,
+    winningSide:
+      drawResult.winningSide,
 
     selectedChit:
       null,
 
-    firstDrawWins:
-      drawResult.firstDrawWins,
+    specialCase:
+      drawResult.specialCase,
 
-    poolSnapshot
+    poolBefore: {
+      allied:
+        turnPool.filter(
+          chit =>
+            chit.side === "Allied"
+        ).length,
+
+      axis:
+        turnPool.filter(
+          chit =>
+            chit.side === "Axis"
+        ).length
+    },
+
+    poolAfter:
+      null
   };
+
 
   renderDraw(
     drawRecord,
-    winningChits
+    drawResult.eligibleChits
   );
 
+
   /*
-    OPTIONAL RULE:
-    The first winning-side chit drawn
-    automatically becomes the activation.
+    Automatic activation cases:
+
+    1 chit remaining:
+      The only chit activates.
+
+    2 chits remaining:
+      The first chit drawn activates.
+
+    Optional rule with 3 or more:
+      The first winning-side chit activates.
   */
   if (
-    activationRule ===
-    "optional"
+    drawResult.specialCase === "one" ||
+    drawResult.specialCase === "two" ||
+    activationRule === "optional"
   ) {
-    drawRecord.selectedChit =
-      copyChit(
-        winningChits[0]
-      );
-
-    activationHistory.push(
-      drawRecord
+    finalizeActivation(
+      drawRecord,
+      drawResult.eligibleChits[0]
     );
-
-    renderHistory();
   }
 
   /*
-    OFFICIAL BCS:
-    The player must click one of the
-    winning-side chits.
+    Official BCS with three chits:
+    the player clicks either winning-side chit.
   */
   else {
     pendingActivation =
       drawRecord;
 
-    setSetupLocked(true);
+    setPendingChoiceLocked(
+      true
+    );
   }
 }
 
 
-function performActivationDraw(chits) {
+function performTurnPoolDraw(
+  pool
+) {
   const randomized =
-    shuffle(chits);
+    shuffle(pool);
 
-  const drawCount =
-    Math.min(
-      3,
-      randomized.length
-    );
 
+  /*
+    One chit remains:
+    it automatically activates.
+  */
+  if (
+    pool.length === 1
+  ) {
+    const onlyChit =
+      randomized[0];
+
+
+    return {
+      drawn: [
+        onlyChit
+      ],
+
+      winningSide:
+        onlyChit.side,
+
+      eligibleChits: [
+        onlyChit
+      ],
+
+      specialCase:
+        "one"
+    };
+  }
+
+
+  /*
+    Two chits remain:
+    draw both, and the first one drawn
+    activates. The second stays in the
+    pool for the final draw.
+  */
+  if (
+    pool.length === 2
+  ) {
+    const first =
+      randomized[0];
+
+
+    return {
+      drawn:
+        randomized.slice(
+          0,
+          2
+        ),
+
+      winningSide:
+        first.side,
+
+      eligibleChits: [
+        first
+      ],
+
+      specialCase:
+        "two"
+    };
+  }
+
+
+  /*
+    Three or more chits remain:
+    draw exactly three.
+  */
   const drawn =
     randomized.slice(
       0,
-      drawCount
+      3
     );
 
-  const firstDrawWins =
-    drawn.length === 2 &&
-    drawn[0].side !==
-    drawn[1].side;
+
+  const alliedDrawn =
+    drawn.filter(
+      chit =>
+        chit.side === "Allied"
+    );
+
+
+  const axisDrawn =
+    drawn.filter(
+      chit =>
+        chit.side === "Axis"
+    );
+
+
+  const winningSide =
+    alliedDrawn.length >
+    axisDrawn.length
+      ? "Allied"
+      : "Axis";
+
+
+  const eligibleChits =
+    drawn.filter(
+      chit =>
+        chit.side ===
+        winningSide
+    );
+
 
   return {
     drawn,
-    firstDrawWins
+
+    winningSide,
+
+    eligibleChits,
+
+    specialCase:
+      "three"
   };
 }
 
 
-function determineWinningSide(
-  drawn,
-  firstDrawWins
+function finalizeActivation(
+  drawRecord,
+  selectedChit
 ) {
-  if (firstDrawWins) {
-    return drawn[0].side;
-  }
+  drawRecord.selectedChit =
+    copyChit(
+      selectedChit
+    );
 
-  const alliedTotal =
-    drawn.filter(
+
+  /*
+    Remove only the chit that actually
+    activated.
+
+    All other chits drawn remain eligible
+    to appear in later draws this turn.
+  */
+  turnPool =
+    turnPool.filter(
       chit =>
-        chit.side === "Allied"
-    ).length;
-
-  const axisTotal =
-    drawn.filter(
-      chit =>
-        chit.side === "Axis"
-    ).length;
-
-  if (
-    alliedTotal >
-    axisTotal
-  ) {
-    return "Allied";
-  }
-
-  if (
-    axisTotal >
-    alliedTotal
-  ) {
-    return "Axis";
-  }
-
-  return drawn[0].side;
-}
+        chit.id !==
+        selectedChit.id
+    );
 
 
-function getEligibleWinningChits(
-  drawn,
-  winningSide,
-  firstDrawWins
-) {
-  if (firstDrawWins) {
-    return [
-      drawn[0]
-    ];
-  }
+  drawRecord.poolAfter = {
+    allied:
+      turnPool.filter(
+        chit =>
+          chit.side === "Allied"
+      ).length,
 
-  return drawn.filter(
-    chit =>
-      chit.side === winningSide
+    axis:
+      turnPool.filter(
+        chit =>
+          chit.side === "Axis"
+      ).length
+  };
+
+
+  activationHistory.push(
+    drawRecord
   );
+
+
+  pendingActivation =
+    null;
+
+
+  renderSelectedActivation(
+    selectedChit
+  );
+
+
+  setPendingChoiceLocked(
+    false
+  );
+
+
+  updateAllSummaries();
+
+  renderHistory();
+
+  completeTurnIfNeeded();
 }
 
 
-function shuffle(items) {
+function shuffle(
+  items
+) {
   const shuffled =
     [...items];
+
 
   for (
     let index =
@@ -1934,6 +2553,7 @@ function shuffle(items) {
         (index + 1)
       );
 
+
     [
       shuffled[index],
       shuffled[randomIndex]
@@ -1943,11 +2563,14 @@ function shuffle(items) {
     ];
   }
 
+
   return shuffled;
 }
 
 
-function copyChit(chit) {
+function copyChit(
+  chit
+) {
   return {
     id:
       chit.id,
@@ -1970,21 +2593,25 @@ function copyChit(chit) {
 
 function renderDraw(
   drawRecord,
-  winningChits
+  eligibleChits
 ) {
   results.replaceChildren();
+
 
   const heading =
     document.createElement("h3");
 
   heading.textContent =
-    `Activation Draw ${drawRecord.number}`;
+    `Game Turn ${drawRecord.turn} — ` +
+    `Activation Draw ${drawRecord.drawNumber}`;
+
 
   const drawList =
     document.createElement("div");
 
   drawList.className =
     "draw-list";
+
 
   drawRecord.drawn.forEach(
     (chit, index) => {
@@ -1995,6 +2622,7 @@ function renderDraw(
 
       row.className =
         "draw-result-row";
+
 
       const number =
         document.createElement(
@@ -2007,23 +2635,69 @@ function renderDraw(
       number.textContent =
         `Draw #${index + 1}`;
 
-      const counter =
+
+      row.append(
+        number,
         createCounter(
           chit,
           true,
           index
-        );
-
-      row.append(
-        number,
-        counter
+        )
       );
+
 
       drawList.appendChild(
         row
       );
     }
   );
+
+
+  results.append(
+    heading,
+    drawList
+  );
+
+
+  if (
+    drawRecord.specialCase ===
+    "two"
+  ) {
+    const note =
+      document.createElement("div");
+
+    note.className =
+      "special-note";
+
+    note.textContent =
+      "Two chits remain. The first chit drawn activates; " +
+      "the other remains for the final draw.";
+
+    results.appendChild(
+      note
+    );
+  }
+
+
+  if (
+    drawRecord.specialCase ===
+    "one"
+  ) {
+    const note =
+      document.createElement("div");
+
+    note.className =
+      "special-note";
+
+    note.textContent =
+      "One chit remains. It activates automatically " +
+      "and completes the game turn.";
+
+    results.appendChild(
+      note
+    );
+  }
+
 
   const winnerBanner =
     document.createElement("div");
@@ -2034,27 +2708,28 @@ function renderDraw(
   winnerBanner.textContent =
     `${drawRecord.winningSide.toUpperCase()} ACTIVATION`;
 
+
   const activationPanel =
     document.createElement("div");
 
   activationPanel.className =
     "activation-panel";
 
+
   /*
-    OPTIONAL RULE DISPLAY
+    Automatic selection display.
   */
   if (
-    drawRecord.rule ===
-    "optional"
+    drawRecord.specialCase === "one" ||
+    drawRecord.specialCase === "two" ||
+    drawRecord.rule === "optional"
   ) {
-    const selected =
-      winningChits[0];
-
     const title =
       document.createElement("h3");
 
     title.textContent =
       "Formation to Activate";
+
 
     const gallery =
       document.createElement("div");
@@ -2062,28 +2737,22 @@ function renderDraw(
     gallery.className =
       "counter-gallery";
 
+
     gallery.appendChild(
-      createCounter(selected)
+      createCounter(
+        eligibleChits[0]
+      )
     );
 
-    const ready =
-      document.createElement("div");
-
-    ready.className =
-      "ready-message";
-
-    ready.textContent =
-      "Complete this activation, then select Draw Next Activation.";
 
     activationPanel.append(
       title,
-      gallery,
-      ready
+      gallery
     );
   }
 
   /*
-    OFFICIAL BCS DISPLAY
+    Official BCS player-choice display.
   */
   else {
     const title =
@@ -2092,13 +2761,15 @@ function renderDraw(
     title.textContent =
       "Choose a Formation to Activate";
 
+
     const choiceGrid =
       document.createElement("div");
 
     choiceGrid.className =
       "choice-grid";
 
-    winningChits.forEach(
+
+    eligibleChits.forEach(
       chit => {
         const choiceButton =
           document.createElement(
@@ -2111,32 +2782,43 @@ function renderDraw(
         choiceButton.className =
           "choice-counter-button";
 
-        choiceButton.dataset.chitId =
-          chit.id;
-
         choiceButton.setAttribute(
           "aria-label",
           `Activate ${chit.name}`
         );
 
+
         choiceButton.appendChild(
-          createCounter(chit)
+          createCounter(
+            chit
+          )
         );
+
 
         choiceButton.addEventListener(
           "click",
           () => {
-            selectActivation(
+            if (
+              !pendingActivation
+            ) {
+              return;
+            }
+
+
+            finalizeActivation(
+              pendingActivation,
               chit
             );
           }
         );
+
 
         choiceGrid.appendChild(
           choiceButton
         );
       }
     );
+
 
     const pending =
       document.createElement("div");
@@ -2145,41 +2827,28 @@ function renderDraw(
       "pending-message";
 
     pending.textContent =
-      "Select one formation before changing the draw pool or beginning the next activation draw.";
+      "Select one formation before beginning the next activation draw.";
 
-    const selectedOutput =
-      document.createElement("div");
-
-    selectedOutput.id =
-      "selectedActivationOutput";
 
     activationPanel.append(
       title,
       choiceGrid,
-      pending,
-      selectedOutput
+      pending
     );
   }
 
-  results.append(
-    heading,
-    drawList
+
+  const selectedOutput =
+    document.createElement("div");
+
+  selectedOutput.id =
+    "selectedActivationOutput";
+
+
+  activationPanel.appendChild(
+    selectedOutput
   );
 
-  if (
-    drawRecord.firstDrawWins
-  ) {
-    const note =
-      document.createElement("div");
-
-    note.className =
-      "special-note";
-
-    note.textContent =
-      "Only two chits were in the pool, one from each side. The first chit drawn wins the activation.";
-
-    results.appendChild(note);
-  }
 
   results.append(
     winnerBanner,
@@ -2196,6 +2865,7 @@ function createCounter(
   const counter =
     document.createElement("div");
 
+
   counter.className =
     `counter ${chit.counterClass}${
       animate
@@ -2203,10 +2873,12 @@ function createCounter(
         : ""
     }`;
 
+
   if (animate) {
     counter.style.animationDelay =
       `${animationIndex * 110}ms`;
   }
+
 
   const side =
     document.createElement("div");
@@ -2217,6 +2889,7 @@ function createCounter(
   side.textContent =
     chit.side;
 
+
   const name =
     document.createElement("div");
 
@@ -2226,110 +2899,117 @@ function createCounter(
   name.textContent =
     chit.name;
 
+
   counter.append(
     side,
     name
   );
 
+
   return counter;
 }
 
 
-/* =========================================================
-   PLAYER CHOICE
-========================================================= */
-
-function selectActivation(chit) {
-  if (!pendingActivation) {
-    return;
-  }
-
-  pendingActivation.selectedChit =
-    copyChit(chit);
-
-  activationHistory.push(
-    pendingActivation
-  );
-
+function renderSelectedActivation(
+  chit
+) {
   const selectedOutput =
     document.getElementById(
       "selectedActivationOutput"
     );
 
-  if (selectedOutput) {
-    const selectedPanel =
-      document.createElement("div");
 
-    selectedPanel.className =
-      "selected-panel";
-
-    const title =
-      document.createElement("h3");
-
-    title.textContent =
-      "Selected Activation";
-
-    const gallery =
-      document.createElement("div");
-
-    gallery.className =
-      "counter-gallery";
-
-    gallery.appendChild(
-      createCounter(chit)
-    );
-
-    const ready =
-      document.createElement("div");
-
-    ready.className =
-      "ready-message";
-
-    ready.textContent =
-      "Activation selection complete. The draw pool may now be updated for reinforcements, elimination, or withdrawal.";
-
-    selectedPanel.append(
-      title,
-      gallery,
-      ready
-    );
-
-    selectedOutput.replaceChildren(
-      selectedPanel
-    );
+  if (!selectedOutput) {
+    return;
   }
+
+
+  const selectedPanel =
+    document.createElement("div");
+
+  selectedPanel.className =
+    "selected-panel";
+
+
+  const title =
+    document.createElement("h3");
+
+  title.textContent =
+    "Activated and Removed from This Turn’s Pool";
+
+
+  const gallery =
+    document.createElement("div");
+
+  gallery.className =
+    "counter-gallery";
+
+
+  gallery.appendChild(
+    createCounter(chit)
+  );
+
+
+  const ready =
+    document.createElement("div");
+
+  ready.className =
+    "ready-message";
+
+
+  ready.textContent =
+    turnPool.length === 0
+      ? "The game turn is complete."
+      : `${turnPool.length} chit${
+          turnPool.length === 1
+            ? ""
+            : "s"
+        } remain in this turn’s pool.`;
+
+
+  selectedPanel.append(
+    title,
+    gallery,
+    ready
+  );
+
+
+  selectedOutput.replaceChildren(
+    selectedPanel
+  );
+
 
   document
     .querySelectorAll(
       ".choice-counter-button"
     )
     .forEach(button => {
-      button.disabled = true;
+      button.disabled =
+        true;
     });
-
-  pendingActivation = null;
-
-  setSetupLocked(false);
-  renderHistory();
 }
 
 
 /* =========================================================
-   ROSTER AND POOL LOCKING
+   LOCKING / CONTROLS
 ========================================================= */
 
-function setSetupLocked(locked) {
-  alliedCountInput.disabled =
-    locked;
-
-  axisCountInput.disabled =
-    locked;
-
-  createFieldsButton.disabled =
-    locked;
-
+function setPendingChoiceLocked(
+  locked
+) {
   drawButton.disabled =
-    locked;
+    locked ||
+    !turnActive ||
+    turnComplete;
+
+
+  nextTurnButton.disabled =
+    locked ||
+    (
+      turnActive &&
+      !turnComplete
+    );
+
 
   document
     .querySelectorAll(
@@ -2340,16 +3020,9 @@ function setSetupLocked(locked) {
         locked;
     });
 
-  document
-    .querySelectorAll(
-      ".chit-name-input, .in-play-checkbox, .roster-bulk-button"
-    )
-    .forEach(control => {
-      control.disabled =
-        locked;
-    });
 
   poolLockMessage.replaceChildren();
+
 
   if (locked) {
     const message =
@@ -2359,12 +3032,181 @@ function setSetupLocked(locked) {
       "lock-message";
 
     message.textContent =
-      "The roster and current draw pool are locked until an Official BCS activation is selected or the current result is cleared.";
+      "Choose the activating formation before continuing.";
+
 
     poolLockMessage.appendChild(
       message
     );
   }
+}
+
+
+function updateTurnControls() {
+  if (
+    gameTurn === 0
+  ) {
+    turnHeading.textContent =
+      "Game Turn Not Started";
+
+
+    turnStatus.className =
+      "turn-status not-started";
+
+    turnStatus.textContent =
+      "Create the roster, mark available chits, and start Game Turn 1.";
+
+
+    nextTurnButton.textContent =
+      "Start Game Turn 1";
+
+    nextTurnButton.disabled =
+      Boolean(
+        pendingActivation
+      );
+
+    drawButton.disabled =
+      true;
+
+    return;
+  }
+
+
+  turnHeading.textContent =
+    `Game Turn ${gameTurn}`;
+
+
+  if (turnComplete) {
+    turnStatus.className =
+      "turn-status complete";
+
+    turnStatus.textContent =
+      `Game Turn ${gameTurn} complete. ` +
+      "Adjust Available chits, then start the next turn.";
+
+
+    nextTurnButton.textContent =
+      `Start Game Turn ${gameTurn + 1}`;
+
+    nextTurnButton.disabled =
+      Boolean(
+        pendingActivation
+      );
+
+    drawButton.disabled =
+      true;
+
+    return;
+  }
+
+
+  turnStatus.className =
+    "turn-status active";
+
+  turnStatus.textContent =
+    `Game Turn ${gameTurn} is active. ` +
+    "Activated chits are removed until the pool is exhausted.";
+
+
+  nextTurnButton.textContent =
+    `Game Turn ${gameTurn} In Progress`;
+
+  nextTurnButton.disabled =
+    true;
+
+  drawButton.disabled =
+    Boolean(
+      pendingActivation
+    ) ||
+    turnPool.length === 0;
+}
+
+
+/* =========================================================
+   SUMMARIES
+========================================================= */
+
+function updateAllSummaries() {
+  updateAvailableSummary();
+
+  updateRemainingSummary();
+
+  updateTurnControls();
+}
+
+
+function updateAvailableSummary() {
+  const {
+    availableChits
+  } = getAvailableChits();
+
+
+  const allied =
+    availableChits.filter(
+      chit =>
+        chit.side === "Allied"
+    ).length;
+
+
+  const axis =
+    availableChits.filter(
+      chit =>
+        chit.side === "Axis"
+    ).length;
+
+
+  alliedAvailableCount.textContent =
+    allied;
+
+  axisAvailableCount.textContent =
+    axis;
+
+
+  const total =
+    allied + axis;
+
+
+  availableTotalCount.textContent =
+    `${total} chit${
+      total === 1
+        ? ""
+        : "s"
+    } available`;
+}
+
+
+function updateRemainingSummary() {
+  const allied =
+    turnPool.filter(
+      chit =>
+        chit.side === "Allied"
+    ).length;
+
+
+  const axis =
+    turnPool.filter(
+      chit =>
+        chit.side === "Axis"
+    ).length;
+
+
+  alliedRemainingCount.textContent =
+    allied;
+
+  axisRemainingCount.textContent =
+    axis;
+
+
+  const total =
+    allied + axis;
+
+
+  remainingTotalCount.textContent =
+    `${total} chit${
+      total === 1
+        ? ""
+        : "s"
+    } remain this turn`;
 }
 
 
@@ -2378,22 +3220,29 @@ function toggleHistory() {
       "visible"
     );
 
+
   historyCard.classList.toggle(
     "visible",
     willShow
   );
+
 
   historyToggleButton.textContent =
     willShow
       ? "Hide Activation History"
       : "Show Activation History";
 
+
   if (willShow) {
     renderHistory();
 
+
     historyCard.scrollIntoView({
-      behavior: "smooth",
-      block: "start"
+      behavior:
+        "smooth",
+
+      block:
+        "start"
     });
   }
 }
@@ -2401,6 +3250,7 @@ function toggleHistory() {
 
 function renderHistory() {
   historyOutput.replaceChildren();
+
 
   if (
     activationHistory.length === 0
@@ -2414,12 +3264,14 @@ function renderHistory() {
     empty.textContent =
       "No completed activation draws have been recorded.";
 
+
     historyOutput.appendChild(
       empty
     );
 
     return;
   }
+
 
   [...activationHistory]
     .reverse()
@@ -2433,18 +3285,22 @@ function renderHistory() {
 }
 
 
-function createHistoryEntry(record) {
+function createHistoryEntry(
+  record
+) {
   const entry =
     document.createElement("article");
 
   entry.className =
     "history-entry";
 
+
   const heading =
     document.createElement("div");
 
   heading.className =
     "history-heading";
+
 
   const title =
     document.createElement("div");
@@ -2453,7 +3309,10 @@ function createHistoryEntry(record) {
     "history-title";
 
   title.textContent =
-    `Activation Draw ${record.number}: ${record.winningSide}`;
+    `Turn ${record.turn}, ` +
+    `Draw ${record.drawNumber}: ` +
+    `${record.winningSide}`;
+
 
   const rule =
     document.createElement("div");
@@ -2461,15 +3320,34 @@ function createHistoryEntry(record) {
   rule.className =
     "history-rule";
 
-  rule.textContent =
-    record.rule === "official"
-      ? "Official BCS rule"
-      : "Optional first-winning-chit rule";
+
+  if (
+    record.specialCase === "one"
+  ) {
+    rule.textContent =
+      "Final single-chit activation";
+  }
+
+  else if (
+    record.specialCase === "two"
+  ) {
+    rule.textContent =
+      "Two-chit first-draw rule";
+  }
+
+  else {
+    rule.textContent =
+      record.rule === "official"
+        ? "Official BCS rule"
+        : "Optional first-winning-chit rule";
+  }
+
 
   heading.append(
     title,
     rule
   );
+
 
   const pool =
     document.createElement("div");
@@ -2478,13 +3356,18 @@ function createHistoryEntry(record) {
     "history-pool";
 
   pool.textContent =
-    `Draw pool: Allied ${record.poolSnapshot.allied}, Axis ${record.poolSnapshot.axis}`;
+    `Pool before: Allied ${record.poolBefore.allied}, ` +
+    `Axis ${record.poolBefore.axis} · ` +
+    `Pool after: Allied ${record.poolAfter.allied}, ` +
+    `Axis ${record.poolAfter.axis}`;
+
 
   const draws =
     document.createElement("div");
 
   draws.className =
     "history-draws";
+
 
   record.drawn.forEach(
     (chit, index) => {
@@ -2497,7 +3380,9 @@ function createHistoryEntry(record) {
         "history-draw";
 
       line.textContent =
-        `Draw ${index + 1}: ${chit.side} — ${chit.name}`;
+        `Draw ${index + 1}: ` +
+        `${chit.side} — ${chit.name}`;
+
 
       draws.appendChild(
         line
@@ -2505,20 +3390,6 @@ function createHistoryEntry(record) {
     }
   );
 
-  if (
-    record.firstDrawWins
-  ) {
-    const line =
-      document.createElement("div");
-
-    line.className =
-      "history-draw";
-
-    line.textContent =
-      "Two-chit exception: one chit from each side; first draw won.";
-
-    draws.appendChild(line);
-  }
 
   const activation =
     document.createElement("div");
@@ -2527,9 +3398,9 @@ function createHistoryEntry(record) {
     "history-activation";
 
   activation.textContent =
-    record.selectedChit
-      ? `Activated: ${record.selectedChit.name}`
-      : "Activation selection was not completed.";
+    `Activated and removed: ` +
+    `${record.selectedChit.name}`;
+
 
   entry.append(
     heading,
@@ -2537,6 +3408,7 @@ function createHistoryEntry(record) {
     draws,
     activation
   );
+
 
   return entry;
 }
@@ -2549,24 +3421,26 @@ function clearHistory() {
     return;
   }
 
+
   const confirmed =
     window.confirm(
       "Clear the complete activation draw history?"
     );
 
+
   if (!confirmed) {
     return;
   }
 
+
   activationHistory = [];
-  drawNumber = 0;
 
   renderHistory();
 }
 
 
 /* =========================================================
-   CLEARING AND RESETTING
+   CLEARING / RESETTING
 ========================================================= */
 
 function clearCurrentResult(
@@ -2578,39 +3452,54 @@ function clearCurrentResult(
   ) {
     const confirmed =
       window.confirm(
-        "An Official BCS activation has not been selected. Discard this unfinished draw?"
+        "Discard this unfinished activation draw? " +
+        "No chit will be removed from the turn pool."
       );
+
 
     if (!confirmed) {
       return;
     }
   }
 
-  pendingActivation = null;
 
-  setSetupLocked(false);
+  pendingActivation =
+    null;
+
 
   results.replaceChildren();
 
+
   clearStatus();
+
+
+  setPendingChoiceLocked(
+    false
+  );
+
+
+  updateTurnControls();
 }
 
 
 function resetApp() {
   const confirmed =
     window.confirm(
-      "Reset the complete roster, current draw pool, results, and activation history?"
+      "Reset the complete roster, turn pool, results, and activation history?"
     );
+
 
   if (!confirmed) {
     return;
   }
+
 
   alliedCountInput.value =
     0;
 
   axisCountInput.value =
     0;
+
 
   rosterFields.innerHTML = `
     <div class="notice">
@@ -2619,24 +3508,49 @@ function resetApp() {
     </div>
   `;
 
-  pendingActivation = null;
-  activationHistory = [];
-  drawNumber = 0;
 
-  setSetupLocked(false);
+  gameTurn =
+    0;
+
+  drawNumberThisTurn =
+    0;
+
+  activationHistory =
+    [];
+
+  pendingActivation =
+    null;
+
+  turnPool =
+    [];
+
+  turnActive =
+    false;
+
+  turnComplete =
+    false;
+
 
   results.replaceChildren();
 
+
   clearStatus();
+
   renderHistory();
-  updatePoolSummary();
+
+  updateAllSummaries();
+
 
   historyCard.classList.remove(
     "visible"
   );
 
+
   historyToggleButton.textContent =
     "Show Activation History";
+
+
+  poolLockMessage.replaceChildren();
 }
 
 
@@ -2659,10 +3573,12 @@ function saveSelectedRule() {
       "bcsActivationRule",
       getSelectedRule()
     );
-  } catch (error) {
+  }
+
+  catch (error) {
     /*
-      The app still works when browser
-      storage is unavailable.
+      The app still works without
+      local browser storage.
     */
   }
 }
@@ -2675,6 +3591,7 @@ function loadSavedRule() {
         "bcsActivationRule"
       );
 
+
     if (
       savedRule !== "official" &&
       savedRule !== "optional"
@@ -2682,15 +3599,20 @@ function loadSavedRule() {
       return;
     }
 
+
     const radio =
       document.querySelector(
         `input[name="activationRule"][value="${savedRule}"]`
       );
 
+
     if (radio) {
-      radio.checked = true;
+      radio.checked =
+        true;
     }
-  } catch (error) {
+  }
+
+  catch (error) {
     /*
       Ignore browser storage errors.
     */
@@ -2702,7 +3624,9 @@ function loadSavedRule() {
    STATUS MESSAGES
 ========================================================= */
 
-function showStatus(message) {
+function showStatus(
+  message
+) {
   const box =
     document.createElement("div");
 
@@ -2711,6 +3635,7 @@ function showStatus(message) {
 
   box.textContent =
     message;
+
 
   statusMessage.replaceChildren(
     box
