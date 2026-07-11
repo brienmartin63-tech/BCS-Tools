@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>BCS Activation Chit Selector 2.8</title>
+
+<title>BCS Activation Chit Selector 2.9</title>
 
 <meta
   name="viewport"
@@ -266,6 +267,14 @@ button:disabled {
   background: #b43a3a;
 }
 
+.printButton {
+  background: #5a3d8a;
+}
+
+.printButton:hover {
+  background: #7350ad;
+}
+
 .turnBtn {
   width: 100%;
   min-height: 58px;
@@ -506,6 +515,27 @@ button:disabled {
 }
 
 .prepareBox h3 {
+  margin: 0 0 8px;
+}
+
+.turnCompleteActions {
+  display: none;
+
+  margin-top: 14px;
+  padding: 15px;
+
+  background: #f6f0ff;
+  border: 1px solid #c6b3e5;
+  border-radius: 11px;
+
+  text-align: center;
+}
+
+.turnCompleteActions.visible {
+  display: block;
+}
+
+.turnCompleteActions h3 {
   margin: 0 0 8px;
 }
 
@@ -806,6 +836,149 @@ button:disabled {
   font-size: 14px;
 }
 
+
+/* =========================================================
+   PRINT SHEET
+========================================================= */
+
+#printSheet {
+  display: none;
+}
+
+.printSheetTitle {
+  text-align: center;
+}
+
+.printSheetTitle h1 {
+  margin: 0 0 5px;
+  font-size: 25pt;
+}
+
+.printSheetTitle h2 {
+  margin: 0;
+  font-size: 18pt;
+}
+
+.printActivationGrid {
+  display: grid;
+  grid-template-columns:
+    repeat(3, 1fr);
+
+  gap: 22px 18px;
+
+  margin-top: 26px;
+}
+
+.printActivationItem {
+  break-inside: avoid;
+  page-break-inside: avoid;
+  text-align: center;
+}
+
+.printActivationNumber {
+  margin-bottom: 7px;
+
+  font-size: 13pt;
+  font-weight: 900;
+}
+
+.printCounter {
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  width: 100%;
+  min-height: 115px;
+
+  padding: 18px 12px;
+
+  border: 4px solid;
+  border-radius: 11px;
+
+  box-shadow:
+    inset 0 0 0 3px rgba(255, 255, 255, 0.55);
+
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+.printCounter::before,
+.printCounter::after {
+  position: absolute;
+
+  width: 9px;
+  height: 9px;
+
+  background: #667085;
+  border-radius: 50%;
+
+  content: "";
+}
+
+.printCounter::before {
+  top: 7px;
+  left: 7px;
+}
+
+.printCounter::after {
+  right: 7px;
+  bottom: 7px;
+}
+
+.printCounter.allied {
+  color: #174a78;
+
+  background:
+    linear-gradient(
+      135deg,
+      #f8fbff,
+      #eaf3fb
+    );
+
+  border-color: #2563a6;
+}
+
+.printCounter.axis {
+  color: #762620;
+
+  background:
+    linear-gradient(
+      135deg,
+      #fffafa,
+      #faecea
+    );
+
+  border-color: #a43b35;
+}
+
+.printCounterSide {
+  margin-bottom: 8px;
+
+  font-size: 11pt;
+  font-weight: 900;
+  letter-spacing: 1.1px;
+}
+
+.printCounterName {
+  font-size: 16pt;
+  font-weight: 900;
+  line-height: 1.15;
+  overflow-wrap: anywhere;
+}
+
+.printCheckbox {
+  width: 25px;
+  height: 25px;
+
+  margin: 10px auto 0;
+
+  border: 3px solid #111111;
+}
+
+
 @media (max-width: 760px) {
   .grid2 {
     grid-template-columns: 1fr;
@@ -838,31 +1011,84 @@ button:disabled {
     flex: 1 1 100%;
   }
 }
+
+
+@media print {
+
+  body * {
+    visibility: hidden !important;
+  }
+
+  #printSheet,
+  #printSheet * {
+    visibility: visible !important;
+  }
+
+  #printSheet {
+    display: block !important;
+
+    position: absolute;
+    left: 0;
+    top: 0;
+
+    width: 100%;
+
+    padding: 0.25in;
+
+    color: #000000;
+    background: #ffffff;
+
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  @page {
+    size: letter portrait;
+    margin: 0.4in;
+  }
+}
 </style>
 </head>
+
 
 <body>
 
 <main class="app">
 
 <header>
-  <h1>BCS Activation Chit Selector</h1>
+
+  <h1>
+    BCS Activation Chit Selector
+  </h1>
 
   <div class="version">
-    Version 2.8
+    Version 2.9
   </div>
 
   <div class="versus">
-    <span>ALLIED</span>
-    <span>⚔</span>
-    <span>AXIS</span>
+
+    <span>
+      ALLIED
+    </span>
+
+    <span>
+      ⚔
+    </span>
+
+    <span>
+      AXIS
+    </span>
+
   </div>
+
 </header>
 
 
 <section class="card">
 
-  <h2>1. Master Chit Roster</h2>
+  <h2>
+    1. Master Chit Roster
+  </h2>
 
   <div class="grid2">
 
@@ -923,8 +1149,11 @@ button:disabled {
 
 
   <p class="small">
-    Enter every chit that could appear. “Available” controls
-    which chits are loaded when the next game turn begins.
+
+    Enter every chit that could appear.
+    “Available” controls which chits are
+    loaded when the next game turn begins.
+
   </p>
 
 </section>
@@ -932,7 +1161,9 @@ button:disabled {
 
 <section class="card">
 
-  <h2>2. Activation Rule</h2>
+  <h2>
+    2. Activation Rule
+  </h2>
 
   <div class="rules">
 
@@ -954,8 +1185,10 @@ button:disabled {
       </span>
 
       <span class="ruleDesc">
-        With three chits drawn, choose either winning-side
-        chit to activate.
+
+        With three chits drawn, choose either
+        winning-side chit to activate.
+
       </span>
 
     </label>
@@ -978,8 +1211,10 @@ button:disabled {
       </span>
 
       <span class="ruleDesc">
-        With three chits drawn, the first winning-side chit
-        drawn must activate.
+
+        With three chits drawn, the first
+        winning-side chit drawn must activate.
+
       </span>
 
     </label>
@@ -988,8 +1223,11 @@ button:disabled {
 
 
   <p class="small">
-    With two chits remaining, the first drawn activates.
-    With one remaining, it activates automatically.
+
+    With two chits remaining, the first drawn
+    activates. With one remaining, it activates
+    automatically.
+
   </p>
 
 </section>
@@ -1000,13 +1238,19 @@ button:disabled {
   id="rosterCard"
 >
 
-  <h2>3. Scenario Chit Roster</h2>
+  <h2>
+    3. Scenario Chit Roster
+  </h2>
 
   <div id="roster">
 
     <div class="notice">
+
       Enter roster totals, then select
-      <strong>Create or Update Roster</strong>.
+      <strong>
+        Create or Update Roster
+      </strong>.
+
     </div>
 
   </div>
@@ -1016,7 +1260,9 @@ button:disabled {
 
 <section class="card">
 
-  <h2>4. Game Turn</h2>
+  <h2>
+    4. Game Turn
+  </h2>
 
   <div
     id="turnHeading"
@@ -1028,7 +1274,9 @@ button:disabled {
 
   <div class="summary">
 
-    <h3>Available for Next Turn</h3>
+    <h3>
+      Available for Next Turn
+    </h3>
 
     <div class="grid2">
 
@@ -1075,7 +1323,9 @@ button:disabled {
     style="margin-top: 14px;"
   >
 
-    <h3>Remaining This Turn</h3>
+    <h3>
+      Remaining This Turn
+    </h3>
 
     <div class="grid2">
 
@@ -1121,8 +1371,10 @@ button:disabled {
     id="turnStatus"
     class="status notstarted"
   >
-    Create the roster, mark available chits, and start
-    Game Turn 1.
+
+    Create the roster, mark available chits,
+    and start Game Turn 1.
+
   </div>
 
 
@@ -1139,6 +1391,37 @@ button:disabled {
 
 
   <div
+    id="turnCompleteActions"
+    class="turnCompleteActions"
+  >
+
+    <h3 id="completedTurnTitle">
+      Game Turn Complete
+    </h3>
+
+    <p>
+
+      The activation sequence for this turn
+      is ready to print.
+
+    </p>
+
+
+    <div class="rowButtons">
+
+      <button
+        id="printTurnButton"
+        class="printButton"
+      >
+        🖨 Print This Turn's Activation Sheet
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <div
     id="prepareBox"
     class="prepareBox"
   >
@@ -1148,9 +1431,11 @@ button:disabled {
     </h3>
 
     <p>
-      Do you need to add reinforcements or remove
-      eliminated or withdrawn formations before the
-      next turn begins?
+
+      Do you need to add reinforcements or
+      remove eliminated or withdrawn formations
+      before the next turn begins?
+
     </p>
 
 
@@ -1192,7 +1477,9 @@ button:disabled {
 
 <section class="card">
 
-  <h2>5. Activation Draw</h2>
+  <h2>
+    5. Activation Draw
+  </h2>
 
   <button
     id="drawButton"
@@ -1237,7 +1524,9 @@ button:disabled {
   class="card historyCard"
 >
 
-  <h2>Activation Draw History</h2>
+  <h2>
+    Activation Draw History
+  </h2>
 
   <div class="rowButtons">
 
@@ -1256,6 +1545,30 @@ button:disabled {
 </section>
 
 </main>
+
+
+<section id="printSheet">
+
+  <div class="printSheetTitle">
+
+    <h1>
+      BCS ACTIVATION SHEET
+    </h1>
+
+    <h2 id="printTurnTitle">
+      GAME TURN
+    </h2>
+
+  </div>
+
+
+  <div
+    id="printActivationGrid"
+    class="printActivationGrid"
+  >
+  </div>
+
+</section>
 
 
 <script>
@@ -1332,6 +1645,16 @@ const startAfterUpdates =
   get("startAfterUpdates");
 
 
+const turnCompleteActions =
+  get("turnCompleteActions");
+
+const completedTurnTitle =
+  get("completedTurnTitle");
+
+const printTurnButton =
+  get("printTurnButton");
+
+
 const results =
   get("results");
 
@@ -1347,6 +1670,13 @@ const historyOutput =
 
 const lockMessage =
   get("lockMessage");
+
+
+const printTurnTitle =
+  get("printTurnTitle");
+
+const printActivationGrid =
+  get("printActivationGrid");
 
 
 /* =========================================================
@@ -1388,6 +1718,10 @@ startAfterUpdates.onclick =
   startPreparedTurn;
 
 
+printTurnButton.onclick =
+  printCompletedTurn;
+
+
 get("clearResult").onclick =
   () => clearCurrentResult(true);
 
@@ -1409,8 +1743,10 @@ document
     'input[name="rule"]'
   )
   .forEach(radio => {
+
     radio.onchange =
       saveRule;
+
   });
 
 
@@ -1418,7 +1754,10 @@ document
    ROSTER CREATION
 ========================================================= */
 
-function sanitize(value) {
+function sanitize(
+  value
+) {
+
   const number =
     Number.parseInt(
       value,
@@ -1430,7 +1769,9 @@ function sanitize(value) {
     !Number.isFinite(number) ||
     number < 0
   ) {
+
     return 0;
+
   }
 
 
@@ -1438,10 +1779,12 @@ function sanitize(value) {
     number,
     99
   );
+
 }
 
 
 function captureRoster() {
+
   const state = {
     allied: [],
     axis: []
@@ -1453,8 +1796,10 @@ function captureRoster() {
       "[data-row]"
     )
     .forEach(row => {
+
       const side =
         row.dataset.side;
+
 
       const index =
         Number(
@@ -1463,6 +1808,7 @@ function captureRoster() {
 
 
       state[side][index] = {
+
         name:
           row
             .querySelector(".name")
@@ -1474,15 +1820,19 @@ function captureRoster() {
               ".availableCheck"
             )
             .checked
+
       };
+
     });
 
 
   return state;
+
 }
 
 
 function createOrUpdateRoster() {
+
   const previous =
     captureRoster();
 
@@ -1491,6 +1841,7 @@ function createOrUpdateRoster() {
     sanitize(
       alliedCount.value
     );
+
 
   const axisTotal =
     sanitize(
@@ -1501,6 +1852,7 @@ function createOrUpdateRoster() {
   alliedCount.value =
     alliedTotal;
 
+
   axisCount.value =
     axisTotal;
 
@@ -1509,22 +1861,27 @@ function createOrUpdateRoster() {
     alliedTotal === 0 &&
     axisTotal === 0
   ) {
+
     showError(
       "Enter at least one Allied or Axis chit."
     );
 
+
     return;
+
   }
 
 
   const grid =
     document.createElement("div");
 
+
   grid.className =
     "grid2";
 
 
   grid.append(
+
     buildSide(
       "Allied",
       alliedTotal,
@@ -1538,6 +1895,7 @@ function createOrUpdateRoster() {
       "axis",
       previous.axis
     )
+
   );
 
 
@@ -1548,9 +1906,12 @@ function createOrUpdateRoster() {
 
   attachRosterEvents();
 
+
   clearError();
 
+
   updateAll();
+
 }
 
 
@@ -1560,8 +1921,10 @@ function buildSide(
   key,
   previous
 ) {
+
   const panel =
     document.createElement("div");
+
 
   panel.className =
     `panel ${key}`;
@@ -1578,11 +1941,13 @@ function buildSide(
   const tools =
     document.createElement("div");
 
+
   tools.className =
     "rosterTools";
 
 
   tools.innerHTML = `
+
     <button
       class="secondary bulk"
       data-side="${key}"
@@ -1598,6 +1963,7 @@ function buildSide(
     >
       None Available
     </button>
+
   `;
 
 
@@ -1609,6 +1975,7 @@ function buildSide(
   if (
     count === 0
   ) {
+
     panel.insertAdjacentHTML(
       "beforeend",
       `<p class="small">
@@ -1616,7 +1983,9 @@ function buildSide(
       </p>`
     );
 
+
     return panel;
+
   }
 
 
@@ -1625,6 +1994,7 @@ function buildSide(
     index < count;
     index++
   ) {
+
     const saved =
       previous[index] || {
         name: "",
@@ -1634,6 +2004,7 @@ function buildSide(
 
     const row =
       document.createElement("div");
+
 
     row.className =
       `chitRow ${key}${
@@ -1646,14 +2017,17 @@ function buildSide(
     row.dataset.row =
       "1";
 
+
     row.dataset.side =
       key;
+
 
     row.dataset.index =
       index;
 
 
     row.innerHTML = `
+
       <div>
 
         <div class="chitLabel">
@@ -1691,26 +2065,32 @@ function buildSide(
         </span>
 
       </label>
+
     `;
 
 
     panel.appendChild(
       row
     );
+
   }
 
 
   return panel;
+
 }
 
 
 function attachRosterEvents() {
+
   document
     .querySelectorAll(
       ".availableCheck"
     )
     .forEach(checkbox => {
+
       checkbox.onchange = () => {
+
         checkbox
           .closest(".chitRow")
           .classList.toggle(
@@ -1720,7 +2100,9 @@ function attachRosterEvents() {
 
 
         updateAll();
+
       };
+
     });
 
 
@@ -1729,8 +2111,10 @@ function attachRosterEvents() {
       ".name"
     )
     .forEach(input => {
+
       input.oninput =
         updateAll;
+
     });
 
 
@@ -1739,7 +2123,9 @@ function attachRosterEvents() {
       ".bulk"
     )
     .forEach(button => {
+
       button.onclick = () => {
+
         const shouldCheck =
           button.dataset.action ===
           "all";
@@ -1750,6 +2136,7 @@ function attachRosterEvents() {
             `.chitRow[data-side="${button.dataset.side}"] .availableCheck`
           )
           .forEach(checkbox => {
+
             checkbox.checked =
               shouldCheck;
 
@@ -1760,12 +2147,16 @@ function attachRosterEvents() {
                 "available",
                 shouldCheck
               );
+
           });
 
 
         updateAll();
+
       };
+
     });
+
 }
 
 
@@ -1774,6 +2165,7 @@ function attachRosterEvents() {
 ========================================================= */
 
 function availableChits() {
+
   const chits = [];
 
   const missing = [];
@@ -1784,6 +2176,7 @@ function availableChits() {
       "[data-row]"
     )
     .forEach(row => {
+
       const checkbox =
         row.querySelector(
           ".availableCheck"
@@ -1793,7 +2186,9 @@ function availableChits() {
       if (
         !checkbox.checked
       ) {
+
         return;
+
       }
 
 
@@ -1815,17 +2210,21 @@ function availableChits() {
 
 
       if (!name) {
+
         missing.push(
           `${side} Chit ${
             Number(row.dataset.index) + 1
           }`
         );
 
+
         return;
+
       }
 
 
       chits.push({
+
         id:
           `${key}-${row.dataset.index}`,
 
@@ -1835,7 +2234,9 @@ function availableChits() {
 
         css:
           key
+
       });
+
     });
 
 
@@ -1843,6 +2244,7 @@ function availableChits() {
     chits,
     missing
   };
+
 }
 
 
@@ -1851,30 +2253,40 @@ function availableChits() {
 ========================================================= */
 
 function handleTurnButton() {
+
   if (
     gameTurn === 0
   ) {
+
     startTurn();
 
     return;
+
   }
 
 
   if (
     turnComplete
   ) {
+
     openPreparationPrompt();
+
   }
+
 }
 
 
 function openPreparationPrompt() {
+
   if (pending) {
+
     showError(
       "Complete or clear the pending activation first."
     );
 
+
     return;
+
   }
 
 
@@ -1890,39 +2302,57 @@ function openPreparationPrompt() {
   startAfterUpdates.style.display =
     "none";
 
+
   startNoChanges.style.display =
     "";
+
 
   updateAvailability.style.display =
     "";
 
 
   prepareBox.scrollIntoView({
-    behavior: "smooth",
-    block: "center"
+
+    behavior:
+      "smooth",
+
+    block:
+      "center"
+
   });
+
 }
 
 
 function prepareRosterChanges() {
+
   startNoChanges.style.display =
     "none";
 
+
   updateAvailability.style.display =
     "none";
+
 
   startAfterUpdates.style.display =
     "";
 
 
   rosterCard.scrollIntoView({
-    behavior: "smooth",
-    block: "start"
+
+    behavior:
+      "smooth",
+
+    block:
+      "start"
+
   });
+
 }
 
 
 function startPreparedTurn() {
+
   startTurn();
 
 
@@ -1930,10 +2360,18 @@ function startPreparedTurn() {
     turnActive &&
     !turnComplete
   ) {
+
     prepareBox.classList.remove(
       "visible"
     );
+
+
+    turnCompleteActions.classList.remove(
+      "visible"
+    );
+
   }
+
 }
 
 
@@ -1942,12 +2380,16 @@ function startPreparedTurn() {
 ========================================================= */
 
 function startTurn() {
+
   if (pending) {
+
     showError(
       "Complete or clear the pending activation first."
     );
 
+
     return;
+
   }
 
 
@@ -1955,51 +2397,59 @@ function startTurn() {
     turnActive &&
     !turnComplete
   ) {
+
     showError(
       "The current game turn is still in progress."
     );
 
+
     return;
+
   }
 
 
   const {
     chits,
     missing
-  } = availableChits();
+  } =
+    availableChits();
 
 
   if (
     missing.length > 0
   ) {
+
     showError(
       "Every chit marked Available must have a name."
     );
 
+
     return;
+
   }
 
 
   if (
     chits.length === 0
   ) {
+
     showError(
       "Mark at least one chit Available before starting the turn."
     );
 
+
     return;
+
   }
 
 
   gameTurn += 1;
 
-  drawNumber = 0;
+
+  drawNumber =
+    0;
 
 
-  /*
-    The new turn pool is created only here,
-    after the user has confirmed any roster changes.
-  */
   turnPool =
     chits.map(
       copyChit
@@ -2009,8 +2459,10 @@ function startTurn() {
   turnActive =
     true;
 
+
   turnComplete =
     false;
+
 
   pending =
     null;
@@ -2018,9 +2470,17 @@ function startTurn() {
 
   results.replaceChildren();
 
+
+  turnCompleteActions.classList.remove(
+    "visible"
+  );
+
+
   clearError();
 
+
   updateAll();
+
 }
 
 
@@ -2029,12 +2489,16 @@ function startTurn() {
 ========================================================= */
 
 function drawActivation() {
+
   if (pending) {
+
     showError(
       "Choose the activating formation before drawing again."
     );
 
+
     return;
+
   }
 
 
@@ -2042,11 +2506,14 @@ function drawActivation() {
     !turnActive ||
     turnComplete
   ) {
+
     showError(
       "Start a game turn before drawing."
     );
 
+
     return;
+
   }
 
 
@@ -2065,6 +2532,7 @@ function drawActivation() {
 
 
   const record = {
+
     turn:
       gameTurn,
 
@@ -2094,6 +2562,7 @@ function drawActivation() {
 
     after:
       null
+
   };
 
 
@@ -2103,23 +2572,20 @@ function drawActivation() {
   );
 
 
-  /*
-    Automatic cases:
-    - one chit remaining
-    - two chits remaining
-    - optional rule
-  */
   if (
     drawResult.case !== "three" ||
     selectedRule === "optional"
   ) {
+
     finalize(
       record,
       drawResult.eligible[0]
     );
+
   }
 
   else {
+
     pending =
       record;
 
@@ -2127,11 +2593,14 @@ function drawActivation() {
     setChoiceLock(
       true
     );
+
   }
+
 }
 
 
 function resolveDraw() {
+
   const shuffled =
     shuffle(
       turnPool
@@ -2141,11 +2610,13 @@ function resolveDraw() {
   if (
     turnPool.length === 1
   ) {
+
     const chit =
       shuffled[0];
 
 
     return {
+
       drawn:
         [chit],
 
@@ -2157,18 +2628,22 @@ function resolveDraw() {
 
       case:
         "one"
+
     };
+
   }
 
 
   if (
     turnPool.length === 2
   ) {
+
     const first =
       shuffled[0];
 
 
     return {
+
       drawn:
         shuffled.slice(
           0,
@@ -2183,7 +2658,9 @@ function resolveDraw() {
 
       case:
         "two"
+
     };
+
   }
 
 
@@ -2209,6 +2686,7 @@ function resolveDraw() {
 
 
   return {
+
     drawn,
 
     winningSide,
@@ -2222,7 +2700,9 @@ function resolveDraw() {
 
     case:
       "three"
+
   };
+
 }
 
 
@@ -2234,15 +2714,13 @@ function finalize(
   record,
   chit
 ) {
+
   record.selected =
     copyChit(
       chit
     );
 
 
-  /*
-    Remove only the unit that actually activated.
-  */
   turnPool =
     turnPool.filter(
       item =>
@@ -2282,15 +2760,198 @@ function finalize(
   if (
     turnPool.length === 0
   ) {
+
     turnActive =
       false;
 
+
     turnComplete =
       true;
+
+
+    showTurnCompleteActions();
+
   }
 
 
   updateAll();
+
+}
+
+
+/* =========================================================
+   TURN COMPLETE / PRINT
+========================================================= */
+
+function showTurnCompleteActions() {
+
+  completedTurnTitle.textContent =
+    `Game Turn ${gameTurn} Complete`;
+
+
+  turnCompleteActions.classList.add(
+    "visible"
+  );
+
+}
+
+
+function printCompletedTurn() {
+
+  if (
+    !turnComplete ||
+    gameTurn === 0
+  ) {
+
+    showError(
+      "Complete the current game turn before printing."
+    );
+
+
+    return;
+
+  }
+
+
+  const turnRecords =
+    history
+
+      .filter(
+        record =>
+          record.turn ===
+          gameTurn
+      )
+
+      .sort(
+        (a, b) =>
+          a.drawNumber -
+          b.drawNumber
+      );
+
+
+  if (
+    turnRecords.length === 0
+  ) {
+
+    showError(
+      "No activations were recorded for this game turn."
+    );
+
+
+    return;
+
+  }
+
+
+  buildPrintSheet(
+    gameTurn,
+    turnRecords
+  );
+
+
+  window.print();
+
+}
+
+
+function buildPrintSheet(
+  turnNumber,
+  turnRecords
+) {
+
+  printTurnTitle.textContent =
+    `GAME TURN ${turnNumber}`;
+
+
+  printActivationGrid.replaceChildren();
+
+
+  turnRecords.forEach(
+    (record, index) => {
+
+      const chit =
+        record.selected;
+
+
+      const item =
+        document.createElement("div");
+
+
+      item.className =
+        "printActivationItem";
+
+
+      const activationNumber =
+        document.createElement("div");
+
+
+      activationNumber.className =
+        "printActivationNumber";
+
+
+      activationNumber.textContent =
+        `ACTIVATION ${index + 1}`;
+
+
+      const printedCounter =
+        document.createElement("div");
+
+
+      printedCounter.className =
+        `printCounter ${chit.css}`;
+
+
+      const side =
+        document.createElement("div");
+
+
+      side.className =
+        "printCounterSide";
+
+
+      side.textContent =
+        chit.side.toUpperCase();
+
+
+      const name =
+        document.createElement("div");
+
+
+      name.className =
+        "printCounterName";
+
+
+      name.textContent =
+        chit.name;
+
+
+      printedCounter.append(
+        side,
+        name
+      );
+
+
+      const checkbox =
+        document.createElement("div");
+
+
+      checkbox.className =
+        "printCheckbox";
+
+
+      item.append(
+        activationNumber,
+        printedCounter,
+        checkbox
+      );
+
+
+      printActivationGrid.appendChild(
+        item
+      );
+
+    });
+
 }
 
 
@@ -2302,6 +2963,7 @@ function renderDraw(
   record,
   eligible
 ) {
+
   results.replaceChildren();
 
 
@@ -2317,14 +2979,17 @@ function renderDraw(
   const list =
     document.createElement("div");
 
+
   list.className =
     "drawList";
 
 
   record.drawn.forEach(
     (chit, index) => {
+
       const row =
         document.createElement("div");
+
 
       row.className =
         "drawRow";
@@ -2346,8 +3011,8 @@ function renderDraw(
       list.appendChild(
         row
       );
-    }
-  );
+
+    });
 
 
   results.append(
@@ -2359,6 +3024,7 @@ function renderDraw(
   if (
     record.case === "two"
   ) {
+
     results.insertAdjacentHTML(
       "beforeend",
       `
@@ -2368,12 +3034,14 @@ function renderDraw(
       </div>
       `
     );
+
   }
 
 
   if (
     record.case === "one"
   ) {
+
     results.insertAdjacentHTML(
       "beforeend",
       `
@@ -2383,14 +3051,17 @@ function renderDraw(
       </div>
       `
     );
+
   }
 
 
   const winner =
     document.createElement("div");
 
+
   winner.className =
     "winner";
+
 
   winner.textContent =
     `${record.winningSide.toUpperCase()} ACTIVATION`;
@@ -2398,6 +3069,7 @@ function renderDraw(
 
   const activation =
     document.createElement("div");
+
 
   activation.className =
     "activation";
@@ -2407,12 +3079,14 @@ function renderDraw(
     record.case !== "three" ||
     record.rule === "optional"
   ) {
+
     activation.innerHTML =
       "<h3>Formation to Activate</h3>";
 
 
     const gallery =
       document.createElement("div");
+
 
     gallery.className =
       "counterGallery";
@@ -2428,9 +3102,11 @@ function renderDraw(
     activation.appendChild(
       gallery
     );
+
   }
 
   else {
+
     activation.innerHTML =
       "<h3>Choose a Formation to Activate</h3>";
 
@@ -2438,13 +3114,16 @@ function renderDraw(
     const choiceGrid =
       document.createElement("div");
 
+
     choiceGrid.className =
       "choiceGrid";
 
 
     eligible.forEach(chit => {
+
       const button =
         document.createElement("button");
+
 
       button.className =
         "choiceBtn";
@@ -2456,18 +3135,23 @@ function renderDraw(
 
 
       button.onclick = () => {
+
         if (pending) {
+
           finalize(
             pending,
             chit
           );
+
         }
+
       };
 
 
       choiceGrid.appendChild(
         button
       );
+
     });
 
 
@@ -2484,11 +3168,13 @@ function renderDraw(
       </div>
       `
     );
+
   }
 
 
   const output =
     document.createElement("div");
+
 
   output.id =
     "selectedOutput";
@@ -2503,12 +3189,14 @@ function renderDraw(
     winner,
     activation
   );
+
 }
 
 
 function counter(
   chit
 ) {
+
   const element =
     document.createElement("div");
 
@@ -2518,6 +3206,7 @@ function counter(
 
 
   element.innerHTML = `
+
     <div class="counterSide">
       ${escapeHtml(chit.side)}
     </div>
@@ -2525,27 +3214,33 @@ function counter(
     <div class="counterName">
       ${escapeHtml(chit.name)}
     </div>
+
   `;
 
 
   return element;
+
 }
 
 
 function renderSelected(
   chit
 ) {
+
   const output =
     get("selectedOutput");
 
 
   if (!output) {
+
     return;
+
   }
 
 
   const box =
     document.createElement("div");
+
 
   box.className =
     "selected";
@@ -2557,6 +3252,7 @@ function renderSelected(
 
   const gallery =
     document.createElement("div");
+
 
   gallery.className =
     "counterGallery";
@@ -2576,15 +3272,19 @@ function renderSelected(
     "beforeend",
     `
     <div class="ready">
+
       ${
         turnPool.length
+
           ? `${turnPool.length} chit${
               turnPool.length === 1
                 ? ""
                 : "s"
             } remain this turn.`
+
           : "The game turn is complete."
       }
+
     </div>
     `
   );
@@ -2600,9 +3300,12 @@ function renderSelected(
       ".choiceBtn"
     )
     .forEach(button => {
+
       button.disabled =
         true;
+
     });
+
 }
 
 
@@ -2613,6 +3316,7 @@ function renderSelected(
 function setChoiceLock(
   locked
 ) {
+
   drawButton.disabled =
     locked ||
     !turnActive ||
@@ -2624,19 +3328,24 @@ function setChoiceLock(
       'input[name="rule"]'
     )
     .forEach(radio => {
+
       radio.disabled =
         locked;
+
     });
 
 
   lockMessage.innerHTML =
     locked
+
       ? `
         <div class="lock">
           Choose the activating formation before continuing.
         </div>
         `
+
       : "";
+
 }
 
 
@@ -2645,9 +3354,11 @@ function setChoiceLock(
 ========================================================= */
 
 function updateAll() {
+
   const {
     chits
-  } = availableChits();
+  } =
+    availableChits();
 
 
   const available =
@@ -2665,8 +3376,10 @@ function updateAll() {
   get("availAllied").textContent =
     available.allied;
 
+
   get("availAxis").textContent =
     available.axis;
+
 
   get("availTotal").textContent =
     `${available.total} chit${
@@ -2679,8 +3392,10 @@ function updateAll() {
   get("remainAllied").textContent =
     remaining.allied;
 
+
   get("remainAxis").textContent =
     remaining.axis;
+
 
   get("remainTotal").textContent =
     `${remaining.total} chit${
@@ -2691,13 +3406,16 @@ function updateAll() {
 
 
   updateTurnUI();
+
 }
 
 
 function updateTurnUI() {
+
   if (
     gameTurn === 0
   ) {
+
     turnHeading.textContent =
       "Game Turn Not Started";
 
@@ -2723,6 +3441,7 @@ function updateTurnUI() {
 
 
     return;
+
   }
 
 
@@ -2730,14 +3449,17 @@ function updateTurnUI() {
     `Game Turn ${gameTurn}`;
 
 
-  if (turnComplete) {
+  if (
+    turnComplete
+  ) {
+
     turnStatus.className =
       "status complete";
 
 
     turnStatus.textContent =
       `Game Turn ${gameTurn} complete. ` +
-      "Prepare the next turn before rebuilding the pool.";
+      "Print the activation sheet or prepare the next turn.";
 
 
     turnButton.textContent =
@@ -2753,6 +3475,7 @@ function updateTurnUI() {
 
 
     return;
+
   }
 
 
@@ -2776,6 +3499,7 @@ function updateTurnUI() {
   drawButton.disabled =
     Boolean(pending) ||
     turnPool.length === 0;
+
 }
 
 
@@ -2784,6 +3508,7 @@ function updateTurnUI() {
 ========================================================= */
 
 function toggleHistory() {
+
   const show =
     !historyCard.classList.contains(
       "visible"
@@ -2803,24 +3528,34 @@ function toggleHistory() {
 
 
   if (show) {
+
     renderHistory();
 
 
     historyCard.scrollIntoView({
-      behavior: "smooth",
-      block: "start"
+
+      behavior:
+        "smooth",
+
+      block:
+        "start"
+
     });
+
   }
+
 }
 
 
 function renderHistory() {
+
   historyOutput.replaceChildren();
 
 
   if (
     history.length === 0
   ) {
+
     historyOutput.innerHTML =
       `
       <div class="historyEmpty">
@@ -2828,15 +3563,19 @@ function renderHistory() {
       </div>
       `;
 
+
     return;
+
   }
 
 
   [...history]
     .reverse()
     .forEach(record => {
+
       const entry =
         document.createElement("article");
+
 
       entry.className =
         "historyEntry";
@@ -2844,25 +3583,32 @@ function renderHistory() {
 
       const ruleText =
         record.case === "one"
+
           ? "Final single-chit activation"
 
           : record.case === "two"
+
             ? "Two-chit first-draw rule"
 
             : record.rule === "official"
+
               ? "Official BCS rule"
 
               : "Optional first-winning-chit rule";
 
 
       entry.innerHTML = `
+
         <div class="historyHead">
 
           <div class="historyTitle">
+
             Turn ${record.turn},
             Draw ${record.drawNumber}:
             ${record.winningSide}
+
           </div>
+
 
           <div class="historyRule">
             ${ruleText}
@@ -2889,17 +3635,23 @@ function renderHistory() {
         <div>
 
           ${record.drawn
+
             .map(
               (chit, index) =>
+
                 `
                 <div>
+
                   Draw ${index + 1}:
                   ${escapeHtml(chit.side)}
                   —
                   ${escapeHtml(chit.name)}
+
                 </div>
                 `
+
             )
+
             .join("")}
 
         </div>
@@ -2911,21 +3663,27 @@ function renderHistory() {
           ${escapeHtml(record.selected.name)}
 
         </div>
+
       `;
 
 
       historyOutput.appendChild(
         entry
       );
+
     });
+
 }
 
 
 function clearHistory() {
+
   if (
     history.length === 0
   ) {
+
     return;
+
   }
 
 
@@ -2936,13 +3694,17 @@ function clearHistory() {
 
 
   if (!confirmed) {
+
     return;
+
   }
 
 
   history = [];
 
+
   renderHistory();
+
 }
 
 
@@ -2953,10 +3715,12 @@ function clearHistory() {
 function clearCurrentResult(
   ask
 ) {
+
   if (
     pending &&
     ask
   ) {
+
     const confirmed =
       window.confirm(
         "Discard this unfinished draw? " +
@@ -2965,8 +3729,11 @@ function clearCurrentResult(
 
 
     if (!confirmed) {
+
       return;
+
     }
+
   }
 
 
@@ -2986,10 +3753,12 @@ function clearCurrentResult(
 
 
   updateAll();
+
 }
 
 
 function resetApp() {
+
   const confirmed =
     window.confirm(
       "Reset the complete roster, turn pool, results, and activation history?"
@@ -2997,42 +3766,58 @@ function resetApp() {
 
 
   if (!confirmed) {
+
     return;
+
   }
 
 
   alliedCount.value =
     0;
 
+
   axisCount.value =
     0;
 
 
   roster.innerHTML = `
+
     <div class="notice">
+
       Enter roster totals, then select
-      <strong>Create or Update Roster</strong>.
+
+      <strong>
+        Create or Update Roster
+      </strong>.
+
     </div>
+
   `;
 
 
   gameTurn =
     0;
 
+
   drawNumber =
     0;
+
 
   history =
     [];
 
+
   pending =
     null;
+
 
   turnPool =
     [];
 
+
   turnActive =
     false;
+
 
   turnComplete =
     false;
@@ -3042,6 +3827,11 @@ function resetApp() {
 
 
   prepareBox.classList.remove(
+    "visible"
+  );
+
+
+  turnCompleteActions.classList.remove(
     "visible"
   );
 
@@ -3059,11 +3849,17 @@ function resetApp() {
     "";
 
 
+  printActivationGrid.replaceChildren();
+
+
   clearError();
+
 
   renderHistory();
 
+
   updateAll();
+
 }
 
 
@@ -3074,6 +3870,7 @@ function resetApp() {
 function poolCounts(
   pool
 ) {
+
   const allied =
     pool.filter(
       chit =>
@@ -3089,17 +3886,23 @@ function poolCounts(
 
 
   return {
+
     allied,
+
     axis,
+
     total:
       allied + axis
+
   };
+
 }
 
 
 function shuffle(
   array
 ) {
+
   const copy =
     [...array];
 
@@ -3112,6 +3915,7 @@ function shuffle(
 
     index--
   ) {
+
     const randomIndex =
       Math.floor(
         Math.random() *
@@ -3126,17 +3930,21 @@ function shuffle(
       copy[randomIndex],
       copy[index]
     ];
+
   }
 
 
   return copy;
+
 }
 
 
 function copyChit(
   chit
 ) {
+
   return {
+
     id:
       chit.id,
 
@@ -3148,35 +3956,49 @@ function copyChit(
 
     css:
       chit.css
+
   };
+
 }
 
 
 function getRule() {
+
   return (
+
     document.querySelector(
       'input[name="rule"]:checked'
     )?.value || "official"
+
   );
+
 }
 
 
 function saveRule() {
+
   try {
+
     localStorage.setItem(
       "bcsRule",
       getRule()
     );
+
   }
 
   catch (error) {
-    /* The app still works without storage. */
+
+    /* App still works without storage. */
+
   }
+
 }
 
 
 function loadRule() {
+
   try {
+
     const saved =
       localStorage.getItem(
         "bcsRule"
@@ -3187,6 +4009,7 @@ function loadRule() {
       saved === "official" ||
       saved === "optional"
     ) {
+
       const radio =
         document.querySelector(
           `input[name="rule"][value="${saved}"]`
@@ -3194,38 +4017,50 @@ function loadRule() {
 
 
       if (radio) {
+
         radio.checked =
           true;
+
       }
+
     }
+
   }
 
   catch (error) {
+
     /* Ignore storage errors. */
+
   }
+
 }
 
 
 function showError(
   message
 ) {
+
   errorBox.innerHTML =
     `
     <div class="error">
       ${escapeHtml(message)}
     </div>
     `;
+
 }
 
 
 function clearError() {
+
   errorBox.replaceChildren();
+
 }
 
 
 function escapeHtml(
   value
 ) {
+
   return String(value)
 
     .replaceAll(
@@ -3252,6 +4087,7 @@ function escapeHtml(
       "'",
       "&#039;"
     );
+
 }
 </script>
 
