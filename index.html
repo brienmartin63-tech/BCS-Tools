@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 
-<title>BCS Activation Chit Selector 2.9</title>
+<title>BCS Activation Assistant 3.0</title>
 
 <meta
   name="viewport"
@@ -12,16 +12,20 @@
 
 <style>
 :root {
-  --bg: #e8eaed;
-  --card: #ffffff;
-  --ink: #1f2937;
+  --page-bg: #e8eaed;
+  --card-bg: #ffffff;
+  --header-bg: #1f2937;
+
+  --text: #1f2937;
   --muted: #667085;
   --line: #d0d5dd;
 
   --allied: #2563a6;
+  --allied-dark: #174a78;
   --allied-soft: #eaf3fb;
 
   --axis: #a43b35;
+  --axis-dark: #762620;
   --axis-soft: #faecea;
 
   --gold: #8a6b24;
@@ -32,6 +36,9 @@
 
   --red: #9b2c2c;
   --red-soft: #fceaea;
+
+  --purple: #6a469b;
+  --purple-soft: #f3edfb;
 
   --blue: #1e5d83;
 
@@ -50,8 +57,8 @@ html {
 body {
   margin: 0;
 
-  background: var(--bg);
-  color: var(--ink);
+  color: var(--text);
+  background: var(--page-bg);
 
   font-family:
     Arial,
@@ -64,7 +71,8 @@ body {
 }
 
 button,
-input {
+input,
+select {
   font: inherit;
 }
 
@@ -73,8 +81,8 @@ button {
 }
 
 .app {
-  width: min(100%, 1080px);
-  margin: auto;
+  width: min(100%, 1100px);
+  margin: 0 auto;
 
   padding:
     max(16px, env(safe-area-inset-top))
@@ -82,23 +90,23 @@ button {
     max(28px, env(safe-area-inset-bottom));
 }
 
-header {
+.app-header {
   margin-bottom: 16px;
   padding: 24px 18px;
 
-  text-align: center;
   color: #ffffff;
+  text-align: center;
 
-  background: #1f2937;
+  background: var(--header-bg);
   border-radius: 16px;
   box-shadow: var(--shadow);
 }
 
-header h1 {
+.app-header h1 {
   margin: 0;
 
-  font-size: clamp(26px, 5vw, 40px);
-  line-height: 1.1;
+  font-size: clamp(27px, 5vw, 42px);
+  line-height: 1.08;
 }
 
 .version {
@@ -132,7 +140,7 @@ header h1 {
   margin-bottom: 16px;
   padding: 18px;
 
-  background: var(--card);
+  background: var(--card-bg);
   border: 1px solid var(--line);
   border-radius: 15px;
   box-shadow: var(--shadow);
@@ -147,13 +155,13 @@ header h1 {
   border-bottom: 1px solid var(--line);
 }
 
-.grid2 {
+.grid-two {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 16px;
 }
 
-.panel {
+.side-panel {
   padding: 15px;
 
   background: #ffffff;
@@ -161,19 +169,19 @@ header h1 {
   border-radius: 13px;
 }
 
-.panel.allied {
+.side-panel.allied {
   border-top: 6px solid var(--allied);
 }
 
-.panel.axis {
+.side-panel.axis {
   border-top: 6px solid var(--axis);
 }
 
-.alliedText {
+.allied-text {
   color: var(--allied);
 }
 
-.axisText {
+.axis-text {
   color: var(--axis);
 }
 
@@ -184,13 +192,14 @@ label {
 }
 
 input[type="number"],
-input[type="text"] {
+input[type="text"],
+select {
   width: 100%;
   min-height: 46px;
 
   padding: 10px 12px;
 
-  color: var(--ink);
+  color: var(--text);
   background: #ffffff;
 
   border: 1px solid #98a2b3;
@@ -199,12 +208,13 @@ input[type="text"] {
   font-size: 17px;
 }
 
-input:focus {
+input:focus,
+select:focus {
   outline: 3px solid rgba(138, 107, 36, 0.18);
   border-color: var(--gold);
 }
 
-.rowButtons {
+.button-row {
   display: flex;
   flex-wrap: wrap;
   gap: 9px;
@@ -234,20 +244,20 @@ button:hover {
 }
 
 button:disabled {
-  background: #98a2b3;
+  opacity: 0.55;
   cursor: not-allowed;
   box-shadow: none;
 }
 
-.primary {
+.primary-button {
   background: #36563a;
 }
 
-.primary:hover {
+.primary-button:hover {
   background: #47704d;
 }
 
-.secondary {
+.secondary-button {
   color: #344054;
   background: #f2f4f7;
 
@@ -255,27 +265,27 @@ button:disabled {
   box-shadow: none;
 }
 
-.secondary:hover {
+.secondary-button:hover {
   background: #e4e7ec;
 }
 
-.danger {
+.danger-button {
   background: var(--red);
 }
 
-.danger:hover {
+.danger-button:hover {
   background: #b43a3a;
 }
 
-.printButton {
-  background: #5a3d8a;
+.print-button {
+  background: var(--purple);
 }
 
-.printButton:hover {
-  background: #7350ad;
+.print-button:hover {
+  background: #8059b6;
 }
 
-.turnBtn {
+.turn-button {
   width: 100%;
   min-height: 58px;
 
@@ -284,11 +294,11 @@ button:disabled {
   font-size: clamp(18px, 4vw, 22px);
 }
 
-.turnBtn:hover {
+.turn-button:hover {
   background: #2876a4;
 }
 
-.drawBtn {
+.draw-button {
   width: 100%;
   min-height: 66px;
 
@@ -297,17 +307,17 @@ button:disabled {
   font-size: clamp(19px, 4vw, 24px);
 }
 
-.drawBtn:hover {
+.draw-button:hover {
   background: #385a3d;
 }
 
-.rules {
+.method-options {
   display: grid;
-  gap: 10px;
+  gap: 11px;
 }
 
-.rule {
-  padding: 13px;
+.method-option {
+  padding: 14px;
 
   background: #ffffff;
   border: 1px solid #b8c0cc;
@@ -316,35 +326,79 @@ button:disabled {
   cursor: pointer;
 }
 
-.rule:has(input:checked) {
+.method-option:has(input:checked) {
   background: var(--gold-soft);
   border-color: #b4923e;
 }
 
-.ruleLine {
+.method-line {
   display: flex;
   align-items: flex-start;
   gap: 9px;
 }
 
-.rule input {
+.method-line input {
+  flex: 0 0 auto;
+
   width: 19px;
   height: 19px;
-  margin-top: 1px;
+
+  margin-top: 2px;
 }
 
-.ruleTitle {
+.method-title {
   font-size: 17px;
-  font-weight: 800;
+  font-weight: 900;
 }
 
-.ruleDesc {
+.method-description {
   display: block;
 
-  margin: 4px 0 0 28px;
+  margin: 5px 0 0 28px;
 
   color: var(--muted);
   font-size: 14px;
+}
+
+.conzelman-options {
+  display: none;
+
+  margin-top: 14px;
+  padding: 14px;
+
+  background: var(--purple-soft);
+  border: 1px solid #c9b8df;
+  border-radius: 11px;
+}
+
+.conzelman-options.visible {
+  display: block;
+}
+
+.starting-options {
+  display: grid;
+  gap: 8px;
+
+  margin-top: 10px;
+}
+
+.starting-option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  padding: 9px;
+
+  background: #ffffff;
+  border: 1px solid #d0d5dd;
+  border-radius: 8px;
+
+  cursor: pointer;
+}
+
+.starting-option input {
+  width: 18px;
+  height: 18px;
 }
 
 .notice {
@@ -357,7 +411,7 @@ button:disabled {
   border-radius: 8px;
 }
 
-.rosterTools {
+.roster-tools {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
@@ -365,13 +419,13 @@ button:disabled {
   margin-bottom: 12px;
 }
 
-.rosterTools button {
+.roster-tools button {
   min-height: 38px;
   padding: 8px 11px;
   font-size: 14px;
 }
 
-.chitRow {
+.chit-row {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
   align-items: end;
@@ -385,17 +439,17 @@ button:disabled {
   border-radius: 11px;
 }
 
-.chitRow.allied.available {
+.chit-row.allied.available {
   background: var(--allied-soft);
   border-color: #9ac1e2;
 }
 
-.chitRow.axis.available {
+.chit-row.axis.available {
   background: var(--axis-soft);
   border-color: #e3aaa6;
 }
 
-.chitLabel {
+.chit-label {
   margin-bottom: 6px;
 
   color: #475467;
@@ -406,7 +460,7 @@ button:disabled {
   text-transform: uppercase;
 }
 
-.availableCtl {
+.available-control {
   display: flex;
   align-items: center;
   gap: 8px;
@@ -424,20 +478,20 @@ button:disabled {
   cursor: pointer;
 }
 
-.availableCtl input {
+.available-control input {
   width: 20px;
   height: 20px;
   margin: 0;
 }
 
-.turnHeading {
+.turn-heading {
   text-align: center;
 
   font-size: clamp(22px, 5vw, 30px);
   font-weight: 900;
 }
 
-.summary {
+.summary-box {
   padding: 15px;
 
   background: #f8fafc;
@@ -445,7 +499,7 @@ button:disabled {
   border-radius: 12px;
 }
 
-.stat {
+.summary-stat {
   padding: 14px;
 
   text-align: center;
@@ -455,24 +509,24 @@ button:disabled {
   border-radius: 11px;
 }
 
-.stat strong {
+.summary-stat strong {
   display: block;
   font-size: 25px;
 }
 
-.stat span {
+.summary-stat span {
   color: var(--muted);
   font-size: 14px;
 }
 
-.total {
+.summary-total {
   margin-top: 12px;
 
   text-align: center;
   font-weight: 800;
 }
 
-.status {
+.turn-status {
   margin-top: 14px;
   padding: 12px;
 
@@ -482,64 +536,87 @@ button:disabled {
   font-weight: 800;
 }
 
-.status.notstarted {
+.turn-status.not-started {
   color: #475467;
   background: #f2f4f7;
 }
 
-.status.active {
+.turn-status.active {
   color: #1d4f2b;
   background: var(--green-soft);
   border: 1px solid #9ac7a2;
 }
 
-.status.complete {
+.turn-status.complete {
   color: #694a08;
   background: #fff4ce;
   border: 1px solid #d9bd66;
 }
 
-.prepareBox {
+.held-area {
   display: none;
 
-  margin-top: 14px;
-  padding: 15px;
-
-  background: var(--gold-soft);
-  border: 1px solid #d9bd66;
-  border-radius: 11px;
+  margin-top: 15px;
 }
 
-.prepareBox.visible {
+.held-area.visible {
   display: block;
 }
 
-.prepareBox h3 {
-  margin: 0 0 8px;
+.held-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
 }
 
-.turnCompleteActions {
-  display: none;
-
-  margin-top: 14px;
-  padding: 15px;
-
-  background: #f6f0ff;
-  border: 1px solid #c6b3e5;
-  border-radius: 11px;
+.held-box {
+  min-height: 155px;
+  padding: 14px;
 
   text-align: center;
+
+  background: #fafafa;
+  border: 2px dashed #aeb5c0;
+  border-radius: 12px;
 }
 
-.turnCompleteActions.visible {
+.held-box h3 {
+  margin: 0 0 10px;
+}
+
+.held-empty {
+  color: var(--muted);
+  font-style: italic;
+}
+
+.prepare-box,
+.turn-complete-actions {
+  display: none;
+
+  margin-top: 14px;
+  padding: 15px;
+
+  border-radius: 11px;
+}
+
+.prepare-box {
+  background: var(--gold-soft);
+  border: 1px solid #d9bd66;
+}
+
+.turn-complete-actions {
+  text-align: center;
+
+  background: var(--purple-soft);
+  border: 1px solid #c6b3e5;
+}
+
+.prepare-box.visible,
+.turn-complete-actions.visible {
   display: block;
 }
 
-.turnCompleteActions h3 {
-  margin: 0 0 8px;
-}
-
-.lock {
+.lock-message {
   margin-top: 12px;
   padding: 10px;
 
@@ -599,7 +676,7 @@ button:disabled {
 }
 
 .counter.allied {
-  color: #174a78;
+  color: var(--allied-dark);
 
   background:
     linear-gradient(
@@ -612,7 +689,7 @@ button:disabled {
 }
 
 .counter.axis {
-  color: #762620;
+  color: var(--axis-dark);
 
   background:
     linear-gradient(
@@ -624,7 +701,7 @@ button:disabled {
   border-color: var(--axis);
 }
 
-.counterSide {
+.counter-side {
   margin-bottom: 7px;
 
   font-size: 12px;
@@ -633,7 +710,7 @@ button:disabled {
   text-transform: uppercase;
 }
 
-.counterName {
+.counter-name {
   max-width: 100%;
   overflow-wrap: anywhere;
 
@@ -642,16 +719,32 @@ button:disabled {
   line-height: 1.15;
 }
 
-.drawList {
+.counter-badge {
+  margin-top: 8px;
+  padding: 3px 7px;
+
+  color: #654500;
+  background: #ffe9a6;
+
+  border: 1px solid #d5b452;
+  border-radius: 999px;
+
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.draw-list {
   display: grid;
   gap: 13px;
 
   margin-top: 15px;
 }
 
-.drawRow {
+.draw-row {
   display: grid;
-  grid-template-columns: 96px 1fr;
+  grid-template-columns: 105px 1fr;
   align-items: center;
   gap: 10px;
 
@@ -660,7 +753,7 @@ button:disabled {
   border-bottom: 1px solid var(--line);
 }
 
-.drawNo {
+.draw-number {
   text-align: right;
   font-weight: 800;
 }
@@ -678,7 +771,7 @@ button:disabled {
   font-weight: 800;
 }
 
-.winner {
+.winner-banner {
   margin-top: 18px;
   padding: 17px;
 
@@ -692,7 +785,7 @@ button:disabled {
   font-weight: 900;
 }
 
-.activation {
+.activation-panel {
   margin-top: 14px;
   padding: 16px;
 
@@ -703,8 +796,8 @@ button:disabled {
   border-radius: 12px;
 }
 
-.choiceGrid,
-.counterGallery {
+.choice-grid,
+.counter-gallery {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -713,7 +806,7 @@ button:disabled {
   margin-top: 12px;
 }
 
-.choiceBtn {
+.choice-button {
   padding: 0;
 
   color: inherit;
@@ -723,12 +816,16 @@ button:disabled {
   box-shadow: none;
 }
 
-.choiceBtn:hover {
+.choice-button:hover {
   background: transparent;
   transform: translateY(-2px);
 }
 
-.selected {
+.action-choice {
+  min-width: 210px;
+}
+
+.selected-panel {
   margin-top: 15px;
   padding: 16px;
 
@@ -739,29 +836,29 @@ button:disabled {
   border-radius: 12px;
 }
 
-.ready {
+.ready-message {
   margin-top: 10px;
 
   color: var(--green);
   font-weight: 800;
 }
 
-.pending {
+.pending-message {
   margin-top: 12px;
 
   color: #7a4b0b;
   font-weight: 800;
 }
 
-.historyCard {
+.history-card {
   display: none;
 }
 
-.historyCard.visible {
+.history-card.visible {
   display: block;
 }
 
-.historyEmpty {
+.history-empty {
   padding: 18px;
 
   text-align: center;
@@ -769,7 +866,7 @@ button:disabled {
   font-style: italic;
 }
 
-.historyEntry {
+.history-entry {
   margin-bottom: 13px;
   padding: 13px;
 
@@ -778,7 +875,7 @@ button:disabled {
   border-radius: 11px;
 }
 
-.historyHead {
+.history-heading {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -790,26 +887,17 @@ button:disabled {
   border-bottom: 1px solid var(--line);
 }
 
-.historyTitle {
+.history-title {
   font-size: 18px;
   font-weight: 900;
 }
 
-.historyRule {
+.history-method {
   color: var(--muted);
   font-size: 13px;
 }
 
-.historyPool {
-  margin-bottom: 8px;
-
-  color: #475467;
-
-  font-size: 13px;
-  font-weight: 700;
-}
-
-.historyActivation {
+.history-activation {
   margin-top: 8px;
   padding: 8px;
 
@@ -820,7 +908,7 @@ button:disabled {
   font-weight: 800;
 }
 
-.error {
+.error-message {
   margin-top: 12px;
   padding: 11px;
 
@@ -831,7 +919,7 @@ button:disabled {
   font-weight: 800;
 }
 
-.small {
+.small-text {
   color: var(--muted);
   font-size: 14px;
 }
@@ -845,44 +933,74 @@ button:disabled {
   display: none;
 }
 
-.printSheetTitle {
+.print-title {
   text-align: center;
 }
 
-.printSheetTitle h1 {
+.print-title h1 {
   margin: 0 0 5px;
-  font-size: 25pt;
+  font-size: 24pt;
 }
 
-.printSheetTitle h2 {
-  margin: 0;
+.print-title h2 {
+  margin: 0 0 12px;
   font-size: 18pt;
 }
 
-.printActivationGrid {
+.print-method-panel {
   display: grid;
-  grid-template-columns:
-    repeat(3, 1fr);
+  grid-template-columns: 1fr auto;
+  gap: 18px;
 
-  gap: 22px 18px;
+  margin-top: 14px;
+  padding: 12px;
 
-  margin-top: 26px;
+  border: 2px solid #444444;
+  border-radius: 8px;
 }
 
-.printActivationItem {
+.print-method-name {
+  font-size: 14pt;
+  font-weight: 900;
+}
+
+.print-method-reminder {
+  margin-top: 4px;
+
+  font-size: 10.5pt;
+  line-height: 1.35;
+}
+
+.print-summary {
+  min-width: 150px;
+
+  font-size: 10pt;
+  line-height: 1.5;
+}
+
+.print-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px 18px;
+
+  margin-top: 24px;
+}
+
+.print-item {
   break-inside: avoid;
   page-break-inside: avoid;
+
   text-align: center;
 }
 
-.printActivationNumber {
+.print-activation-number {
   margin-bottom: 7px;
 
   font-size: 13pt;
   font-weight: 900;
 }
 
-.printCounter {
+.print-counter {
   position: relative;
 
   display: flex;
@@ -891,7 +1009,7 @@ button:disabled {
   align-items: center;
 
   width: 100%;
-  min-height: 115px;
+  min-height: 118px;
 
   padding: 18px 12px;
 
@@ -905,8 +1023,8 @@ button:disabled {
   print-color-adjust: exact;
 }
 
-.printCounter::before,
-.printCounter::after {
+.print-counter::before,
+.print-counter::after {
   position: absolute;
 
   width: 9px;
@@ -918,43 +1036,43 @@ button:disabled {
   content: "";
 }
 
-.printCounter::before {
+.print-counter::before {
   top: 7px;
   left: 7px;
 }
 
-.printCounter::after {
+.print-counter::after {
   right: 7px;
   bottom: 7px;
 }
 
-.printCounter.allied {
-  color: #174a78;
+.print-counter.allied {
+  color: var(--allied-dark);
 
   background:
     linear-gradient(
       135deg,
       #f8fbff,
-      #eaf3fb
+      var(--allied-soft)
     );
 
-  border-color: #2563a6;
+  border-color: var(--allied);
 }
 
-.printCounter.axis {
-  color: #762620;
+.print-counter.axis {
+  color: var(--axis-dark);
 
   background:
     linear-gradient(
       135deg,
       #fffafa,
-      #faecea
+      var(--axis-soft)
     );
 
-  border-color: #a43b35;
+  border-color: var(--axis);
 }
 
-.printCounterSide {
+.print-counter-side {
   margin-bottom: 8px;
 
   font-size: 11pt;
@@ -962,14 +1080,31 @@ button:disabled {
   letter-spacing: 1.1px;
 }
 
-.printCounterName {
+.print-counter-name {
   font-size: 16pt;
   font-weight: 900;
   line-height: 1.15;
   overflow-wrap: anywhere;
 }
 
-.printCheckbox {
+.print-held-badge {
+  margin-top: 9px;
+  padding: 3px 8px;
+
+  color: #654500;
+  background: #ffe9a6;
+
+  border: 1px solid #d5b452;
+  border-radius: 999px;
+
+  font-size: 9pt;
+  font-weight: 900;
+
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+.print-checkbox {
   width: 25px;
   height: 25px;
 
@@ -980,41 +1115,40 @@ button:disabled {
 
 
 @media (max-width: 760px) {
-  .grid2 {
+  .grid-two,
+  .held-grid {
     grid-template-columns: 1fr;
   }
 
-  .drawRow {
+  .draw-row {
     grid-template-columns: 1fr;
   }
 
-  .drawNo {
+  .draw-number {
     text-align: center;
   }
 
-  .drawRow .counter {
-    margin: auto;
+  .draw-row .counter {
+    margin: 0 auto;
   }
 }
 
 @media (max-width: 520px) {
-  .chitRow {
+  .chit-row {
     grid-template-columns: 1fr;
   }
 
-  .availableCtl {
+  .available-control {
     justify-content: center;
     width: 100%;
   }
 
-  .rowButtons button {
+  .button-row button {
     flex: 1 1 100%;
   }
 }
 
-
 @media print {
-
   body * {
     visibility: hidden !important;
   }
@@ -1028,12 +1162,11 @@ button:disabled {
     display: block !important;
 
     position: absolute;
-    left: 0;
     top: 0;
+    left: 0;
 
     width: 100%;
-
-    padding: 0.25in;
+    padding: 0.15in;
 
     color: #000000;
     background: #ffffff;
@@ -1055,30 +1188,20 @@ button:disabled {
 
 <main class="app">
 
-<header>
+<header class="app-header">
 
   <h1>
-    BCS Activation Chit Selector
+    BCS Activation Assistant
   </h1>
 
   <div class="version">
-    Version 2.9
+    Version 3.0
   </div>
 
   <div class="versus">
-
-    <span>
-      ALLIED
-    </span>
-
-    <span>
-      ⚔
-    </span>
-
-    <span>
-      AXIS
-    </span>
-
+    <span>ALLIED</span>
+    <span>⚔</span>
+    <span>AXIS</span>
   </div>
 
 </header>
@@ -1090,11 +1213,11 @@ button:disabled {
     1. Master Chit Roster
   </h2>
 
-  <div class="grid2">
+  <div class="grid-two">
 
-    <div class="panel allied">
+    <div class="side-panel allied">
 
-      <h3 class="alliedText">
+      <h3 class="allied-text">
         Allied Chits
       </h3>
 
@@ -1113,9 +1236,9 @@ button:disabled {
     </div>
 
 
-    <div class="panel axis">
+    <div class="side-panel axis">
 
-      <h3 class="axisText">
+      <h3 class="axis-text">
         Axis Chits
       </h3>
 
@@ -1136,25 +1259,16 @@ button:disabled {
   </div>
 
 
-  <div class="rowButtons">
+  <div class="button-row">
 
     <button
-      id="createRoster"
-      class="primary"
+      id="createRosterButton"
+      class="primary-button"
     >
       Create or Update Roster
     </button>
 
   </div>
-
-
-  <p class="small">
-
-    Enter every chit that could appear.
-    “Available” controls which chits are
-    loaded when the next game turn begins.
-
-  </p>
 
 </section>
 
@@ -1162,59 +1276,80 @@ button:disabled {
 <section class="card">
 
   <h2>
-    2. Activation Rule
+    2. Activation Method
   </h2>
 
-  <div class="rules">
+  <div class="method-options">
 
-    <label class="rule">
+    <label class="method-option">
 
-      <span class="ruleLine">
+      <span class="method-line">
 
         <input
           type="radio"
-          name="rule"
+          name="activationMethod"
           value="official"
           checked
         >
 
-        <span class="ruleTitle">
-          Official BCS
+        <span class="method-title">
+          Official BCS Method
         </span>
 
       </span>
 
-      <span class="ruleDesc">
-
-        With three chits drawn, choose either
-        winning-side chit to activate.
-
+      <span class="method-description">
+        Draw three chits. The side winning two of the three
+        chooses which of its drawn chits activates.
       </span>
 
     </label>
 
 
-    <label class="rule">
+    <label class="method-option">
 
-      <span class="ruleLine">
+      <span class="method-line">
 
         <input
           type="radio"
-          name="rule"
-          value="optional"
+          name="activationMethod"
+          value="martin"
         >
 
-        <span class="ruleTitle">
-          Optional Rule
+        <span class="method-title">
+          Martin Optional Method
         </span>
 
       </span>
 
-      <span class="ruleDesc">
+      <span class="method-description">
+        Draw three chits. The side winning two of the three
+        activates the first winning-side chit drawn.
+      </span>
 
-        With three chits drawn, the first
-        winning-side chit drawn must activate.
+    </label>
 
+
+    <label class="method-option">
+
+      <span class="method-line">
+
+        <input
+          type="radio"
+          name="activationMethod"
+          value="conzelman"
+        >
+
+        <span class="method-title">
+          Conzelman Optional Method
+        </span>
+
+      </span>
+
+      <span class="method-description">
+        Draw one chit at a time. The owning player may activate
+        it, hold it, or activate that side’s held chit and replace
+        it with the newly drawn chit.
       </span>
 
     </label>
@@ -1222,13 +1357,71 @@ button:disabled {
   </div>
 
 
-  <p class="small">
+  <div
+    id="conzelmanOptions"
+    class="conzelman-options"
+  >
 
-    With two chits remaining, the first drawn
-    activates. With one remaining, it activates
-    automatically.
+    <h3>
+      Conzelman Starting Activation
+    </h3>
 
-  </p>
+    <p class="small-text">
+      A scenario may specify a side that chooses the first chit.
+      Otherwise, the first chit is drawn randomly.
+    </p>
+
+
+    <div class="starting-options">
+
+      <label class="starting-option">
+
+        <input
+          type="radio"
+          name="startingSide"
+          value="random"
+          checked
+        >
+
+        <span>
+          Random starting chit
+        </span>
+
+      </label>
+
+
+      <label class="starting-option">
+
+        <input
+          type="radio"
+          name="startingSide"
+          value="Allied"
+        >
+
+        <span>
+          Allied player chooses the first chit
+        </span>
+
+      </label>
+
+
+      <label class="starting-option">
+
+        <input
+          type="radio"
+          name="startingSide"
+          value="Axis"
+        >
+
+        <span>
+          Axis player chooses the first chit
+        </span>
+
+      </label>
+
+    </div>
+
+  </div>
 
 </section>
 
@@ -1245,12 +1438,8 @@ button:disabled {
   <div id="roster">
 
     <div class="notice">
-
-      Enter roster totals, then select
-      <strong>
-        Create or Update Roster
-      </strong>.
-
+      Enter the roster totals and select
+      <strong>Create or Update Roster</strong>.
     </div>
 
   </div>
@@ -1266,23 +1455,23 @@ button:disabled {
 
   <div
     id="turnHeading"
-    class="turnHeading"
+    class="turn-heading"
   >
     Game Turn Not Started
   </div>
 
 
-  <div class="summary">
+  <div class="summary-box">
 
     <h3>
       Available for Next Turn
     </h3>
 
-    <div class="grid2">
+    <div class="grid-two">
 
-      <div class="stat alliedText">
+      <div class="summary-stat allied-text">
 
-        <strong id="availAllied">
+        <strong id="availableAllied">
           0
         </strong>
 
@@ -1293,9 +1482,9 @@ button:disabled {
       </div>
 
 
-      <div class="stat axisText">
+      <div class="summary-stat axis-text">
 
-        <strong id="availAxis">
+        <strong id="availableAxis">
           0
         </strong>
 
@@ -1309,8 +1498,8 @@ button:disabled {
 
 
     <div
-      id="availTotal"
-      class="total"
+      id="availableTotal"
+      class="summary-total"
     >
       0 chits available
     </div>
@@ -1319,19 +1508,19 @@ button:disabled {
 
 
   <div
-    class="summary"
+    class="summary-box"
     style="margin-top: 14px;"
   >
 
     <h3>
-      Remaining This Turn
+      Remaining in Current Turn
     </h3>
 
-    <div class="grid2">
+    <div class="grid-two">
 
-      <div class="stat alliedText">
+      <div class="summary-stat allied-text">
 
-        <strong id="remainAllied">
+        <strong id="remainingAllied">
           0
         </strong>
 
@@ -1342,9 +1531,9 @@ button:disabled {
       </div>
 
 
-      <div class="stat axisText">
+      <div class="summary-stat axis-text">
 
-        <strong id="remainAxis">
+        <strong id="remainingAxis">
           0
         </strong>
 
@@ -1358,10 +1547,55 @@ button:disabled {
 
 
     <div
-      id="remainTotal"
-      class="total"
+      id="remainingTotal"
+      class="summary-total"
     >
-      0 chits remain this turn
+      0 chits remain
+    </div>
+
+  </div>
+
+
+  <div
+    id="heldArea"
+    class="held-area"
+  >
+
+    <h3>
+      Held Chits
+    </h3>
+
+    <div class="held-grid">
+
+      <div class="held-box">
+
+        <h3 class="allied-text">
+          Allied Held Chit
+        </h3>
+
+        <div id="alliedHeldDisplay">
+          <div class="held-empty">
+            None
+          </div>
+        </div>
+
+      </div>
+
+
+      <div class="held-box">
+
+        <h3 class="axis-text">
+          Axis Held Chit
+        </h3>
+
+        <div id="axisHeldDisplay">
+          <div class="held-empty">
+            None
+          </div>
+        </div>
+
+      </div>
+
     </div>
 
   </div>
@@ -1369,20 +1603,17 @@ button:disabled {
 
   <div
     id="turnStatus"
-    class="status notstarted"
+    class="turn-status not-started"
   >
-
-    Create the roster, mark available chits,
-    and start Game Turn 1.
-
+    Create the roster, select a method, and start Game Turn 1.
   </div>
 
 
-  <div class="rowButtons">
+  <div class="button-row">
 
     <button
       id="turnButton"
-      class="turnBtn"
+      class="turn-button"
     >
       Start Game Turn 1
     </button>
@@ -1392,7 +1623,7 @@ button:disabled {
 
   <div
     id="turnCompleteActions"
-    class="turnCompleteActions"
+    class="turn-complete-actions"
   >
 
     <h3 id="completedTurnTitle">
@@ -1400,20 +1631,16 @@ button:disabled {
     </h3>
 
     <p>
-
-      The activation sequence for this turn
-      is ready to print.
-
+      The completed turn’s activation sequence is ready to print.
     </p>
 
-
-    <div class="rowButtons">
+    <div class="button-row">
 
       <button
         id="printTurnButton"
-        class="printButton"
+        class="print-button"
       >
-        🖨 Print This Turn's Activation Sheet
+        🖨 Print This Turn’s Activation Sheet
       </button>
 
     </div>
@@ -1423,7 +1650,7 @@ button:disabled {
 
   <div
     id="prepareBox"
-    class="prepareBox"
+    class="prepare-box"
   >
 
     <h3 id="prepareTitle">
@@ -1431,35 +1658,31 @@ button:disabled {
     </h3>
 
     <p>
-
-      Do you need to add reinforcements or
-      remove eliminated or withdrawn formations
-      before the next turn begins?
-
+      Do you need to add reinforcements or remove eliminated
+      or withdrawn formations before the next turn begins?
     </p>
 
-
-    <div class="rowButtons">
+    <div class="button-row">
 
       <button
-        id="updateAvailability"
-        class="secondary"
+        id="updateAvailabilityButton"
+        class="secondary-button"
       >
         Yes — Update Chit Availability
       </button>
 
 
       <button
-        id="startNoChanges"
-        class="primary"
+        id="startWithoutChangesButton"
+        class="primary-button"
       >
         No Changes — Start Next Turn
       </button>
 
 
       <button
-        id="startAfterUpdates"
-        class="primary"
+        id="startAfterUpdatesButton"
+        class="primary-button"
         style="display: none;"
       >
         Start Next Turn With Updated Pool
@@ -1483,28 +1706,26 @@ button:disabled {
 
   <button
     id="drawButton"
-    class="drawBtn"
+    class="draw-button"
     disabled
   >
     🎲 Draw Next Activation
   </button>
 
 
-  <div class="rowButtons">
+  <div class="button-row">
 
-    <button id="clearResult">
+    <button id="clearResultButton">
       Clear Current Result
     </button>
 
-
-    <button id="toggleHistory">
+    <button id="historyToggleButton">
       Show Activation History
     </button>
 
-
     <button
-      id="resetApp"
-      class="danger"
+      id="resetButton"
+      class="danger-button"
     >
       Reset App
     </button>
@@ -1512,7 +1733,7 @@ button:disabled {
   </div>
 
 
-  <div id="error"></div>
+  <div id="errorOutput"></div>
 
   <div id="results"></div>
 
@@ -1521,26 +1742,25 @@ button:disabled {
 
 <section
   id="historyCard"
-  class="card historyCard"
+  class="card history-card"
 >
 
   <h2>
     Activation Draw History
   </h2>
 
-  <div class="rowButtons">
+  <div class="button-row">
 
     <button
-      id="clearHistory"
-      class="danger"
+      id="clearHistoryButton"
+      class="danger-button"
     >
       Clear History
     </button>
 
   </div>
 
-
-  <div id="history"></div>
+  <div id="historyOutput"></div>
 
 </section>
 
@@ -1549,7 +1769,7 @@ button:disabled {
 
 <section id="printSheet">
 
-  <div class="printSheetTitle">
+  <div class="print-title">
 
     <h1>
       BCS ACTIVATION SHEET
@@ -1562,9 +1782,37 @@ button:disabled {
   </div>
 
 
+  <div class="print-method-panel">
+
+    <div>
+
+      <div
+        id="printMethodName"
+        class="print-method-name"
+      >
+      </div>
+
+      <div
+        id="printMethodReminder"
+        class="print-method-reminder"
+      >
+      </div>
+
+    </div>
+
+
+    <div
+      id="printSummary"
+      class="print-summary"
+    >
+    </div>
+
+  </div>
+
+
   <div
-    id="printActivationGrid"
-    class="printActivationGrid"
+    id="printGrid"
+    class="print-grid"
   >
   </div>
 
@@ -1576,22 +1824,70 @@ button:disabled {
 
 
 /* =========================================================
+   METHOD DEFINITIONS
+========================================================= */
+
+const METHOD_INFO = {
+
+  official: {
+    name:
+      "Official BCS Method",
+
+    reminder:
+      "Draw three chits. The side winning two of the three chooses which of its drawn chits activates."
+  },
+
+  martin: {
+    name:
+      "Martin Optional Method",
+
+    reminder:
+      "Draw three chits. The side winning two of the three activates the first winning-side chit drawn."
+  },
+
+  conzelman: {
+    name:
+      "Conzelman Optional Method",
+
+    reminder:
+      "Draw one chit at a time. Each side may hold one chit. A drawn chit may activate immediately, be held, or replace that side’s held chit after the held chit activates. Held chits remaining after the draw pool is exhausted must activate."
+  }
+
+};
+
+
+/* =========================================================
    APPLICATION STATE
 ========================================================= */
 
-let gameTurn = 0;
+let gameTurn =
+  0;
 
-let drawNumber = 0;
+let activationNumber =
+  0;
 
-let history = [];
+let activationHistory =
+  [];
 
-let pending = null;
+let turnPool =
+  [];
 
-let turnPool = [];
+let pendingAction =
+  null;
 
-let turnActive = false;
+let turnActive =
+  false;
 
-let turnComplete = false;
+let turnComplete =
+  false;
+
+let conzelmanOpeningPending =
+  false;
+
+let heldChits = {
+  Allied: null,
+  Axis: null
+};
 
 
 /* =========================================================
@@ -1615,6 +1911,19 @@ const rosterCard =
   get("rosterCard");
 
 
+const conzelmanOptions =
+  get("conzelmanOptions");
+
+const heldArea =
+  get("heldArea");
+
+const alliedHeldDisplay =
+  get("alliedHeldDisplay");
+
+const axisHeldDisplay =
+  get("axisHeldDisplay");
+
+
 const turnHeading =
   get("turnHeading");
 
@@ -1624,25 +1933,8 @@ const turnStatus =
 const turnButton =
   get("turnButton");
 
-
 const drawButton =
   get("drawButton");
-
-
-const prepareBox =
-  get("prepareBox");
-
-const prepareTitle =
-  get("prepareTitle");
-
-const updateAvailability =
-  get("updateAvailability");
-
-const startNoChanges =
-  get("startNoChanges");
-
-const startAfterUpdates =
-  get("startAfterUpdates");
 
 
 const turnCompleteActions =
@@ -1655,47 +1947,105 @@ const printTurnButton =
   get("printTurnButton");
 
 
+const prepareBox =
+  get("prepareBox");
+
+const prepareTitle =
+  get("prepareTitle");
+
+const updateAvailabilityButton =
+  get("updateAvailabilityButton");
+
+const startWithoutChangesButton =
+  get("startWithoutChangesButton");
+
+const startAfterUpdatesButton =
+  get("startAfterUpdatesButton");
+
+
 const results =
   get("results");
 
-const errorBox =
-  get("error");
+const errorOutput =
+  get("errorOutput");
+
+const lockMessage =
+  get("lockMessage");
 
 
 const historyCard =
   get("historyCard");
 
 const historyOutput =
-  get("history");
-
-const lockMessage =
-  get("lockMessage");
+  get("historyOutput");
 
 
 const printTurnTitle =
   get("printTurnTitle");
 
-const printActivationGrid =
-  get("printActivationGrid");
+const printMethodName =
+  get("printMethodName");
+
+const printMethodReminder =
+  get("printMethodReminder");
+
+const printSummary =
+  get("printSummary");
+
+const printGrid =
+  get("printGrid");
 
 
 /* =========================================================
    STARTUP
 ========================================================= */
 
-loadRule();
+loadSavedSettings();
+
+updateMethodDisplay();
 
 renderHistory();
 
-updateAll();
+updateAllDisplays();
 
 
 /* =========================================================
    EVENT LISTENERS
 ========================================================= */
 
-get("createRoster").onclick =
+get("createRosterButton").onclick =
   createOrUpdateRoster;
+
+
+document
+  .querySelectorAll(
+    'input[name="activationMethod"]'
+  )
+  .forEach(radio => {
+
+    radio.onchange = () => {
+
+      saveSettings();
+
+      updateMethodDisplay();
+
+      updateAllDisplays();
+
+    };
+
+  });
+
+
+document
+  .querySelectorAll(
+    'input[name="startingSide"]'
+  )
+  .forEach(radio => {
+
+    radio.onchange =
+      saveSettings;
+
+  });
 
 
 turnButton.onclick =
@@ -1706,55 +2056,185 @@ drawButton.onclick =
   drawActivation;
 
 
-updateAvailability.onclick =
-  prepareRosterChanges;
-
-
-startNoChanges.onclick =
-  startPreparedTurn;
-
-
-startAfterUpdates.onclick =
-  startPreparedTurn;
-
-
 printTurnButton.onclick =
   printCompletedTurn;
 
 
-get("clearResult").onclick =
+updateAvailabilityButton.onclick =
+  prepareRosterChanges;
+
+
+startWithoutChangesButton.onclick =
+  startPreparedTurn;
+
+
+startAfterUpdatesButton.onclick =
+  startPreparedTurn;
+
+
+get("clearResultButton").onclick =
   () => clearCurrentResult(true);
 
 
-get("toggleHistory").onclick =
+get("historyToggleButton").onclick =
   toggleHistory;
 
 
-get("clearHistory").onclick =
+get("clearHistoryButton").onclick =
   clearHistory;
 
 
-get("resetApp").onclick =
+get("resetButton").onclick =
   resetApp;
 
 
-document
-  .querySelectorAll(
-    'input[name="rule"]'
-  )
-  .forEach(radio => {
+/* =========================================================
+   SETTINGS
+========================================================= */
 
-    radio.onchange =
-      saveRule;
+function getMethod() {
 
-  });
+  return (
+    document.querySelector(
+      'input[name="activationMethod"]:checked'
+    )?.value || "official"
+  );
+
+}
+
+
+function getStartingSide() {
+
+  return (
+    document.querySelector(
+      'input[name="startingSide"]:checked'
+    )?.value || "random"
+  );
+
+}
+
+
+function updateMethodDisplay() {
+
+  const method =
+    getMethod();
+
+
+  conzelmanOptions.classList.toggle(
+    "visible",
+    method === "conzelman"
+  );
+
+
+  heldArea.classList.toggle(
+    "visible",
+    method === "conzelman"
+  );
+
+}
+
+
+function saveSettings() {
+
+  try {
+
+    localStorage.setItem(
+      "bcsActivationMethod",
+      getMethod()
+    );
+
+
+    localStorage.setItem(
+      "bcsConzelmanStartingSide",
+      getStartingSide()
+    );
+
+  }
+
+  catch (error) {
+
+    /* App remains functional without storage. */
+
+  }
+
+}
+
+
+function loadSavedSettings() {
+
+  try {
+
+    const method =
+      localStorage.getItem(
+        "bcsActivationMethod"
+      );
+
+
+    if (
+      method === "official" ||
+      method === "martin" ||
+      method === "conzelman"
+    ) {
+
+      const methodRadio =
+        document.querySelector(
+          `input[name="activationMethod"][value="${method}"]`
+        );
+
+
+      if (methodRadio) {
+
+        methodRadio.checked =
+          true;
+
+      }
+
+    }
+
+
+    const startingSide =
+      localStorage.getItem(
+        "bcsConzelmanStartingSide"
+      );
+
+
+    if (
+      startingSide === "random" ||
+      startingSide === "Allied" ||
+      startingSide === "Axis"
+    ) {
+
+      const sideRadio =
+        document.querySelector(
+          `input[name="startingSide"][value="${startingSide}"]`
+        );
+
+
+      if (sideRadio) {
+
+        sideRadio.checked =
+          true;
+
+      }
+
+    }
+
+  }
+
+  catch (error) {
+
+    /* Ignore storage errors. */
+
+  }
+
+}
 
 
 /* =========================================================
-   ROSTER CREATION
+   ROSTER
 ========================================================= */
 
-function sanitize(
+function sanitizeCount(
   value
 ) {
 
@@ -1793,7 +2273,7 @@ function captureRoster() {
 
   document
     .querySelectorAll(
-      "[data-row]"
+      "[data-roster-row]"
     )
     .forEach(row => {
 
@@ -1811,13 +2291,15 @@ function captureRoster() {
 
         name:
           row
-            .querySelector(".name")
+            .querySelector(
+              ".chit-name-input"
+            )
             .value,
 
         available:
           row
             .querySelector(
-              ".availableCheck"
+              ".available-checkbox"
             )
             .checked
 
@@ -1838,13 +2320,13 @@ function createOrUpdateRoster() {
 
 
   const alliedTotal =
-    sanitize(
+    sanitizeCount(
       alliedCount.value
     );
 
 
   const axisTotal =
-    sanitize(
+    sanitizeCount(
       axisCount.value
     );
 
@@ -1877,19 +2359,19 @@ function createOrUpdateRoster() {
 
 
   grid.className =
-    "grid2";
+    "grid-two";
 
 
   grid.append(
 
-    buildSide(
+    buildRosterSide(
       "Allied",
       alliedTotal,
       "allied",
       previous.allied
     ),
 
-    buildSide(
+    buildRosterSide(
       "Axis",
       axisTotal,
       "axis",
@@ -1906,19 +2388,17 @@ function createOrUpdateRoster() {
 
   attachRosterEvents();
 
-
   clearError();
 
-
-  updateAll();
+  updateAllDisplays();
 
 }
 
 
-function buildSide(
-  label,
+function buildRosterSide(
+  sideName,
   count,
-  key,
+  sideKey,
   previous
 ) {
 
@@ -1927,15 +2407,21 @@ function buildSide(
 
 
   panel.className =
-    `panel ${key}`;
+    `side-panel ${sideKey}`;
 
 
-  panel.innerHTML =
-    `<h3 class="${
-      key === "allied"
-        ? "alliedText"
-        : "axisText"
-    }">${label} Chits</h3>`;
+  const title =
+    document.createElement("h3");
+
+
+  title.className =
+    sideKey === "allied"
+      ? "allied-text"
+      : "axis-text";
+
+
+  title.textContent =
+    `${sideName} Chits`;
 
 
   const tools =
@@ -1943,22 +2429,22 @@ function buildSide(
 
 
   tools.className =
-    "rosterTools";
+    "roster-tools";
 
 
   tools.innerHTML = `
 
     <button
-      class="secondary bulk"
-      data-side="${key}"
+      class="secondary-button roster-bulk-button"
+      data-side="${sideKey}"
       data-action="all"
     >
       All Available
     </button>
 
     <button
-      class="secondary bulk"
-      data-side="${key}"
+      class="secondary-button roster-bulk-button"
+      data-side="${sideKey}"
       data-action="none"
     >
       None Available
@@ -1967,7 +2453,8 @@ function buildSide(
   `;
 
 
-  panel.appendChild(
+  panel.append(
+    title,
     tools
   );
 
@@ -1978,8 +2465,8 @@ function buildSide(
 
     panel.insertAdjacentHTML(
       "beforeend",
-      `<p class="small">
-        No ${label} roster slots entered.
+      `<p class="small-text">
+        No ${sideName} roster slots entered.
       </p>`
     );
 
@@ -2007,19 +2494,19 @@ function buildSide(
 
 
     row.className =
-      `chitRow ${key}${
+      `chit-row ${sideKey}${
         saved.available
           ? " available"
           : ""
       }`;
 
 
-    row.dataset.row =
-      "1";
+    row.dataset.rosterRow =
+      "true";
 
 
     row.dataset.side =
-      key;
+      sideKey;
 
 
     row.dataset.index =
@@ -2030,16 +2517,16 @@ function buildSide(
 
       <div>
 
-        <div class="chitLabel">
-          ${label} Chit ${index + 1}
+        <div class="chit-label">
+          ${sideName} Chit ${index + 1}
         </div>
 
         <input
-          class="name"
+          class="chit-name-input"
           type="text"
           value="${escapeHtml(saved.name)}"
           placeholder="Example: ${
-            label === "Allied"
+            sideName === "Allied"
               ? "3/116 Infantry"
               : "1/429 Infantry"
           }"
@@ -2048,10 +2535,10 @@ function buildSide(
       </div>
 
 
-      <label class="availableCtl">
+      <label class="available-control">
 
         <input
-          class="availableCheck"
+          class="available-checkbox"
           type="checkbox"
           ${
             saved.available
@@ -2085,21 +2572,21 @@ function attachRosterEvents() {
 
   document
     .querySelectorAll(
-      ".availableCheck"
+      ".available-checkbox"
     )
     .forEach(checkbox => {
 
       checkbox.onchange = () => {
 
         checkbox
-          .closest(".chitRow")
+          .closest(".chit-row")
           .classList.toggle(
             "available",
             checkbox.checked
           );
 
 
-        updateAll();
+        updateAllDisplays();
 
       };
 
@@ -2108,19 +2595,19 @@ function attachRosterEvents() {
 
   document
     .querySelectorAll(
-      ".name"
+      ".chit-name-input"
     )
     .forEach(input => {
 
       input.oninput =
-        updateAll;
+        updateAllDisplays;
 
     });
 
 
   document
     .querySelectorAll(
-      ".bulk"
+      ".roster-bulk-button"
     )
     .forEach(button => {
 
@@ -2133,7 +2620,7 @@ function attachRosterEvents() {
 
         document
           .querySelectorAll(
-            `.chitRow[data-side="${button.dataset.side}"] .availableCheck`
+            `.chit-row[data-side="${button.dataset.side}"] .available-checkbox`
           )
           .forEach(checkbox => {
 
@@ -2142,7 +2629,7 @@ function attachRosterEvents() {
 
 
             checkbox
-              .closest(".chitRow")
+              .closest(".chit-row")
               .classList.toggle(
                 "available",
                 shouldCheck
@@ -2151,7 +2638,7 @@ function attachRosterEvents() {
           });
 
 
-        updateAll();
+        updateAllDisplays();
 
       };
 
@@ -2160,11 +2647,7 @@ function attachRosterEvents() {
 }
 
 
-/* =========================================================
-   AVAILABLE CHITS
-========================================================= */
-
-function availableChits() {
+function getAvailableChits() {
 
   const chits = [];
 
@@ -2173,13 +2656,13 @@ function availableChits() {
 
   document
     .querySelectorAll(
-      "[data-row]"
+      "[data-roster-row]"
     )
     .forEach(row => {
 
       const checkbox =
         row.querySelector(
-          ".availableCheck"
+          ".available-checkbox"
         );
 
 
@@ -2192,19 +2675,21 @@ function availableChits() {
       }
 
 
-      const key =
+      const sideKey =
         row.dataset.side;
 
 
       const side =
-        key === "allied"
+        sideKey === "allied"
           ? "Allied"
           : "Axis";
 
 
       const name =
         row
-          .querySelector(".name")
+          .querySelector(
+            ".chit-name-input"
+          )
           .value
           .trim();
 
@@ -2226,14 +2711,14 @@ function availableChits() {
       chits.push({
 
         id:
-          `${key}-${row.dataset.index}`,
+          `${sideKey}-${row.dataset.index}`,
 
         side,
 
         name,
 
         css:
-          key
+          sideKey
 
       });
 
@@ -2249,7 +2734,7 @@ function availableChits() {
 
 
 /* =========================================================
-   TURN PREPARATION
+   TURN MANAGEMENT
 ========================================================= */
 
 function handleTurnButton() {
@@ -2276,115 +2761,12 @@ function handleTurnButton() {
 }
 
 
-function openPreparationPrompt() {
-
-  if (pending) {
-
-    showError(
-      "Complete or clear the pending activation first."
-    );
-
-
-    return;
-
-  }
-
-
-  prepareTitle.textContent =
-    `Prepare Game Turn ${gameTurn + 1}`;
-
-
-  prepareBox.classList.add(
-    "visible"
-  );
-
-
-  startAfterUpdates.style.display =
-    "none";
-
-
-  startNoChanges.style.display =
-    "";
-
-
-  updateAvailability.style.display =
-    "";
-
-
-  prepareBox.scrollIntoView({
-
-    behavior:
-      "smooth",
-
-    block:
-      "center"
-
-  });
-
-}
-
-
-function prepareRosterChanges() {
-
-  startNoChanges.style.display =
-    "none";
-
-
-  updateAvailability.style.display =
-    "none";
-
-
-  startAfterUpdates.style.display =
-    "";
-
-
-  rosterCard.scrollIntoView({
-
-    behavior:
-      "smooth",
-
-    block:
-      "start"
-
-  });
-
-}
-
-
-function startPreparedTurn() {
-
-  startTurn();
-
-
-  if (
-    turnActive &&
-    !turnComplete
-  ) {
-
-    prepareBox.classList.remove(
-      "visible"
-    );
-
-
-    turnCompleteActions.classList.remove(
-      "visible"
-    );
-
-  }
-
-}
-
-
-/* =========================================================
-   STARTING A TURN
-========================================================= */
-
 function startTurn() {
 
-  if (pending) {
+  if (pendingAction) {
 
     showError(
-      "Complete or clear the pending activation first."
+      "Complete or clear the pending activation before starting a turn."
     );
 
 
@@ -2412,7 +2794,7 @@ function startTurn() {
     chits,
     missing
   } =
-    availableChits();
+    getAvailableChits();
 
 
   if (
@@ -2443,10 +2825,44 @@ function startTurn() {
   }
 
 
+  const method =
+    getMethod();
+
+
+  const startingSide =
+    getStartingSide();
+
+
+  if (
+    method === "conzelman" &&
+    startingSide !== "random"
+  ) {
+
+    const sideHasChits =
+      chits.some(
+        chit =>
+          chit.side ===
+          startingSide
+      );
+
+
+    if (!sideHasChits) {
+
+      showError(
+        `${startingSide} has no available chits to choose for the first activation.`
+      );
+
+
+      return;
+
+    }
+
+  }
+
+
   gameTurn += 1;
 
-
-  drawNumber =
+  activationNumber =
     0;
 
 
@@ -2454,6 +2870,16 @@ function startTurn() {
     chits.map(
       copyChit
     );
+
+
+  heldChits = {
+    Allied: null,
+    Axis: null
+  };
+
+
+  pendingAction =
+    null;
 
 
   turnActive =
@@ -2464,8 +2890,9 @@ function startTurn() {
     false;
 
 
-  pending =
-    null;
+  conzelmanOpeningPending =
+    method === "conzelman" &&
+    startingSide !== "random";
 
 
   results.replaceChildren();
@@ -2476,24 +2903,108 @@ function startTurn() {
   );
 
 
+  prepareBox.classList.remove(
+    "visible"
+  );
+
+
   clearError();
 
 
-  updateAll();
+  updateHeldDisplays();
+
+  updateAllDisplays();
+
+}
+
+
+function openPreparationPrompt() {
+
+  prepareTitle.textContent =
+    `Prepare Game Turn ${gameTurn + 1}`;
+
+
+  prepareBox.classList.add(
+    "visible"
+  );
+
+
+  startAfterUpdatesButton.style.display =
+    "none";
+
+
+  updateAvailabilityButton.style.display =
+    "";
+
+
+  startWithoutChangesButton.style.display =
+    "";
+
+
+  prepareBox.scrollIntoView({
+    behavior: "smooth",
+    block: "center"
+  });
+
+}
+
+
+function prepareRosterChanges() {
+
+  updateAvailabilityButton.style.display =
+    "none";
+
+
+  startWithoutChangesButton.style.display =
+    "none";
+
+
+  startAfterUpdatesButton.style.display =
+    "";
+
+
+  rosterCard.scrollIntoView({
+    behavior: "smooth",
+    block: "start"
+  });
+
+}
+
+
+function startPreparedTurn() {
+
+  startTurn();
+
+
+  if (
+    turnActive &&
+    !turnComplete
+  ) {
+
+    prepareBox.classList.remove(
+      "visible"
+    );
+
+
+    turnCompleteActions.classList.remove(
+      "visible"
+    );
+
+  }
 
 }
 
 
 /* =========================================================
-   ACTIVATION DRAW
+   DRAW ROUTER
 ========================================================= */
 
 function drawActivation() {
 
-  if (pending) {
+  if (pendingAction) {
 
     showError(
-      "Choose the activating formation before drawing again."
+      "Complete the pending activation decision before drawing again."
     );
 
 
@@ -2520,78 +3031,22 @@ function drawActivation() {
   clearError();
 
 
-  const drawResult =
-    resolveDraw();
-
-
-  const selectedRule =
-    getRule();
-
-
-  drawNumber += 1;
-
-
-  const record = {
-
-    turn:
-      gameTurn,
-
-    drawNumber,
-
-    rule:
-      selectedRule,
-
-    drawn:
-      drawResult.drawn.map(
-        copyChit
-      ),
-
-    winningSide:
-      drawResult.winningSide,
-
-    selected:
-      null,
-
-    case:
-      drawResult.case,
-
-    before:
-      poolCounts(
-        turnPool
-      ),
-
-    after:
-      null
-
-  };
-
-
-  renderDraw(
-    record,
-    drawResult.eligible
-  );
+  const method =
+    getMethod();
 
 
   if (
-    drawResult.case !== "three" ||
-    selectedRule === "optional"
+    method === "conzelman"
   ) {
 
-    finalize(
-      record,
-      drawResult.eligible[0]
-    );
+    drawConzelmanActivation();
 
   }
 
   else {
 
-    pending =
-      record;
-
-
-    setChoiceLock(
-      true
+    drawThreeActivation(
+      method
     );
 
   }
@@ -2599,7 +3054,13 @@ function drawActivation() {
 }
 
 
-function resolveDraw() {
+/* =========================================================
+   OFFICIAL / MARTIN METHODS
+========================================================= */
+
+function drawThreeActivation(
+  method
+) {
 
   const shuffled =
     shuffle(
@@ -2615,21 +3076,29 @@ function resolveDraw() {
       shuffled[0];
 
 
-    return {
-
-      drawn:
+    const record =
+      createRecord(
+        method,
         [chit],
-
-      winningSide:
         chit.side,
+        "single"
+      );
 
-      eligible:
-        [chit],
 
-      case:
-        "one"
+    renderThreeDraw(
+      record,
+      [chit]
+    );
 
-    };
+
+    finalizeActivation(
+      record,
+      chit,
+      "drawn"
+    );
+
+
+    return;
 
   }
 
@@ -2642,24 +3111,29 @@ function resolveDraw() {
       shuffled[0];
 
 
-    return {
-
-      drawn:
-        shuffled.slice(
-          0,
-          2
-        ),
-
-      winningSide:
+    const record =
+      createRecord(
+        method,
+        shuffled.slice(0, 2),
         first.side,
-
-      eligible:
-        [first],
-
-      case:
         "two"
+      );
 
-    };
+
+    renderThreeDraw(
+      record,
+      [first]
+    );
+
+
+    finalizeActivation(
+      record,
+      first,
+      "drawn"
+    );
+
+
+    return;
 
   }
 
@@ -2671,295 +3145,73 @@ function resolveDraw() {
     );
 
 
-  const alliedDrawn =
+  const alliedCount =
     drawn.filter(
       chit =>
-        chit.side ===
-        "Allied"
+        chit.side === "Allied"
     ).length;
 
 
   const winningSide =
-    alliedDrawn >= 2
+    alliedCount >= 2
       ? "Allied"
       : "Axis";
 
 
-  return {
+  const eligible =
+    drawn.filter(
+      chit =>
+        chit.side ===
+        winningSide
+    );
 
-    drawn,
 
-    winningSide,
-
-    eligible:
-      drawn.filter(
-        chit =>
-          chit.side ===
-          winningSide
-      ),
-
-    case:
+  const record =
+    createRecord(
+      method,
+      drawn,
+      winningSide,
       "three"
-
-  };
-
-}
-
-
-/* =========================================================
-   FINALIZE ACTIVATION
-========================================================= */
-
-function finalize(
-  record,
-  chit
-) {
-
-  record.selected =
-    copyChit(
-      chit
     );
 
 
-  turnPool =
-    turnPool.filter(
-      item =>
-        item.id !==
-        chit.id
-    );
-
-
-  record.after =
-    poolCounts(
-      turnPool
-    );
-
-
-  history.push(
-    record
+  renderThreeDraw(
+    record,
+    eligible
   );
-
-
-  pending =
-    null;
-
-
-  renderSelected(
-    chit
-  );
-
-
-  setChoiceLock(
-    false
-  );
-
-
-  renderHistory();
 
 
   if (
-    turnPool.length === 0
+    method === "martin"
   ) {
 
-    turnActive =
-      false;
-
-
-    turnComplete =
-      true;
-
-
-    showTurnCompleteActions();
-
-  }
-
-
-  updateAll();
-
-}
-
-
-/* =========================================================
-   TURN COMPLETE / PRINT
-========================================================= */
-
-function showTurnCompleteActions() {
-
-  completedTurnTitle.textContent =
-    `Game Turn ${gameTurn} Complete`;
-
-
-  turnCompleteActions.classList.add(
-    "visible"
-  );
-
-}
-
-
-function printCompletedTurn() {
-
-  if (
-    !turnComplete ||
-    gameTurn === 0
-  ) {
-
-    showError(
-      "Complete the current game turn before printing."
+    finalizeActivation(
+      record,
+      eligible[0],
+      "drawn"
     );
 
-
-    return;
-
   }
 
+  else {
 
-  const turnRecords =
-    history
-
-      .filter(
-        record =>
-          record.turn ===
-          gameTurn
-      )
-
-      .sort(
-        (a, b) =>
-          a.drawNumber -
-          b.drawNumber
-      );
+    pendingAction = {
+      type: "official-choice",
+      record
+    };
 
 
-  if (
-    turnRecords.length === 0
-  ) {
-
-    showError(
-      "No activations were recorded for this game turn."
+    lockPending(
+      true,
+      "Choose the winning-side formation that will activate."
     );
 
-
-    return;
-
   }
 
-
-  buildPrintSheet(
-    gameTurn,
-    turnRecords
-  );
-
-
-  window.print();
-
 }
 
 
-function buildPrintSheet(
-  turnNumber,
-  turnRecords
-) {
-
-  printTurnTitle.textContent =
-    `GAME TURN ${turnNumber}`;
-
-
-  printActivationGrid.replaceChildren();
-
-
-  turnRecords.forEach(
-    (record, index) => {
-
-      const chit =
-        record.selected;
-
-
-      const item =
-        document.createElement("div");
-
-
-      item.className =
-        "printActivationItem";
-
-
-      const activationNumber =
-        document.createElement("div");
-
-
-      activationNumber.className =
-        "printActivationNumber";
-
-
-      activationNumber.textContent =
-        `ACTIVATION ${index + 1}`;
-
-
-      const printedCounter =
-        document.createElement("div");
-
-
-      printedCounter.className =
-        `printCounter ${chit.css}`;
-
-
-      const side =
-        document.createElement("div");
-
-
-      side.className =
-        "printCounterSide";
-
-
-      side.textContent =
-        chit.side.toUpperCase();
-
-
-      const name =
-        document.createElement("div");
-
-
-      name.className =
-        "printCounterName";
-
-
-      name.textContent =
-        chit.name;
-
-
-      printedCounter.append(
-        side,
-        name
-      );
-
-
-      const checkbox =
-        document.createElement("div");
-
-
-      checkbox.className =
-        "printCheckbox";
-
-
-      item.append(
-        activationNumber,
-        printedCounter,
-        checkbox
-      );
-
-
-      printActivationGrid.appendChild(
-        item
-      );
-
-    });
-
-}
-
-
-/* =========================================================
-   DRAW DISPLAY
-========================================================= */
-
-function renderDraw(
+function renderThreeDraw(
   record,
   eligible
 ) {
@@ -2967,13 +3219,9 @@ function renderDraw(
   results.replaceChildren();
 
 
-  const heading =
-    document.createElement("h3");
-
-
-  heading.textContent =
-    `Game Turn ${record.turn} — ` +
-    `Activation Draw ${record.drawNumber}`;
+  renderDrawHeading(
+    record
+  );
 
 
   const list =
@@ -2981,7 +3229,7 @@ function renderDraw(
 
 
   list.className =
-    "drawList";
+    "draw-list";
 
 
   record.drawn.forEach(
@@ -2992,19 +3240,17 @@ function renderDraw(
 
 
       row.className =
-        "drawRow";
+        "draw-row";
 
 
       row.innerHTML =
-        `<div class="drawNo">
+        `<div class="draw-number">
           Draw #${index + 1}
         </div>`;
 
 
       row.appendChild(
-        counter(
-          chit
-        )
+        createCounter(chit)
       );
 
 
@@ -3015,108 +3261,73 @@ function renderDraw(
     });
 
 
-  results.append(
-    heading,
+  results.appendChild(
     list
   );
 
 
   if (
-    record.case === "two"
+    record.caseType === "two"
   ) {
 
-    results.insertAdjacentHTML(
-      "beforeend",
-      `
-      <div class="note">
-        Two chits remain. The first one drawn activates;
-        the other remains for the final draw.
-      </div>
-      `
+    addResultNote(
+      "Two chits remain. The first chit drawn activates; the other remains for the final draw."
     );
 
   }
 
 
   if (
-    record.case === "one"
+    record.caseType === "single"
   ) {
 
-    results.insertAdjacentHTML(
-      "beforeend",
-      `
-      <div class="note">
-        One chit remains. It activates automatically
-        and completes the game turn.
-      </div>
-      `
+    addResultNote(
+      "One chit remains. It activates automatically and completes the game turn."
     );
 
   }
 
 
-  const winner =
+  const banner =
     document.createElement("div");
 
 
-  winner.className =
-    "winner";
+  banner.className =
+    "winner-banner";
 
 
-  winner.textContent =
+  banner.textContent =
     `${record.winningSide.toUpperCase()} ACTIVATION`;
 
 
-  const activation =
+  results.appendChild(
+    banner
+  );
+
+
+  const panel =
     document.createElement("div");
 
 
-  activation.className =
-    "activation";
+  panel.className =
+    "activation-panel";
 
 
   if (
-    record.case !== "three" ||
-    record.rule === "optional"
+    record.method === "official" &&
+    record.caseType === "three"
   ) {
 
-    activation.innerHTML =
-      "<h3>Formation to Activate</h3>";
-
-
-    const gallery =
-      document.createElement("div");
-
-
-    gallery.className =
-      "counterGallery";
-
-
-    gallery.appendChild(
-      counter(
-        eligible[0]
-      )
-    );
-
-
-    activation.appendChild(
-      gallery
-    );
-
-  }
-
-  else {
-
-    activation.innerHTML =
+    panel.innerHTML =
       "<h3>Choose a Formation to Activate</h3>";
 
 
-    const choiceGrid =
+    const grid =
       document.createElement("div");
 
 
-    choiceGrid.className =
-      "choiceGrid";
+    grid.className =
+      "choice-grid";
 
 
     eligible.forEach(chit => {
@@ -3126,21 +3337,25 @@ function renderDraw(
 
 
       button.className =
-        "choiceBtn";
+        "choice-button";
 
 
       button.appendChild(
-        counter(chit)
+        createCounter(chit)
       );
 
 
       button.onclick = () => {
 
-        if (pending) {
+        if (
+          pendingAction?.type ===
+          "official-choice"
+        ) {
 
-          finalize(
-            pending,
-            chit
+          finalizeActivation(
+            pendingAction.record,
+            chit,
+            "drawn"
           );
 
         }
@@ -3148,53 +3363,1087 @@ function renderDraw(
       };
 
 
-      choiceGrid.appendChild(
+      grid.appendChild(
         button
       );
 
     });
 
 
-    activation.appendChild(
-      choiceGrid
+    panel.appendChild(
+      grid
+    );
+
+  }
+
+  else {
+
+    panel.innerHTML =
+      "<h3>Formation to Activate</h3>";
+
+
+    const gallery =
+      document.createElement("div");
+
+
+    gallery.className =
+      "counter-gallery";
+
+
+    gallery.appendChild(
+      createCounter(
+        eligible[0]
+      )
     );
 
 
-    activation.insertAdjacentHTML(
-      "beforeend",
-      `
-      <div class="pending">
-        Select one formation before drawing again.
-      </div>
-      `
+    panel.appendChild(
+      gallery
     );
 
   }
 
 
-  const output =
+  const selectedOutput =
     document.createElement("div");
 
 
-  output.id =
+  selectedOutput.id =
     "selectedOutput";
 
 
-  activation.appendChild(
-    output
+  panel.appendChild(
+    selectedOutput
   );
 
 
-  results.append(
-    winner,
-    activation
+  results.appendChild(
+    panel
   );
 
 }
 
 
-function counter(
+/* =========================================================
+   CONZELMAN METHOD
+========================================================= */
+
+function drawConzelmanActivation() {
+
+  if (
+    conzelmanOpeningPending
+  ) {
+
+    renderOpeningChitChoice();
+
+    return;
+
+  }
+
+
+  if (
+    turnPool.length === 0
+  ) {
+
+    resolveRemainingHeldChits();
+
+    return;
+
+  }
+
+
+  const shuffled =
+    shuffle(
+      turnPool
+    );
+
+
+  const drawn =
+    shuffled[0];
+
+
+  turnPool =
+    turnPool.filter(
+      chit =>
+        chit.id !==
+        drawn.id
+    );
+
+
+  const record =
+    createRecord(
+      "conzelman",
+      [drawn],
+      drawn.side,
+      "conzelman-draw"
+    );
+
+
+  renderConzelmanDecision(
+    record,
+    drawn,
+    false
+  );
+
+}
+
+
+function renderOpeningChitChoice() {
+
+  const startingSide =
+    getStartingSide();
+
+
+  const eligible =
+    turnPool.filter(
+      chit =>
+        chit.side ===
+        startingSide
+    );
+
+
+  results.replaceChildren();
+
+
+  const heading =
+    document.createElement("h3");
+
+
+  heading.textContent =
+    `Game Turn ${gameTurn} — Choose the Opening ${startingSide} Chit`;
+
+
+  results.appendChild(
+    heading
+  );
+
+
+  addResultNote(
+    `${startingSide} chooses any available chit for the first activation opportunity. The chosen chit may activate immediately or be held.`
+  );
+
+
+  const panel =
+    document.createElement("div");
+
+
+  panel.className =
+    "activation-panel";
+
+
+  panel.innerHTML =
+    "<h3>Choose the Opening Chit</h3>";
+
+
+  const grid =
+    document.createElement("div");
+
+
+  grid.className =
+    "choice-grid";
+
+
+  eligible.forEach(chit => {
+
+    const button =
+      document.createElement("button");
+
+
+    button.className =
+      "choice-button";
+
+
+    button.appendChild(
+      createCounter(chit)
+    );
+
+
+    button.onclick = () => {
+
+      turnPool =
+        turnPool.filter(
+          item =>
+            item.id !==
+            chit.id
+        );
+
+
+      conzelmanOpeningPending =
+        false;
+
+
+      const record =
+        createRecord(
+          "conzelman",
+          [chit],
+          chit.side,
+          "opening-choice"
+        );
+
+
+      renderConzelmanDecision(
+        record,
+        chit,
+        true
+      );
+
+    };
+
+
+    grid.appendChild(
+      button
+    );
+
+  });
+
+
+  panel.appendChild(
+    grid
+  );
+
+
+  results.appendChild(
+    panel
+  );
+
+
+  pendingAction = {
+    type: "opening-chit-choice"
+  };
+
+
+  lockPending(
+    true,
+    `${startingSide} must choose the opening chit.`
+  );
+
+}
+
+
+function renderConzelmanDecision(
+  record,
+  drawn,
+  openingChoice
+) {
+
+  pendingAction = {
+    type: "conzelman-decision",
+    record,
+    drawn
+  };
+
+
+  results.replaceChildren();
+
+
+  renderDrawHeading(
+    record
+  );
+
+
+  if (
+    openingChoice
+  ) {
+
+    addResultNote(
+      `${drawn.side} selected this chit as the scenario’s opening activation opportunity.`
+    );
+
+  }
+
+
+  const drawnPanel =
+    document.createElement("div");
+
+
+  drawnPanel.className =
+    "activation-panel";
+
+
+  drawnPanel.innerHTML =
+    "<h3>Current Chit</h3>";
+
+
+  const gallery =
+    document.createElement("div");
+
+
+  gallery.className =
+    "counter-gallery";
+
+
+  gallery.appendChild(
+    createCounter(drawn)
+  );
+
+
+  drawnPanel.appendChild(
+    gallery
+  );
+
+
+  const held =
+    heldChits[drawn.side];
+
+
+  const buttonRow =
+    document.createElement("div");
+
+
+  buttonRow.className =
+    "button-row";
+
+
+  const activateDrawn =
+    document.createElement("button");
+
+
+  activateDrawn.className =
+    "primary-button action-choice";
+
+
+  activateDrawn.textContent =
+    `Activate ${drawn.name}`;
+
+
+  activateDrawn.onclick = () => {
+
+    finalizeConzelmanDrawn(
+      record,
+      drawn
+    );
+
+  };
+
+
+  buttonRow.appendChild(
+    activateDrawn
+  );
+
+
+  if (!held) {
+
+    const holdDrawn =
+      document.createElement("button");
+
+
+    holdDrawn.className =
+      "secondary-button action-choice";
+
+
+    holdDrawn.textContent =
+      `Hold ${drawn.name}`;
+
+
+    holdDrawn.onclick = () => {
+
+      holdConzelmanChit(
+        record,
+        drawn
+      );
+
+    };
+
+
+    buttonRow.appendChild(
+      holdDrawn
+    );
+
+  }
+
+  else {
+
+    const activateHeld =
+      document.createElement("button");
+
+
+    activateHeld.className =
+      "print-button action-choice";
+
+
+    activateHeld.textContent =
+      `Activate Held ${held.name} and Hold ${drawn.name}`;
+
+
+    activateHeld.onclick = () => {
+
+      swapAndActivateHeld(
+        record,
+        drawn,
+        held
+      );
+
+    };
+
+
+    buttonRow.appendChild(
+      activateHeld
+    );
+
+  }
+
+
+  drawnPanel.appendChild(
+    buttonRow
+  );
+
+
+  if (held) {
+
+    const heldReminder =
+      document.createElement("div");
+
+
+    heldReminder.className =
+      "note";
+
+
+    heldReminder.textContent =
+      `${drawn.side} currently holds ${held.name}. Activating the newly drawn chit leaves that held chit in place.`;
+
+
+    drawnPanel.appendChild(
+      heldReminder
+    );
+
+  }
+
+
+  const selectedOutput =
+    document.createElement("div");
+
+
+  selectedOutput.id =
+    "selectedOutput";
+
+
+  drawnPanel.appendChild(
+    selectedOutput
+  );
+
+
+  results.appendChild(
+    drawnPanel
+  );
+
+
+  lockPending(
+    true,
+    `${drawn.side} must activate or hold the current chit.`
+  );
+
+}
+
+
+function finalizeConzelmanDrawn(
+  record,
+  drawn
+) {
+
+  finalizeActivation(
+    record,
+    drawn,
+    record.caseType === "opening-choice"
+      ? "opening-choice"
+      : "drawn"
+  );
+
+}
+
+
+function holdConzelmanChit(
+  record,
+  drawn
+) {
+
+  heldChits[drawn.side] =
+    copyChit(drawn);
+
+
+  pendingAction =
+    null;
+
+
+  activationNumber -= 1;
+
+
+  updateHeldDisplays();
+
+
+  renderHeldResult(
+    drawn
+  );
+
+
+  lockPending(
+    false
+  );
+
+
+  updateAllDisplays();
+
+
+  if (
+    turnPool.length === 0
+  ) {
+
+    resolveRemainingHeldChits();
+
+  }
+
+}
+
+
+function swapAndActivateHeld(
+  record,
+  drawn,
+  held
+) {
+
+  heldChits[drawn.side] =
+    copyChit(drawn);
+
+
+  finalizeActivation(
+    record,
+    held,
+    "held"
+  );
+
+}
+
+
+function resolveRemainingHeldChits() {
+
+  const remainingHeld =
+    Object.values(
+      heldChits
+    )
+    .filter(Boolean);
+
+
+  if (
+    remainingHeld.length === 0
+  ) {
+
+    completeTurn();
+
+    return;
+
+  }
+
+
+  if (
+    remainingHeld.length === 1
+  ) {
+
+    const held =
+      remainingHeld[0];
+
+
+    heldChits[held.side] =
+      null;
+
+
+    const record =
+      createRecord(
+        "conzelman",
+        [],
+        held.side,
+        "held-final"
+      );
+
+
+    renderMandatoryHeldActivation(
+      record,
+      held
+    );
+
+
+    finalizeActivation(
+      record,
+      held,
+      "held"
+    );
+
+
+    return;
+
+  }
+
+
+  results.replaceChildren();
+
+
+  const heading =
+    document.createElement("h3");
+
+
+  heading.textContent =
+    `Game Turn ${gameTurn} — Resolve Held Chits`;
+
+
+  results.appendChild(
+    heading
+  );
+
+
+  addResultNote(
+    "The random draw pool is exhausted. All held chits must now activate."
+  );
+
+
+  const panel =
+    document.createElement("div");
+
+
+  panel.className =
+    "activation-panel";
+
+
+  panel.innerHTML =
+    "<h3>Choose the Next Held Chit to Activate</h3>";
+
+
+  const grid =
+    document.createElement("div");
+
+
+  grid.className =
+    "choice-grid";
+
+
+  remainingHeld.forEach(held => {
+
+    const button =
+      document.createElement("button");
+
+
+    button.className =
+      "choice-button";
+
+
+    button.appendChild(
+      createCounter(
+        held,
+        true
+      )
+    );
+
+
+    button.onclick = () => {
+
+      heldChits[held.side] =
+        null;
+
+
+      const record =
+        createRecord(
+          "conzelman",
+          [],
+          held.side,
+          "held-final"
+        );
+
+
+      renderMandatoryHeldActivation(
+        record,
+        held
+      );
+
+
+      finalizeActivation(
+        record,
+        held,
+        "held"
+      );
+
+    };
+
+
+    grid.appendChild(
+      button
+    );
+
+  });
+
+
+  panel.appendChild(
+    grid
+  );
+
+
+  results.appendChild(
+    panel
+  );
+
+
+  pendingAction = {
+    type: "held-resolution"
+  };
+
+
+  lockPending(
+    true,
+    "The held chits must be resolved before the turn can end."
+  );
+
+}
+
+
+function renderMandatoryHeldActivation(
+  record,
+  held
+) {
+
+  results.replaceChildren();
+
+
+  renderDrawHeading(
+    record
+  );
+
+
+  addResultNote(
+    "The draw pool is exhausted. This held chit must now activate."
+  );
+
+
+  const panel =
+    document.createElement("div");
+
+
+  panel.className =
+    "activation-panel";
+
+
+  panel.innerHTML =
+    "<h3>Mandatory Held-Chit Activation</h3>";
+
+
+  const gallery =
+    document.createElement("div");
+
+
+  gallery.className =
+    "counter-gallery";
+
+
+  gallery.appendChild(
+    createCounter(
+      held,
+      true
+    )
+  );
+
+
+  panel.appendChild(
+    gallery
+  );
+
+
+  const selectedOutput =
+    document.createElement("div");
+
+
+  selectedOutput.id =
+    "selectedOutput";
+
+
+  panel.appendChild(
+    selectedOutput
+  );
+
+
+  results.appendChild(
+    panel
+  );
+
+}
+
+
+function renderHeldResult(
   chit
+) {
+
+  results.replaceChildren();
+
+
+  const panel =
+    document.createElement("div");
+
+
+  panel.className =
+    "selected-panel";
+
+
+  panel.innerHTML =
+    `<h3>${escapeHtml(chit.name)} Has Been Held</h3>`;
+
+
+  const gallery =
+    document.createElement("div");
+
+
+  gallery.className =
+    "counter-gallery";
+
+
+  gallery.appendChild(
+    createCounter(
+      chit,
+      true
+    )
+  );
+
+
+  panel.appendChild(
+    gallery
+  );
+
+
+  panel.insertAdjacentHTML(
+    "beforeend",
+    `
+    <div class="ready-message">
+      The chit has been removed from the random draw pool
+      and may be activated later.
+    </div>
+    `
+  );
+
+
+  results.appendChild(
+    panel
+  );
+
+}
+
+
+/* =========================================================
+   ACTIVATION RECORDS
+========================================================= */
+
+function createRecord(
+  method,
+  drawn,
+  winningSide,
+  caseType
+) {
+
+  activationNumber += 1;
+
+
+  return {
+
+    turn:
+      gameTurn,
+
+    activationNumber,
+
+    method,
+
+    drawn:
+      drawn.map(
+        copyChit
+      ),
+
+    winningSide,
+
+    caseType,
+
+    selected:
+      null,
+
+    activationSource:
+      "drawn",
+
+    before:
+      poolCounts(
+        turnPool
+      ),
+
+    after:
+      null
+
+  };
+
+}
+
+
+function finalizeActivation(
+  record,
+  chit,
+  source
+) {
+
+  record.selected =
+    copyChit(
+      chit
+    );
+
+
+  record.activationSource =
+    source;
+
+
+  if (
+    record.method !== "conzelman"
+  ) {
+
+    turnPool =
+      turnPool.filter(
+        item =>
+          item.id !==
+          chit.id
+      );
+
+  }
+
+
+  record.after =
+    poolCounts(
+      turnPool
+    );
+
+
+  activationHistory.push(
+    record
+  );
+
+
+  pendingAction =
+    null;
+
+
+  renderSelectedActivation(
+    chit,
+    source
+  );
+
+
+  lockPending(
+    false
+  );
+
+
+  updateHeldDisplays();
+
+  renderHistory();
+
+  updateAllDisplays();
+
+
+  if (
+    record.method === "conzelman"
+  ) {
+
+    if (
+      turnPool.length === 0
+    ) {
+
+      window.setTimeout(
+        resolveRemainingHeldChits,
+        250
+      );
+
+    }
+
+  }
+
+  else if (
+    turnPool.length === 0
+  ) {
+
+    completeTurn();
+
+  }
+
+}
+
+
+function completeTurn() {
+
+  turnActive =
+    false;
+
+
+  turnComplete =
+    true;
+
+
+  pendingAction =
+    null;
+
+
+  completedTurnTitle.textContent =
+    `Game Turn ${gameTurn} Complete`;
+
+
+  turnCompleteActions.classList.add(
+    "visible"
+  );
+
+
+  lockPending(
+    false
+  );
+
+
+  updateAllDisplays();
+
+}
+
+
+/* =========================================================
+   COMMON DISPLAY HELPERS
+========================================================= */
+
+function renderDrawHeading(
+  record
+) {
+
+  const heading =
+    document.createElement("h3");
+
+
+  heading.textContent =
+    `Game Turn ${record.turn} — Activation ${record.activationNumber}`;
+
+
+  results.appendChild(
+    heading
+  );
+
+}
+
+
+function addResultNote(
+  message
+) {
+
+  const note =
+    document.createElement("div");
+
+
+  note.className =
+    "note";
+
+
+  note.textContent =
+    message;
+
+
+  results.appendChild(
+    note
+  );
+
+}
+
+
+function createCounter(
+  chit,
+  heldBadge = false
 ) {
 
   const element =
@@ -3207,15 +4456,36 @@ function counter(
 
   element.innerHTML = `
 
-    <div class="counterSide">
+    <div class="counter-side">
       ${escapeHtml(chit.side)}
     </div>
 
-    <div class="counterName">
+    <div class="counter-name">
       ${escapeHtml(chit.name)}
     </div>
 
   `;
+
+
+  if (heldBadge) {
+
+    const badge =
+      document.createElement("div");
+
+
+    badge.className =
+      "counter-badge";
+
+
+    badge.textContent =
+      "Held Chit";
+
+
+    element.appendChild(
+      badge
+    );
+
+  }
 
 
   return element;
@@ -3223,8 +4493,9 @@ function counter(
 }
 
 
-function renderSelected(
-  chit
+function renderSelectedActivation(
+  chit,
+  source
 ) {
 
   const output =
@@ -3238,16 +4509,16 @@ function renderSelected(
   }
 
 
-  const box =
+  const panel =
     document.createElement("div");
 
 
-  box.className =
-    "selected";
+  panel.className =
+    "selected-panel";
 
 
-  box.innerHTML =
-    "<h3>Activated and Removed from This Turn’s Pool</h3>";
+  panel.innerHTML =
+    "<h3>Activated</h3>";
 
 
   const gallery =
@@ -3255,49 +4526,49 @@ function renderSelected(
 
 
   gallery.className =
-    "counterGallery";
+    "counter-gallery";
 
 
   gallery.appendChild(
-    counter(chit)
+    createCounter(
+      chit,
+      source === "held"
+    )
   );
 
 
-  box.appendChild(
+  panel.appendChild(
     gallery
   );
 
 
-  box.insertAdjacentHTML(
-    "beforeend",
-    `
-    <div class="ready">
+  const message =
+    document.createElement("div");
 
-      ${
-        turnPool.length
 
-          ? `${turnPool.length} chit${
-              turnPool.length === 1
-                ? ""
-                : "s"
-            } remain this turn.`
+  message.className =
+    "ready-message";
 
-          : "The game turn is complete."
-      }
 
-    </div>
-    `
+  message.textContent =
+    source === "held"
+      ? "The held chit has activated."
+      : "The chit has activated and is finished for this game turn.";
+
+
+  panel.appendChild(
+    message
   );
 
 
   output.replaceChildren(
-    box
+    panel
   );
 
 
   document
     .querySelectorAll(
-      ".choiceBtn"
+      ".choice-button"
     )
     .forEach(button => {
 
@@ -3309,12 +4580,60 @@ function renderSelected(
 }
 
 
-/* =========================================================
-   LOCKING
-========================================================= */
+function updateHeldDisplays() {
 
-function setChoiceLock(
-  locked
+  renderHeldSide(
+    "Allied",
+    alliedHeldDisplay
+  );
+
+
+  renderHeldSide(
+    "Axis",
+    axisHeldDisplay
+  );
+
+}
+
+
+function renderHeldSide(
+  side,
+  container
+) {
+
+  container.replaceChildren();
+
+
+  const held =
+    heldChits[side];
+
+
+  if (!held) {
+
+    container.innerHTML =
+      `<div class="held-empty">
+        None
+      </div>`;
+
+
+    return;
+
+  }
+
+
+  container.appendChild(
+    createCounter(
+      held,
+      true
+    )
+  );
+
+}
+
+
+function lockPending(
+  locked,
+  message = ""
 ) {
 
   drawButton.disabled =
@@ -3323,13 +4642,21 @@ function setChoiceLock(
     turnComplete;
 
 
+  turnButton.disabled =
+    locked ||
+    (
+      turnActive &&
+      !turnComplete
+    );
+
+
   document
     .querySelectorAll(
-      'input[name="rule"]'
+      'input[name="activationMethod"], input[name="startingSide"]'
     )
-    .forEach(radio => {
+    .forEach(input => {
 
-      radio.disabled =
+      input.disabled =
         locked;
 
     });
@@ -3339,8 +4666,8 @@ function setChoiceLock(
     locked
 
       ? `
-        <div class="lock">
-          Choose the activating formation before continuing.
+        <div class="lock-message">
+          ${escapeHtml(message)}
         </div>
         `
 
@@ -3350,15 +4677,15 @@ function setChoiceLock(
 
 
 /* =========================================================
-   TURN DISPLAY
+   SUMMARY / TURN DISPLAY
 ========================================================= */
 
-function updateAll() {
+function updateAllDisplays() {
 
   const {
     chits
   } =
-    availableChits();
+    getAvailableChits();
 
 
   const available =
@@ -3373,15 +4700,15 @@ function updateAll() {
     );
 
 
-  get("availAllied").textContent =
+  get("availableAllied").textContent =
     available.allied;
 
 
-  get("availAxis").textContent =
+  get("availableAxis").textContent =
     available.axis;
 
 
-  get("availTotal").textContent =
+  get("availableTotal").textContent =
     `${available.total} chit${
       available.total === 1
         ? ""
@@ -3389,21 +4716,23 @@ function updateAll() {
     } available`;
 
 
-  get("remainAllied").textContent =
+  get("remainingAllied").textContent =
     remaining.allied;
 
 
-  get("remainAxis").textContent =
+  get("remainingAxis").textContent =
     remaining.axis;
 
 
-  get("remainTotal").textContent =
+  get("remainingTotal").textContent =
     `${remaining.total} chit${
       remaining.total === 1
         ? ""
         : "s"
-    } remain this turn`;
+    } remain in the random pool`;
 
+
+  updateHeldDisplays();
 
   updateTurnUI();
 
@@ -3421,11 +4750,11 @@ function updateTurnUI() {
 
 
     turnStatus.className =
-      "status notstarted";
+      "turn-status not-started";
 
 
     turnStatus.textContent =
-      "Create the roster, mark available chits, and start Game Turn 1.";
+      "Create the roster, select a method, and start Game Turn 1.";
 
 
     turnButton.textContent =
@@ -3433,7 +4762,9 @@ function updateTurnUI() {
 
 
     turnButton.disabled =
-      Boolean(pending);
+      Boolean(
+        pendingAction
+      );
 
 
     drawButton.disabled =
@@ -3454,12 +4785,11 @@ function updateTurnUI() {
   ) {
 
     turnStatus.className =
-      "status complete";
+      "turn-status complete";
 
 
     turnStatus.textContent =
-      `Game Turn ${gameTurn} complete. ` +
-      "Print the activation sheet or prepare the next turn.";
+      `Game Turn ${gameTurn} complete. Print the activation sheet or prepare the next turn.`;
 
 
     turnButton.textContent =
@@ -3467,7 +4797,9 @@ function updateTurnUI() {
 
 
     turnButton.disabled =
-      Boolean(pending);
+      Boolean(
+        pendingAction
+      );
 
 
     drawButton.disabled =
@@ -3480,12 +4812,11 @@ function updateTurnUI() {
 
 
   turnStatus.className =
-    "status active";
+    "turn-status active";
 
 
   turnStatus.textContent =
-    `Game Turn ${gameTurn} is active. ` +
-    "Activated chits are removed until the pool is exhausted.";
+    `${METHOD_INFO[getMethod()].name} is active for Game Turn ${gameTurn}.`;
 
 
   turnButton.textContent =
@@ -3497,8 +4828,227 @@ function updateTurnUI() {
 
 
   drawButton.disabled =
-    Boolean(pending) ||
-    turnPool.length === 0;
+    Boolean(
+      pendingAction
+    );
+
+}
+
+
+/* =========================================================
+   PRINT REPORT
+========================================================= */
+
+function printCompletedTurn() {
+
+  if (
+    !turnComplete ||
+    gameTurn === 0
+  ) {
+
+    showError(
+      "Complete the current game turn before printing."
+    );
+
+
+    return;
+
+  }
+
+
+  const records =
+    activationHistory
+
+      .filter(
+        record =>
+          record.turn ===
+          gameTurn
+      )
+
+      .sort(
+        (a, b) =>
+          a.activationNumber -
+          b.activationNumber
+      );
+
+
+  if (
+    records.length === 0
+  ) {
+
+    showError(
+      "No activations were recorded for this game turn."
+    );
+
+
+    return;
+
+  }
+
+
+  buildPrintSheet(
+    gameTurn,
+    records
+  );
+
+
+  window.print();
+
+}
+
+
+function buildPrintSheet(
+  turnNumber,
+  records
+) {
+
+  const method =
+    records[0].method;
+
+
+  const methodInfo =
+    METHOD_INFO[method];
+
+
+  const generated =
+    new Date();
+
+
+  printTurnTitle.textContent =
+    `GAME TURN ${turnNumber}`;
+
+
+  printMethodName.textContent =
+    methodInfo.name;
+
+
+  printMethodReminder.textContent =
+    methodInfo.reminder;
+
+
+  printSummary.innerHTML = `
+
+    <strong>
+      Turn:
+    </strong>
+    ${turnNumber}
+
+    <br>
+
+    <strong>
+      Activations:
+    </strong>
+    ${records.length}
+
+    <br>
+
+    <strong>
+      Generated:
+    </strong>
+    ${escapeHtml(
+      generated.toLocaleString()
+    )}
+
+  `;
+
+
+  printGrid.replaceChildren();
+
+
+  records.forEach(
+    (record, index) => {
+
+      const chit =
+        record.selected;
+
+
+      const item =
+        document.createElement("div");
+
+
+      item.className =
+        "print-item";
+
+
+      const activationLabel =
+        document.createElement("div");
+
+
+      activationLabel.className =
+        "print-activation-number";
+
+
+      activationLabel.textContent =
+        `ACTIVATION ${index + 1}`;
+
+
+      const printedCounter =
+        document.createElement("div");
+
+
+      printedCounter.className =
+        `print-counter ${chit.css}`;
+
+
+      printedCounter.innerHTML = `
+
+        <div class="print-counter-side">
+          ${escapeHtml(
+            chit.side.toUpperCase()
+          )}
+        </div>
+
+        <div class="print-counter-name">
+          ${escapeHtml(chit.name)}
+        </div>
+
+      `;
+
+
+      if (
+        record.activationSource ===
+        "held"
+      ) {
+
+        const heldBadge =
+          document.createElement("div");
+
+
+        heldBadge.className =
+          "print-held-badge";
+
+
+        heldBadge.textContent =
+          "HELD CHIT";
+
+
+        printedCounter.appendChild(
+          heldBadge
+        );
+
+      }
+
+
+      const checkbox =
+        document.createElement("div");
+
+
+      checkbox.className =
+        "print-checkbox";
+
+
+      item.append(
+        activationLabel,
+        printedCounter,
+        checkbox
+      );
+
+
+      printGrid.appendChild(
+        item
+      );
+
+    });
 
 }
 
@@ -3521,7 +5071,7 @@ function toggleHistory() {
   );
 
 
-  get("toggleHistory").textContent =
+  get("historyToggleButton").textContent =
     show
       ? "Hide Activation History"
       : "Show Activation History";
@@ -3533,13 +5083,8 @@ function toggleHistory() {
 
 
     historyCard.scrollIntoView({
-
-      behavior:
-        "smooth",
-
-      block:
-        "start"
-
+      behavior: "smooth",
+      block: "start"
     });
 
   }
@@ -3553,15 +5098,18 @@ function renderHistory() {
 
 
   if (
-    history.length === 0
+    activationHistory.length === 0
   ) {
 
-    historyOutput.innerHTML =
-      `
-      <div class="historyEmpty">
-        No completed activation draws have been recorded.
+    historyOutput.innerHTML = `
+
+      <div class="history-empty">
+
+        No completed activations have been recorded.
+
       </div>
-      `;
+
+    `;
 
 
     return;
@@ -3569,7 +5117,7 @@ function renderHistory() {
   }
 
 
-  [...history]
+  [...activationHistory]
     .reverse()
     .forEach(record => {
 
@@ -3578,89 +5126,51 @@ function renderHistory() {
 
 
       entry.className =
-        "historyEntry";
-
-
-      const ruleText =
-        record.case === "one"
-
-          ? "Final single-chit activation"
-
-          : record.case === "two"
-
-            ? "Two-chit first-draw rule"
-
-            : record.rule === "official"
-
-              ? "Official BCS rule"
-
-              : "Optional first-winning-chit rule";
+        "history-entry";
 
 
       entry.innerHTML = `
 
-        <div class="historyHead">
+        <div class="history-heading">
 
-          <div class="historyTitle">
+          <div class="history-title">
 
             Turn ${record.turn},
-            Draw ${record.drawNumber}:
-            ${record.winningSide}
+            Activation ${record.activationNumber}
 
           </div>
 
+          <div class="history-method">
 
-          <div class="historyRule">
-            ${ruleText}
+            ${escapeHtml(
+              METHOD_INFO[record.method].name
+            )}
+
           </div>
-
-        </div>
-
-
-        <div class="historyPool">
-
-          Pool before:
-          Allied ${record.before.allied},
-          Axis ${record.before.axis}
-
-          ·
-
-          Pool after:
-          Allied ${record.after.allied},
-          Axis ${record.after.axis}
 
         </div>
 
 
         <div>
 
-          ${record.drawn
+          Activated:
+          <strong>
+            ${escapeHtml(record.selected.name)}
+          </strong>
 
-            .map(
-              (chit, index) =>
-
-                `
-                <div>
-
-                  Draw ${index + 1}:
-                  ${escapeHtml(chit.side)}
-                  —
-                  ${escapeHtml(chit.name)}
-
-                </div>
-                `
-
-            )
-
-            .join("")}
+          ${
+            record.activationSource === "held"
+              ? " — Held Chit"
+              : ""
+          }
 
         </div>
 
 
-        <div class="historyActivation">
+        <div class="history-activation">
 
-          Activated and removed:
-          ${escapeHtml(record.selected.name)}
+          ${escapeHtml(record.selected.side)}
+          activation completed.
 
         </div>
 
@@ -3679,7 +5189,7 @@ function renderHistory() {
 function clearHistory() {
 
   if (
-    history.length === 0
+    activationHistory.length === 0
   ) {
 
     return;
@@ -3687,20 +5197,19 @@ function clearHistory() {
   }
 
 
-  const confirmed =
-    window.confirm(
-      "Clear the complete activation draw history?"
-    );
-
-
-  if (!confirmed) {
+  if (
+    !window.confirm(
+      "Clear the complete activation history?"
+    )
+  ) {
 
     return;
 
   }
 
 
-  history = [];
+  activationHistory =
+    [];
 
 
   renderHistory();
@@ -3717,14 +5226,13 @@ function clearCurrentResult(
 ) {
 
   if (
-    pending &&
+    pendingAction &&
     ask
   ) {
 
     const confirmed =
       window.confirm(
-        "Discard this unfinished draw? " +
-        "No chit will be removed from the turn pool."
+        "Discard the unfinished activation decision?"
       );
 
 
@@ -3737,7 +5245,7 @@ function clearCurrentResult(
   }
 
 
-  pending =
+  pendingAction =
     null;
 
 
@@ -3747,12 +5255,12 @@ function clearCurrentResult(
   clearError();
 
 
-  setChoiceLock(
+  lockPending(
     false
   );
 
 
-  updateAll();
+  updateAllDisplays();
 
 }
 
@@ -3761,7 +5269,7 @@ function resetApp() {
 
   const confirmed =
     window.confirm(
-      "Reset the complete roster, turn pool, results, and activation history?"
+      "Reset the roster, game turn, held chits, results, and activation history?"
     );
 
 
@@ -3784,7 +5292,7 @@ function resetApp() {
 
     <div class="notice">
 
-      Enter roster totals, then select
+      Enter the roster totals and select
 
       <strong>
         Create or Update Roster
@@ -3799,20 +5307,20 @@ function resetApp() {
     0;
 
 
-  drawNumber =
+  activationNumber =
     0;
 
 
-  history =
+  activationHistory =
     [];
-
-
-  pending =
-    null;
 
 
   turnPool =
     [];
+
+
+  pendingAction =
+    null;
 
 
   turnActive =
@@ -3823,15 +5331,25 @@ function resetApp() {
     false;
 
 
+  conzelmanOpeningPending =
+    false;
+
+
+  heldChits = {
+    Allied: null,
+    Axis: null
+  };
+
+
   results.replaceChildren();
 
 
-  prepareBox.classList.remove(
+  turnCompleteActions.classList.remove(
     "visible"
   );
 
 
-  turnCompleteActions.classList.remove(
+  prepareBox.classList.remove(
     "visible"
   );
 
@@ -3841,7 +5359,10 @@ function resetApp() {
   );
 
 
-  get("toggleHistory").textContent =
+  printGrid.replaceChildren();
+
+
+  get("historyToggleButton").textContent =
     "Show Activation History";
 
 
@@ -3849,22 +5370,17 @@ function resetApp() {
     "";
 
 
-  printActivationGrid.replaceChildren();
-
-
   clearError();
-
 
   renderHistory();
 
-
-  updateAll();
+  updateAllDisplays();
 
 }
 
 
 /* =========================================================
-   HELPERS
+   GENERAL HELPERS
 ========================================================= */
 
 function poolCounts(
@@ -3900,11 +5416,11 @@ function poolCounts(
 
 
 function shuffle(
-  array
+  items
 ) {
 
   const copy =
-    [...array];
+    [...items];
 
 
   for (
@@ -3962,97 +5478,26 @@ function copyChit(
 }
 
 
-function getRule() {
-
-  return (
-
-    document.querySelector(
-      'input[name="rule"]:checked'
-    )?.value || "official"
-
-  );
-
-}
-
-
-function saveRule() {
-
-  try {
-
-    localStorage.setItem(
-      "bcsRule",
-      getRule()
-    );
-
-  }
-
-  catch (error) {
-
-    /* App still works without storage. */
-
-  }
-
-}
-
-
-function loadRule() {
-
-  try {
-
-    const saved =
-      localStorage.getItem(
-        "bcsRule"
-      );
-
-
-    if (
-      saved === "official" ||
-      saved === "optional"
-    ) {
-
-      const radio =
-        document.querySelector(
-          `input[name="rule"][value="${saved}"]`
-        );
-
-
-      if (radio) {
-
-        radio.checked =
-          true;
-
-      }
-
-    }
-
-  }
-
-  catch (error) {
-
-    /* Ignore storage errors. */
-
-  }
-
-}
-
-
 function showError(
   message
 ) {
 
-  errorBox.innerHTML =
-    `
-    <div class="error">
+  errorOutput.innerHTML = `
+
+    <div class="error-message">
+
       ${escapeHtml(message)}
+
     </div>
-    `;
+
+  `;
 
 }
 
 
 function clearError() {
 
-  errorBox.replaceChildren();
+  errorOutput.replaceChildren();
 
 }
 
